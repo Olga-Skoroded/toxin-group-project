@@ -1,9 +1,10 @@
-import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithoutRef, ElementType } from 'react';
 
 import * as S from './Button.styles';
 
 export type ButtonProps = {
   isFilled?: boolean;
+  as?: ElementType;
 } & ComponentPropsWithoutRef<'button'>
 & ComponentPropsWithoutRef<'a'>
 
