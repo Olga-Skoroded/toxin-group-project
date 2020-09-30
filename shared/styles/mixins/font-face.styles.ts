@@ -31,6 +31,7 @@ export default function fontFace(
         url('/fonts/${folderName}/${folderName}-${type}.woff') format('woff');
       font-style: ${fontStyle};
       font-weight: ${fontWeight};
+      font-display: optional;
     }
   `;
 }
