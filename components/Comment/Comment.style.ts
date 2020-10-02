@@ -1,7 +1,11 @@
 import styled, { css } from 'styled-components';
 
-const LeftWrapper = styled.div`
-  margin: 0 1rem 0 0.4rem;
+const Comment = styled.article``;
+
+const Header = styled.header`
+  display: grid;
+  grid-template-columns: 3.4285rem 1fr;
+  gap: 0 0.714rem;
 `;
 
 const Avatar = styled.img`
@@ -9,7 +13,7 @@ const Avatar = styled.img`
     const { colors } = props.theme;
 
     return css`
-      float: left;
+      grid-row: 1 / 3;
       max-width: 3.4rem;
       border-radius: 50%;
       border: 0.15rem solid ${colors.defaultBackground};
@@ -20,20 +24,24 @@ const Avatar = styled.img`
 
 const User = styled.span`
   font-weight: bold;
-  padding: 0.3rem 0 0 0.6rem;
+  padding-top: 0.3rem;
 `;
 
-const Date = styled.p`
-  padding: 0.5rem 0 0 4.1rem;
+const Date = styled.time`
+  padding-top: 0.5rem;
 `;
 
 const MessageWrapper = styled.div`
   display: flex;
-  margin-top: 1.1rem;
+  margin-top: 1.08rem;
+`;
+
+const LeftWrapper = styled.div`
+  margin: 0 1rem 0 0.4rem;
 `;
 
 const Text = styled.p`
   line-height: 1.7rem;
 `;
 
-export { LeftWrapper, Avatar, User, Date, MessageWrapper, Text };
+export { Comment, Header, Avatar, User, Date, MessageWrapper, LeftWrapper, Text };
