@@ -4,6 +4,7 @@ export type StarProps = {
 
 export type StarRatingProps = {
   rating?: number;
+  starCount?: number;
 };
 
 export type StarRatingKeywords = {

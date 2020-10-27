@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import { visuallyHidden, materialIcons } from 'shared/styles/mixins';
+import { materialIcons } from 'shared/styles/mixins';
 
 import { StarProps } from './StarRating.types';
 
@@ -8,11 +8,7 @@ const StarRating = styled.div`
   display: flex;
 `;
 
-const Title = styled.p`
-  ${visuallyHidden}
-`;
-
-const Star = styled.div<StarProps>`
+const Star = styled.button<StarProps>`
   ${(props) => {
     const { gradients } = props.theme;
     const { iconName } = props;
@@ -21,6 +17,8 @@ const Star = styled.div<StarProps>`
       ${materialIcons}
       background-image: ${gradients.primary};
       font-size: 1.7rem;
+      border: 0;
+      background-color: transparent;
 
       &:before {
         content: '${iconName}';
@@ -29,4 +27,4 @@ const Star = styled.div<StarProps>`
   }}
 `;
 
-export { StarRating, Title, Star };
+export { StarRating, Star };
