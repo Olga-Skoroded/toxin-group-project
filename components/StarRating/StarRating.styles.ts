@@ -2,16 +2,16 @@ import styled, { css } from 'styled-components';
 
 import { materialIcons } from 'shared/styles/mixins';
 
-import { StarProps } from './StarRating.types';
+import { StarProps, StarRatingProps } from './StarRating.types';
 
 const StarRating = styled.div`
   display: flex;
 `;
 
-const Star = styled.button<StarProps>`
+const Star = styled.button<StarProps & Partial<StarRatingProps>>`
   ${(props) => {
     const { gradients } = props.theme;
-    const { iconName } = props;
+    const { iconName, disabled } = props;
 
     return css`
       ${materialIcons}
@@ -21,8 +21,18 @@ const Star = styled.button<StarProps>`
       background-color: transparent;
       transition: 0.3s;
 
+      &:focus {
+        ${disabled &&
+        css`
+          outline: 0;
+        `}
+      }
+
       &:hover {
-        opacity: 0.6;
+        ${!disabled &&
+        css`
+          opacity: 0.6;
+        `}
       }
 
       &:before {

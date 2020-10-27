@@ -47,14 +47,16 @@ const StarRating: React.FC<StarRatingProps> = ({
             } else {
               iconName = isActive ? starIconName : starBorderIconName;
             }
+
             return (
               <S.Star
-                tabIndex={0}
+                tabIndex={!disabled && 0}
                 iconName={iconName}
                 key={String(index)}
                 onClick={disabled ? undefined : handleClick}
                 onMouseEnter={disabled ? undefined : handleHover}
                 onMouseLeave={disabled ? undefined : handleMouseLeave}
+                disabled={disabled}
                 type="button"
               />
             );
