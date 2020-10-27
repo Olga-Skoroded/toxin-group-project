@@ -19,6 +19,11 @@ const Star = styled.button<StarProps>`
       font-size: 1.7rem;
       border: 0;
       background-color: transparent;
+      transition: 0.3s;
+
+      &:hover {
+        opacity: 0.6;
+      }
 
       &:before {
         content: '${iconName}';

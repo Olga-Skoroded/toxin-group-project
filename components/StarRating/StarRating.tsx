@@ -7,7 +7,12 @@ import { StarRatingProps } from './StarRating.types';
 const starIconName = 'star';
 const starBorderIconName = 'star_border';
 
-const StarRating: React.FC<StarRatingProps> = ({ rating = 2, starCount = 5 }: StarRatingProps) => {
+const StarRating: React.FC<StarRatingProps> = ({
+  name,
+  rating = 2,
+  starCount = 5,
+  disabled = false,
+}: StarRatingProps) => {
   const [activeFlags, setActiveFlags] = useState(
     new Array(starCount).fill(false).map((_, index) => index < rating),
   );
@@ -15,8 +20,9 @@ const StarRating: React.FC<StarRatingProps> = ({ rating = 2, starCount = 5 }: St
   const [hoveredStarIndex, setHoveredStar] = useState<number | null>(null);
   return (
     <Field
-      name="star-rating"
-      render={() => (
+      name={name}
+      initialValue={rating}
+      render={({ input }) => (
         <S.StarRating>
           {activeFlags.map((isActive, index) => {
             const makeHandler = () => () => {
@@ -24,7 +30,11 @@ const StarRating: React.FC<StarRatingProps> = ({ rating = 2, starCount = 5 }: St
             };
 
             const makeClickHandler = () => () => {
-              setActiveFlags((flags) => flags.map((_, starIndex) => starIndex <= index));
+              setActiveFlags((flags) => {
+                const updatedFlags = flags.map((_, starIndex) => starIndex <= index);
+                setTimeout(() => input.onChange(updatedFlags.lastIndexOf(true) + 1));
+                return updatedFlags;
+              });
             };
 
             const handleClick = makeClickHandler();
@@ -42,9 +52,9 @@ const StarRating: React.FC<StarRatingProps> = ({ rating = 2, starCount = 5 }: St
                 tabIndex={0}
                 iconName={iconName}
                 key={String(index)}
-                onClick={handleClick}
-                onMouseEnter={handleHover}
-                onMouseLeave={handleMouseLeave}
+                onClick={disabled ? undefined : handleClick}
+                onMouseEnter={disabled ? undefined : handleHover}
+                onMouseLeave={disabled ? undefined : handleMouseLeave}
                 type="button"
               />
             );

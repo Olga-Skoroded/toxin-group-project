@@ -143,8 +143,8 @@ class FormElementsPage extends React.Component {
                 </S.LikeButtonWrapper>
                 <S.Title>rate button</S.Title>
                 <S.StarRatingWrapper>
-                  <StarRating rating={4} />
-                  <StarRating rating={5} />
+                  <StarRating rating={4} name="rating" />
+                  <StarRating rating={5} name="rating-1" />
                 </S.StarRatingWrapper>
               </div>
 
