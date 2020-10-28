@@ -9,7 +9,7 @@ const starBorderIconName = 'star_border';
 
 const StarRating: React.FC<StarRatingProps> = ({
   name,
-  rating = 2,
+  rating = 4,
   starCount = 5,
   disabled = true,
 }: StarRatingProps) => {
