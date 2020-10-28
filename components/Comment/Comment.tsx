@@ -15,7 +15,7 @@ const Comment: React.FC<Props> = ({ avatarUrl, userName, date, text, likesCount 
     </S.Header>
     <S.MessageWrapper>
       <S.LeftWrapper>
-        <LikeButton count={likesCount} isActive />
+        <LikeButton count={likesCount} />
       </S.LeftWrapper>
       <S.Text>{text}</S.Text>
     </S.MessageWrapper>

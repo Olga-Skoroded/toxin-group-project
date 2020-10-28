@@ -49,26 +49,12 @@ const MainContent = (): JSX.Element => {
           onSubmit={handleRatingSubmit}
           render={({ handleSubmit }) => (
             <S.RatingWrapper onSubmit={handleSubmit}>
-              <S.Title>Ваши впечатления:</S.Title>
-              <StarRating disabled={false} name="room-rating" />
+              <S.Title>Оцените Ваши впечатления от номера:</S.Title>
+              <S.StarRatingWrapper>
+                <StarRating disabled={false} name="room-rating" />
+              </S.StarRatingWrapper>
               <Button type="submit">Применить</Button>
             </S.RatingWrapper>
-          )}
-        />
-        <div>
-          Отзывы:
-          {comments.map((review) => (
-            <Comment key={String(review.date)} {...review} />
-          ))}
-        </div>
-        <Form
-          onSubmit={handleReviewSubmit}
-          render={({ handleSubmit }) => (
-            <S.ReviewsWrapper onSubmit={handleSubmit}>
-              <S.Title>Оставьте свой отзыв об этом номере:</S.Title>
-              <Textarea name="room-review" required />
-              <Button>Добавить</Button>
-            </S.ReviewsWrapper>
           )}
         />
 
@@ -83,6 +69,27 @@ const MainContent = (): JSX.Element => {
             прибытия вы получите полный возврат за вычетом сбора за услуги.
           </S.CancellationTermsText>
         </S.CancellationTerms>
+
+        <S.CommentsWrapper>
+          <div>
+            <S.Title>Отзывы посетителей:</S.Title>
+            {comments.map((review) => (
+              <Comment key={String(review.date)} {...review} />
+            ))}
+          </div>
+          <Form
+            onSubmit={handleReviewSubmit}
+            render={({ handleSubmit }) => (
+              <S.ReviewsWrapper onSubmit={handleSubmit}>
+                <S.Title>Оставьте свой отзыв об этом номере:</S.Title>
+                <Textarea name="room-review" required />
+                <S.ButtonWrapper>
+                  <Button>Добавить</Button>
+                </S.ButtonWrapper>
+              </S.ReviewsWrapper>
+            )}
+          />
+        </S.CommentsWrapper>
         <S.OrderFormWrapper>
           <OrderForm
             overcrowdingPrice={700}
