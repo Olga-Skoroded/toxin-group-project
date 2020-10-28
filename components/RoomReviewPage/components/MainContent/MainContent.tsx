@@ -8,7 +8,7 @@ import Comment from 'components/Comment/Comment';
 import { Props as CommentProps } from 'components/Comment/Comment.types';
 import OrderForm from 'components/OrderForm/OrderForm';
 import StarRating from 'components/StarRating/StarRating';
-import Textarea from 'components/TextArea/TextArea';
+import Textarea from 'components/Textarea/Textarea';
 
 import { roomImagesPreview, benefitsData, rulesData } from './MainContent.data';
 import * as S from './MainContent.styles';
@@ -16,21 +16,16 @@ import * as S from './MainContent.styles';
 const handleRatingSubmit = (values) => console.log(values);
 
 const MainContent = (): JSX.Element => {
-  const [comments, setComments] = useState<CommentProps[]>([]);
+  const [comment, setComment] = useState<CommentProps>(null);
 
   const handleReviewSubmit = (values) => {
     console.log(values);
-    setComments((prevComments) => {
-      return [
-        ...prevComments,
-        {
-          date: new Date(),
-          text: values['room-review'],
-          likesCount: 0,
-          avatarUrl: 'xd',
-          userName: 'Anon',
-        },
-      ];
+    setComment({
+      date: new Date(),
+      text: values['room-review'],
+      likesCount: 0,
+      avatarUrl: 'xd',
+      userName: 'Anon',
     });
   };
   return (
@@ -71,12 +66,10 @@ const MainContent = (): JSX.Element => {
         </S.CancellationTerms>
 
         <S.CommentsWrapper>
-          <div>
+          <S.ReviewsContainer>
             <S.Title>Отзывы посетителей:</S.Title>
-            {comments.map((review) => (
-              <Comment key={String(review.date)} {...review} />
-            ))}
-          </div>
+            {comment && <Comment key={String(comment.date)} {...comment} />}
+          </S.ReviewsContainer>
           <Form
             onSubmit={handleReviewSubmit}
             render={({ handleSubmit }) => (
@@ -84,7 +77,7 @@ const MainContent = (): JSX.Element => {
                 <S.Title>Оставьте свой отзыв об этом номере:</S.Title>
                 <Textarea name="room-review" required />
                 <S.ButtonWrapper>
-                  <Button>Добавить</Button>
+                  <Button>{comment ? 'Изменить' : 'Добавить'}</Button>
                 </S.ButtonWrapper>
               </S.ReviewsWrapper>
             )}

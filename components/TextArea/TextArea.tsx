@@ -1,11 +1,11 @@
 import { FormEvent, TextareaHTMLAttributes } from 'react';
 import { Field } from 'react-final-form';
 
-import * as S from './TextArea.styles';
+import * as S from './Textarea.styles';
 
 type Props = TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-const defaultPlaceholder = 'Оставьте отзыв о нашем отеле...';
+const defaultPlaceholder = 'Оставьте отзыв о нашем номере...';
 
 const handleTextChange = (e: FormEvent<HTMLTextAreaElement>) => {
   const target = e.target as HTMLTextAreaElement;

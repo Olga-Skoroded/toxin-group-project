@@ -109,6 +109,10 @@ const ReviewsWrapper = styled.form`
   }
 `;
 
+const ReviewsContainer = styled.div`
+  margin-bottom: 1.4286rem;
+`;
+
 const BulletList = styled.section`
   max-width: 20rem;
 
@@ -171,6 +175,7 @@ export {
   BulletList,
   CommentsWrapper,
   ButtonWrapper,
+  ReviewsContainer,
   CancellationTerms,
   StarRatingWrapper,
   CancellationTermsText,

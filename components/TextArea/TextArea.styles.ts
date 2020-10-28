@@ -18,6 +18,16 @@ const Textarea = styled.textarea`
       &::placeholder {
         color: ${colors.basicLight};
       }
+
+      &:hover,
+      &:focus {
+        border: 0.0714rem solid ${colors.basic};
+        outline: none;
+
+        ::placeholder {
+          color: ${colors.basicDark};
+        }
+      }
     `;
   }}
 `;
