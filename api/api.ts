@@ -8,7 +8,7 @@ class Api {
 
   constructor() {
     const { authentication, database } = new Firebase();
-    this.auth = new Auth(authentication);
+    this.auth = new Auth(authentication, database);
     this.booking = new Booking(database);
     this.apartments = new Apartments(database);
   }
