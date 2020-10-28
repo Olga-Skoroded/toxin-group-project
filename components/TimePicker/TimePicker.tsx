@@ -7,6 +7,7 @@ import * as S from './TimePicker.styles';
 
 type Props = {
   name: string;
+  disabled?: boolean;
   dateFrom?: Date;
   dateTo?: Date;
   dateFromLabelText?: string;
@@ -21,6 +22,7 @@ const TimePicker = ({
   name,
   dateFromLabelText,
   dateToLabelText,
+  disabled = false,
 }: Props): JSX.Element => {
   const [isCalendarVisible, setCalendarVisibility] = useState(false);
   const [selectedDateRange, setSelectedDateRange] = useState({ from: dateFrom, to: dateTo });
@@ -69,7 +71,7 @@ const TimePicker = ({
           };
           return (
             <>
-              <S.ContainerElement type={type} onClick={openCalendar}>
+              <S.ContainerElement type={type} onClick={disabled ? undefined : openCalendar}>
                 <Input
                   value={from ? getDateFrom() : getMaskedDate()}
                   label={dateFromLabelText}
@@ -79,7 +81,7 @@ const TimePicker = ({
                 <S.ExpandIcon />
               </S.ContainerElement>
               {type === 'double' && (
-                <S.ContainerElement onClick={openCalendar}>
+                <S.ContainerElement onClick={disabled ? undefined : openCalendar}>
                   <Input
                     value={to ? to.toLocaleDateString('ru-RU') : getMaskedDate()}
                     label={dateToLabelText}

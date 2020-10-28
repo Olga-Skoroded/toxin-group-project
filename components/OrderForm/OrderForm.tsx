@@ -15,6 +15,7 @@ type Props = {
   roomPrice: number;
   breakfastPricePerGuest: number;
   overcrowdingPrice: number;
+  disabled?: boolean;
   priceItems?: PriceItem[];
   roomType?: string;
   currency?: string;
@@ -92,6 +93,7 @@ const OrderForm: React.FC<Props> = ({
   priceItems,
   overcrowdingPrice,
   breakfastPricePerGuest,
+  disabled = false,
   currency = 'RUB',
   measure = 'в сутки',
 }: Props) => (
@@ -153,11 +155,12 @@ const OrderForm: React.FC<Props> = ({
                 dateFromLabelText="Прибытие"
                 dateToLabelText="Выезд"
                 name="booked"
+                disabled={disabled}
               />
             </S.Datepicker>
             <S.Dropdown>
               <S.DropdownLabel>гости</S.DropdownLabel>
-              <Dropdown {...dropdownOptions} />
+              <Dropdown {...dropdownOptions} disabled={disabled} />
             </S.Dropdown>
             <S.PriceList>
               <PriceList items={prices} />
@@ -177,7 +180,7 @@ const OrderForm: React.FC<Props> = ({
                 {formatNumber(getResultPrice(prices), currency)}
               </S.ResultPrice>
             </S.ResultWrapper>
-            <ArrowButton type="submit">Забронировать</ArrowButton>
+            {!disabled && <ArrowButton type="submit">Забронировать</ArrowButton>}
           </form>
         );
       }}

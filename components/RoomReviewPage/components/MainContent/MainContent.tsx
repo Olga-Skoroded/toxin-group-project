@@ -66,7 +66,7 @@ const MainContent = (): JSX.Element => {
           render={({ handleSubmit }) => (
             <S.ReviewsWrapper onSubmit={handleSubmit}>
               <S.Title>Оставьте свой отзыв об этом номере:</S.Title>
-              <Textarea name="room-review" />
+              <Textarea name="room-review" required />
               <Button>Добавить</Button>
             </S.ReviewsWrapper>
           )}
@@ -90,6 +90,7 @@ const MainContent = (): JSX.Element => {
             roomNumber={888}
             roomType="люкс"
             roomPrice={9990}
+            disabled
           />
         </S.OrderFormWrapper>
       </S.Details>
