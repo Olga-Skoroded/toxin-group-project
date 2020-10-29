@@ -3,6 +3,7 @@ import {
   ROOMS_REQUEST_SUCCESS,
   ROOMS_REQUEST_FAILED,
   LOAD_ROOMS,
+  CURRENT_ROOM_REQUEST_SUCCESS,
 } from '../constants';
 import { BookingActions, BookingState } from '../types';
 
@@ -10,6 +11,7 @@ const initialState: BookingState = {
   isRequestSuccessful: true,
   isPending: false,
   rooms: [],
+  currentRoom: null,
   error: null,
 };
 
@@ -32,6 +34,13 @@ const bookingReducer = (
         rooms: action.payload.map((room) => ({ ...room, number: room.id })),
         isPending: false,
         isRequestSuccessful: true,
+      };
+    case CURRENT_ROOM_REQUEST_SUCCESS:
+      return {
+        ...state,
+        isPending: false,
+        isRequestSuccessful: true,
+        currentRoom: { ...action.payload, number: action.payload.id },
       };
     case ROOMS_REQUEST_FAILED:
       return {
