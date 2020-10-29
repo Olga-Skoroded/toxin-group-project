@@ -40,7 +40,14 @@ const bookingReducer = (
         ...state,
         isPending: false,
         isRequestSuccessful: true,
-        currentRoom: { ...action.payload, number: action.payload.id },
+        currentRoom: {
+          ...action.payload,
+          number: action.payload.id,
+          reviews: action.payload.reviews.map((review) => ({
+            ...review,
+            date: review.date.seconds * 1000,
+          })),
+        },
       };
     case ROOMS_REQUEST_FAILED:
       return {

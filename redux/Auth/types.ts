@@ -27,6 +27,7 @@ export type AuthState = {
   isAuthProcessNow: boolean;
   authStatusText: string;
   displayName: null | string;
+  photoURL: string;
   wasFinishedAuthChecking: boolean;
 };
 
