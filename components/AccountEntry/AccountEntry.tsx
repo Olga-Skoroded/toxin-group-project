@@ -49,16 +49,12 @@ const AccountEntry: React.FC<Props> = (props: Props): JSX.Element => {
               <Field
                 name="email"
                 type="email"
-                render={({ input, meta }) => (
-                  <Input {...input} {...meta} placeholder="Email" required />
-                )}
+                render={({ input }) => <Input {...input} placeholder="Email" required />}
               />
               <Field
                 name="password"
                 type="password"
-                render={({ input, meta }) => (
-                  <Input {...input} {...meta} placeholder="Пароль" required />
-                )}
+                render={({ input }) => <Input {...input} placeholder="Пароль" required />}
               />
             </S.FieldsWrapper>
             <ArrowButton isFilled>Войти</ArrowButton>

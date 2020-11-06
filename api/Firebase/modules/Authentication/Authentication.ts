@@ -67,6 +67,11 @@ class Authentication {
   public onAuthStateChanged(fn: (user: User) => unknown): Unsubscribe {
     return this.auth.onAuthStateChanged(fn);
   }
+
+  @boundMethod
+  public async fetchSignInMethodsForEmail(email: string): Promise<string[]> {
+    return this.auth.fetchSignInMethodsForEmail(email);
+  }
 }
 
 export default Authentication;

@@ -24,7 +24,7 @@ const Rooms: React.FC<Props> = ({ rooms }: Props) => {
 
   useEffect(() => {
     getNewRooms();
-  }, [getNewRooms]);
+  }, [getNewRooms, rooms]);
 
   return (
     <InfiniteScroll

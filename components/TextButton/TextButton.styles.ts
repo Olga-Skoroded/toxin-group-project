@@ -22,6 +22,10 @@ const TextButton = styled.button<TextButtonProps>`
         outline: 0;
         color: ${isSecondary ? lighten(0.5, colors.basic) : lighten(0.1, colors.primary)};
       }
+
+      &:disabled {
+        color: ${colors.basicLight};
+      }
     `;
   }}
 `;

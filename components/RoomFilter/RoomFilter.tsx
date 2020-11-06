@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Form } from 'react-final-form';
+import { animateScroll as scroll } from 'react-scroll';
 
 import {
   Accessibility,
@@ -19,7 +20,7 @@ import Dropdown from 'components/Dropdown/Dropdown';
 import { guestsGroups, guestsItems, amenitiesItems } from 'components/Dropdown/Dropdown.data';
 import { Item } from 'components/Dropdown/Dropdown.types';
 import Expander from 'components/Expander/Expander';
-import RangeSlider from 'components/RangeSlider/RangeSlider';
+import Slider from 'components/Slider/Slider';
 import TimePicker from 'components/TimePicker/TimePicker';
 
 import * as S from './RoomFilter.styles';
@@ -47,9 +48,10 @@ const getCheckboxProps = (
   }));
 };
 
-const RoomFilter: React.FC<Props> = ({ initialFilters, loadRooms }: Props) => {
+const RoomFilter: React.FC<Props> = ({ initialFilters, loadRooms, isPending = false }: Props) => {
   const handleFormSubmit = (values?: Filters) => {
     loadRooms(values);
+    scroll.scrollToTop();
   };
 
   useEffect(() => {
@@ -91,10 +93,11 @@ const RoomFilter: React.FC<Props> = ({ initialFilters, loadRooms }: Props) => {
                 />
               </S.DropdownWrapper>
               <S.SliderWrapper>
-                <RangeSlider
+                <Slider
                   name="price"
                   title="диапазон цены"
                   initialValue={[initialValues.price.from, initialValues.price.to]}
+                  showValue
                 />
                 <S.SliderDescription>Стоимость за сутки пребывания в номере</S.SliderDescription>
               </S.SliderWrapper>
@@ -132,7 +135,9 @@ const RoomFilter: React.FC<Props> = ({ initialFilters, loadRooms }: Props) => {
                   />
                 </Expander>
               </S.CheckboxWrapper>
-              <S.SubmitButton isFilled>Применить</S.SubmitButton>
+              <S.SubmitButton disabled={isPending} isFilled>
+                Применить
+              </S.SubmitButton>
             </form>
           </S.RoomFilter>
         );

@@ -2,19 +2,23 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { Logout, preloadAuthData } from 'redux/Auth/redux/actions';
+import { logout, preloadAuthData } from 'redux/Auth/redux/actions';
 import { AppState } from 'redux/store.types';
 
-const mapState = (state: AppState) => ({
-  isAuthSuccess: state.authReducer.isAuthSuccess,
+type StateProps = {
+  isAuthSuccess: boolean;
+};
+
+const mapState = (state: AppState): StateProps => ({
+  isAuthSuccess: state.auth.isAuthSuccess,
 });
 
 const mapDispatch = {
-  startLogoutProcess: Logout,
+  startLogoutProcess: logout,
   checkAuthBeforePageLoaded: preloadAuthData,
 };
 
-type Props = ReturnType<typeof mapState> & typeof mapDispatch;
+type Props = StateProps & typeof mapDispatch;
 
 const LogoutPage: React.FC<Props> = ({
   isAuthSuccess,
@@ -28,7 +32,7 @@ const LogoutPage: React.FC<Props> = ({
 
     if (typeof isAuthSuccess === 'boolean') {
       if (isAuthSuccess) startLogoutProcess();
-      else router.push('/');
+      else document.referrer ? router.back() : router.push('/');
     }
   });
 

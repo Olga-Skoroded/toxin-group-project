@@ -135,7 +135,7 @@ const BenefitsWrapper = styled.div`
   margin: 1rem 0;
 `;
 
-const CommentsWrapper = styled.div`
+const ReviewsWrapper = styled.div`
   grid-area: comment;
   max-width: 50.7rem;
   margin: 1rem 0;
@@ -156,7 +156,7 @@ export {
   ExpandableCheckboxWrapper,
   BulletListWrapper,
   DropdownWrapper,
-  CommentsWrapper,
+  ReviewsWrapper,
   BenefitsWrapper,
   StarRatingWrapper,
   RadioWrapper,

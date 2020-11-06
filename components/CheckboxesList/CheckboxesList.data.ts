@@ -36,6 +36,6 @@ export const expandableCheckboxesListData: Required<Option[]> = [
   { name: 'additionalAmenities.desk', label: 'Письменный стол', isChecked: desk },
   { name: 'additionalAmenities.chair', label: 'Стул для кормления', isChecked: chair },
   { name: 'additionalAmenities.crib', label: 'Кроватка', isChecked: crib },
-  { name: 'additionalAmenities.TV', label: 'Телевизор', isChecked: tv },
+  { name: 'additionalAmenities.tv', label: 'Телевизор', isChecked: tv },
   { name: 'additionalAmenities.shampoo', label: 'Шампунь', isChecked: shampoo },
 ];

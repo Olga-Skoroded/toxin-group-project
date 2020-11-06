@@ -2,12 +2,11 @@ import { Avatar as MaterialAvatar } from '@material-ui/core';
 
 type Props = {
   photoURL: string;
-  width?: string;
-  height?: string;
+  className?: string;
 };
 
-const Avatar: React.FC<Props> = ({ photoURL, width = '100px', height = '100px' }: Props) => (
-  <MaterialAvatar src={photoURL} style={{ height: width, width: height }} component="div" />
-);
+const Avatar: React.FC<Props> = ({ photoURL, className }: Props) => {
+  return <MaterialAvatar src={photoURL} className={className} component="div" />;
+};
 
 export default Avatar;

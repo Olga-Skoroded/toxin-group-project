@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 
+import Button from 'components/Button/Button';
 import { breakpointDown } from 'shared/styles/break-points';
 import { titles } from 'shared/styles/mixins';
 
@@ -46,4 +47,23 @@ const DropdownTitle = styled.h3`
   margin-bottom: 0.2143rem;
 `;
 
-export { SearchRoomForm, Title, TimePickerWrapper, DropdownWrapper, DropdownTitle };
+const ProcessButton = styled(Button)`
+  width: 100%;
+`;
+
+const PreloaderWrapper = styled.div`
+  position: absolute;
+  right: 0.73rem;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+export {
+  SearchRoomForm,
+  Title,
+  TimePickerWrapper,
+  DropdownWrapper,
+  DropdownTitle,
+  PreloaderWrapper,
+  ProcessButton,
+};

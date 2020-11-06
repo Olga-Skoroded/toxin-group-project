@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react';
 import { Form } from 'react-final-form';
 import { connect } from 'react-redux';
 
+import { Review as ReviewProps } from 'api/entities/types';
 import Benefits from 'components/Benefits/Benefits';
 import BulletList from 'components/BulletList/BulletList';
 import Button from 'components/Button/Button';
-import Comment from 'components/Comment/Comment';
-import { Props as CommentProps } from 'components/Comment/Comment.types';
 import OrderForm from 'components/OrderForm/OrderForm';
 import Preloader from 'components/Preloader/Preloader';
+import Review from 'components/Review/Review';
 import { Props as RoomProps } from 'components/Room/Room.types';
 import StarRating from 'components/StarRating/StarRating';
-import Textarea from 'components/Textarea/Textarea';
+import Textarea from 'components/TextArea/TextArea';
 import { requestCurrentRoomInfo } from 'redux/Booking/redux/actions';
 import { AppState } from 'redux/store.types';
 
@@ -25,9 +25,9 @@ type StateProps = {
 };
 
 const mapState = (state: AppState): StateProps => ({
-  currentRoom: state.bookingReducer.currentRoom,
-  photoURL: state.authReducer.photoURL,
-  displayedName: state.authReducer.displayName,
+  currentRoom: state.booking.currentRoom,
+  photoURL: state.auth.photoURL,
+  displayedName: state.auth.displayName,
 });
 
 const mapDispatch = {
@@ -38,7 +38,7 @@ type Props = StateProps & typeof mapDispatch;
 
 const handleRatingSubmit = (values) => console.log(values);
 
-const sortDescByLikes = (a: CommentProps, b: CommentProps) => b.likesCount - a.likesCount;
+const sortDescByLikes = (a: ReviewProps, b: ReviewProps) => b.likesCount - a.likesCount;
 
 const MainContent: React.FC<Props> = ({
   currentRoom,
@@ -46,12 +46,12 @@ const MainContent: React.FC<Props> = ({
   displayedName,
   getRoomInfo,
 }: Props) => {
-  const [comment, setComment] = useState<CommentProps>(null);
+  const [comment, setComment] = useState<ReviewProps>(null);
 
   const mockRoomNumber = 95;
+  const reviews = currentRoom && [...currentRoom.reviews];
 
-  const getMostPopularComments = (count: number) =>
-    currentRoom && currentRoom.reviews.sort(sortDescByLikes).slice(0, count);
+  const getMostPopularComments = (count: number) => reviews.sort(sortDescByLikes).slice(0, count);
 
   const popularComments = getMostPopularComments(2);
 
@@ -61,6 +61,7 @@ const MainContent: React.FC<Props> = ({
 
   const handleReviewSubmit = (values) => {
     setComment({
+      // TO DO
       date: new Date(),
       text: values['room-review'],
       likesCount: 0,
@@ -110,15 +111,15 @@ const MainContent: React.FC<Props> = ({
             <S.Title>Отзывы посетителей:</S.Title>
             {popularComments ? (
               popularComments.map((review) => (
-                <Comment
+                <Review
                   key={`${review.date}${review.userName}`}
-                  {...{ ...review, date: new Date(review.date) }}
+                  {...{ ...review, date: new Date(review.date.toDate()) }}
                 />
               ))
             ) : (
               <Preloader label="Загружаем популярные отзывы посетителей..." />
             )}
-            {comment && <Comment {...comment} avatarUrl={photoURL} />}
+            {comment && <Review {...comment} avatarUrl={photoURL} />}
           </S.ReviewsContainer>
           <Form
             onSubmit={handleReviewSubmit}

@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Form } from 'react-final-form';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 import ArrowButton from 'components/ArrowButton/ArrowButton';
 import Dropdown from 'components/Dropdown/Dropdown';
@@ -15,8 +17,10 @@ type SearchRoomFormProps = {
 const defaultBookingDates = defaultFilters.booked;
 
 const SearchRoomForm: React.FC<SearchRoomFormProps> = ({ onSubmit }: SearchRoomFormProps) => {
-  const handleFormSubmit = (values) => {
-    // console.log(values);
+  const [isFormSubmission, setFormSubmission] = useState(false);
+
+  const handleFormSubmit = () => {
+    setFormSubmission(true);
   };
 
   return (
@@ -57,13 +61,23 @@ const SearchRoomForm: React.FC<SearchRoomFormProps> = ({ onSubmit }: SearchRoomF
                 items={guestsItems}
               />
             </S.DropdownWrapper>
-            <ArrowButton
-              href={`/search-room?values=${JSON.stringify(values)}`}
-              isFilled
-              type="button"
-            >
-              Подобрать номер
-            </ArrowButton>
+            {isFormSubmission ? (
+              <S.ProcessButton isFilled isDisabled={isFormSubmission} type="button">
+                Загружаем номера...
+                <S.PreloaderWrapper>
+                  <ClipLoader size={22} color="#FFF" />
+                </S.PreloaderWrapper>
+              </S.ProcessButton>
+            ) : (
+              <ArrowButton
+                href={`/search-room?values=${JSON.stringify(values)}`}
+                isFilled
+                type="button"
+                onClick={handleFormSubmit}
+              >
+                Подобрать номер
+              </ArrowButton>
+            )}
           </form>
         )}
       />

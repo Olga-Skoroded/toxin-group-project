@@ -9,6 +9,7 @@ const ForgotPasswordForm = styled.section`
     const { colors } = props.theme;
 
     return css`
+      position: relative;
       max-width: 27.1429rem;
       padding: 2.75rem 2rem 2rem 2.05rem;
       background: ${colors.defaultBackground};

@@ -1,0 +1,61 @@
+@font-face {
+  font-family: 'FA Brands';
+  src: url('/fonts/fa-brands/fa-brands-regular.woff2') format('woff2'),
+    url('/fonts/fa-brands/fa-brands-regular.woff') format('woff');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  src: url('/fonts/material-icons/material-icons-regular.woff2') format('woff2'),
+    url('/fonts/material-icons/material-icons-regular.woff') format('woff');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat/montserrat-regular.woff2') format('woff2'),
+    url('/fonts/montserrat/montserrat-regular.woff') format('woff');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/fonts/montserrat/montserrat-bold.woff2') format('woff2'),
+    url('/fonts/montserrat/montserrat-bold.woff') format('woff');
+  font-style: normal;
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Quicksand';
+  src: url('/fonts/quicksand/quicksand-regular.woff2') format('woff2'),
+    url('/fonts/quicksand/quicksand-regular.woff') format('woff');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('/fonts/quicksand/quicksand-bold.woff2') format('woff2'),
+    url('/fonts/quicksand/quicksand-bold.woff') format('woff');
+  font-style: normal;
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'Open Sans';
+  src: url('/fonts/open-sans/open-sans-regular.woff2') format('woff2'),
+    url('/fonts/open-sans/open-sans-regular.woff') format('woff');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('/fonts/open-sans/open-sans-bold.woff2') format('woff2'),
+    url('/fonts/open-sans/open-sans-bold.woff') format('woff');
+  font-style: normal;
+  font-weight: 700;
+}

@@ -5,7 +5,7 @@ import { Props } from './Button.types';
 const Button = styled.a<Props>`
   ${(props) => {
     const { gradients, colors, typography } = props.theme;
-    const { isFilled, isFlat } = props;
+    const { isFilled, isFlat, isDisabled } = props;
     return css`
       width: max-content;
       position: relative;
@@ -26,14 +26,15 @@ const Button = styled.a<Props>`
       z-index: 1;
       border-radius: 1.5714rem;
       font: 700 0.8571rem ${typography.fontName};
-      background-image: ${gradients.primary};
+      background-image: ${isDisabled ? gradients.primaryLight : gradients.primary};
       color: ${isFilled ? colors.defaultBackground : colors.primary};
       font-weight: 700;
       text-transform: uppercase;
       text-decoration: none;
       outline: 0;
       overflow: hidden;
-      cursor: pointer;
+      cursor: ${isDisabled ? 'default' : 'pointer'};
+      pointer-events: ${isDisabled ? 'none' : 'auto'};
 
       ${!isFilled &&
       css`
@@ -54,6 +55,12 @@ const Button = styled.a<Props>`
       &:hover,
       &:focus {
         box-shadow: 0 0 1.0714rem ${colors.primary};
+      }
+
+      &:disabled {
+        cursor: auto;
+        box-shadow: none;
+        opacity: 0.7;
       }
     `;
   }}

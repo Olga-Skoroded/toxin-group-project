@@ -9,7 +9,6 @@ const Room: React.FC<Props> = ({
   price,
   number,
   reviews,
-  href,
   imagePaths,
   roomType,
   measure = 'в сутки',
@@ -22,7 +21,7 @@ const Room: React.FC<Props> = ({
     <S.Info>
       <S.Container>
         <S.RoomNumber>
-          <S.RoomLink href={href}>
+          <S.RoomLink href={`/room-details?room=${number}`}>
             <S.NumberSign>№</S.NumberSign>
             {number}
           </S.RoomLink>

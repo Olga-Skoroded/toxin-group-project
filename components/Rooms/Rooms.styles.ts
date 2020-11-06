@@ -25,7 +25,7 @@ const RoomsGrid = styled.ul`
   margin-bottom: 2.1429rem;
 
   @media ${breakpointDown('md')} {
-    justify-content: center;
+    justify-content: space-around;
   }
 `;
 

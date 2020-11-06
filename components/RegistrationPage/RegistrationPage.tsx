@@ -9,12 +9,20 @@ import { AppState } from 'redux/store.types';
 
 import MainContent from './components/MainContent/MainContent';
 
-const mapState = (state: AppState) => ({
-  isSuccess: state.RegistrationReducer.isSuccess,
-  isProcess: state.RegistrationReducer.isProcess,
-  statusText: state.RegistrationReducer.statusText,
-  wasFinishedAuthChecking: state.authReducer.wasFinishedAuthChecking,
-  isAuthSuccess: state.authReducer.isAuthSuccess,
+type StateProps = {
+  isSuccess: boolean;
+  isProcess: boolean;
+  statusText: string;
+  isAuthSuccess: boolean;
+  wasFinishedAuthChecking: boolean;
+};
+
+const mapState = (state: AppState): StateProps => ({
+  isSuccess: state.registration.isSuccess,
+  isProcess: state.registration.isProcess,
+  statusText: state.registration.statusText,
+  wasFinishedAuthChecking: state.auth.wasFinishedAuthChecking,
+  isAuthSuccess: state.auth.isAuthSuccess,
 });
 
 const mapDispatch = {
@@ -23,7 +31,7 @@ const mapDispatch = {
   checkAuthBeforePageLoaded: preloadAuthData,
 };
 
-export type PropsConnected = ReturnType<typeof mapState> & typeof mapDispatch;
+export type PropsConnected = StateProps & typeof mapDispatch;
 
 const RegistrationPage: React.FC<PropsConnected> = ({
   isSuccess,
@@ -39,7 +47,9 @@ const RegistrationPage: React.FC<PropsConnected> = ({
 
   useEffect(() => {
     checkAuthBeforePageLoaded();
-    if (isAuthSuccess) router.push('/');
+    if (isAuthSuccess) {
+      document.referrer ? router.back() : router.push('/');
+    }
   });
 
   const isAuthRequired: boolean = wasFinishedAuthChecking && !isAuthSuccess;

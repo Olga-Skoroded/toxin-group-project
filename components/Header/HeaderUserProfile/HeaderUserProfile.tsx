@@ -12,7 +12,7 @@ const HeaderUserProfile: React.FC<Props> = ({ displayName }: Props): JSX.Element
       name: displayName,
       path: '/profile',
       subMenu: [
-        { name: 'Перейти в профиль', path: '/profile' },
+        { name: 'Перейти в профиль', path: '/account-settings' },
         { name: 'Выход', path: '/logout' },
       ],
     },

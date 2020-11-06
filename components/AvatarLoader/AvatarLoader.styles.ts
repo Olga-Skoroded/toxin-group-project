@@ -70,10 +70,16 @@ const Description = styled.p`
 `;
 
 const Controls = styled.div`
+  width: 70%;
   margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const SliderWrapper = styled.div`
+  width: 100%;
+  margin-bottom: 0.5rem;
 `;
 
 const CropperWrapper = styled.div`
@@ -122,4 +128,5 @@ export {
   Description,
   Controls,
   CustomSnackbar,
+  SliderWrapper,
 };

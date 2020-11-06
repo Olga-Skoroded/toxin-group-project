@@ -5,4 +5,5 @@ export type Props = {
   isFlat?: boolean;
   as?: ElementType;
   href?: string;
+  isDisabled?: boolean;
 } & ButtonHTMLAttributes<HTMLButtonElement>;

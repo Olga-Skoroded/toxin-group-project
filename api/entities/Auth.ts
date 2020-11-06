@@ -123,6 +123,14 @@ class Auth {
   }
 
   @boundMethod
+  public async updateAdditionalUserInformation(
+    uid: string,
+    data: AdditionalUserInformation,
+  ): Promise<void> {
+    this.database.update(this.reference.doc(uid), data);
+  }
+
+  @boundMethod
   public async getAdditionalUserInformation(uid: string): Promise<AdditionalUserInformation> {
     return this.database.getDocument(this.reference, uid);
   }
@@ -143,6 +151,11 @@ class Auth {
   @boundMethod
   public onStateChanged(fn: (user: User) => unknown): Unsubscribe {
     return this.actions.onAuthStateChanged(fn);
+  }
+
+  @boundMethod
+  public async fetchSignInMethodsForEmail(email: string): Promise<string[]> {
+    return this.actions.fetchSignInMethodsForEmail(email);
   }
 }
 

@@ -5,7 +5,7 @@ import defaultFilters from 'components/SearchRoomForm/defaultFilters';
 import { matchObjects } from 'shared/helpers';
 
 import { Database, CollectionReference, QuerySnapshot } from '../Firebase/modules/Database';
-import { BookingData, Apartment, Filters } from './types';
+import { BookingData, Apartment, Filters, BookedRoom, BookedRoomsHistory } from './types';
 
 class Booking {
   private readonly actions: Database;
@@ -60,6 +60,63 @@ class Booking {
     return availableRooms.filter((room) =>
       comparableOptions.every((option) => this.areRequirementsMet(options[option], room[option])),
     );
+  }
+
+  @boundMethod
+  public async getBookedHistory(email: string): Promise<Record<string, BookedRoom[]>> {
+    const bookedRooms: BookingData[] = [];
+
+    await this.booked
+      .where('reservationBy', '==', email)
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((item) => {
+          const data: BookingData = <BookingData>item.data();
+          bookedRooms.push(data);
+        });
+      });
+
+    const result: BookedRoomsHistory = {
+      current: [],
+      history: [],
+    };
+
+    // eslint-disable-next-line no-restricted-syntax
+    for await (const bookedRoom of bookedRooms) {
+      await this.apartments
+        .where('id', '==', bookedRoom.apartmentId)
+        .get()
+        .then((snapshot) => {
+          snapshot.forEach((item) => {
+            const itemDateFrom = new Date(bookedRoom.from.seconds * 1000).toLocaleDateString(
+              'ru-RU',
+            );
+            const itemDateToInTimeStamp = bookedRoom.to.seconds * 1000;
+            const itemDateTo = new Date(itemDateToInTimeStamp).toLocaleDateString('ru-RU');
+
+            const roomData: Apartment = <Apartment>item.data();
+
+            if (itemDateToInTimeStamp < Date.now()) {
+              result.history.push({
+                room: roomData,
+                bookedData: { from: itemDateFrom, to: itemDateTo },
+              });
+            } else {
+              result.current.push({
+                room: roomData,
+                bookedData: { from: itemDateFrom, to: itemDateTo },
+              });
+            }
+          });
+        });
+    }
+
+    return result;
+  }
+
+  @boundMethod
+  public setBookedByUser(selectedBooking: BookingData): void {
+    this.booked.doc(String(Date.now())).set(selectedBooking);
   }
 
   @boundMethod
