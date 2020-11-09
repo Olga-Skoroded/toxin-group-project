@@ -15,6 +15,17 @@ type Props = {
   roomPrice: number;
   breakfastPricePerGuest: number;
   overcrowdingPrice: number;
+  initialValues?: {
+    booked: {
+      from: number;
+      to: number;
+    };
+    guests: {
+      adults: number;
+      children: number;
+      babies: number;
+    };
+  };
   disabled?: boolean;
   priceItems?: PriceItem[];
   roomType?: string;
@@ -93,6 +104,7 @@ const OrderForm: React.FC<Props> = ({
   priceItems,
   overcrowdingPrice,
   breakfastPricePerGuest,
+  initialValues,
   disabled = false,
   currency = 'RUB',
   measure = 'в сутки',
@@ -101,16 +113,28 @@ const OrderForm: React.FC<Props> = ({
     <S.Title>Бронирование номера №{roomNumber}</S.Title>
     <Form
       onSubmit={handleFormSubmit}
-      render={({ handleSubmit, values }) => {
+      initialValues={initialValues}
+      render={({ handleSubmit, values, initialValues }) => {
         const dates: { from: number; to: number } = values.booked;
         const daysDifference = (dates && getDaysDifference(dates)) || 0;
+
+        const getGuests = (guests) =>
+          guests && {
+            adults: guests.adults + guests.children,
+            babies: guests.babies,
+          };
+
+        const initialDropdownValues = {
+          items: dropdownOptions.items.map((item) => ({
+            ...item,
+            initialValue: initialValues.guests[item.inputName],
+          })),
+        };
+
         const guests: {
           adults: number;
           babies: number;
-        } = values.guests && {
-          adults: values.guests.adults + values.guests.children,
-          babies: values.guests.babies,
-        };
+        } = getGuests(values.guests);
 
         const totalGuestsCount = guests ? guests.adults : 0;
         const billableGuests = Math.max(totalGuestsCount - noFeeGuestsCount, 0);
@@ -156,11 +180,13 @@ const OrderForm: React.FC<Props> = ({
                 dateToLabelText="Выезд"
                 name="booked"
                 disabled={disabled}
+                dateFrom={new Date(initialValues.booked.from)}
+                dateTo={new Date(initialValues.booked.to)}
               />
             </S.Datepicker>
             <S.Dropdown>
               <S.DropdownLabel>гости</S.DropdownLabel>
-              <Dropdown {...dropdownOptions} disabled={disabled} />
+              <Dropdown {...{ ...dropdownOptions, ...initialDropdownValues }} disabled={disabled} />
             </S.Dropdown>
             <S.PriceList>
               <PriceList items={prices} />

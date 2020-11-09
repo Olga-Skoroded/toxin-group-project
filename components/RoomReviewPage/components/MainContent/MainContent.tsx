@@ -51,7 +51,8 @@ const MainContent: React.FC<Props> = ({
   const mockRoomNumber = 95;
   const reviews = currentRoom && [...currentRoom.reviews];
 
-  const getMostPopularComments = (count: number) => reviews.sort(sortDescByLikes).slice(0, count);
+  const getMostPopularComments = (count: number) =>
+    reviews && reviews.sort(sortDescByLikes).slice(0, count);
 
   const popularComments = getMostPopularComments(2);
 
@@ -62,12 +63,24 @@ const MainContent: React.FC<Props> = ({
   const handleReviewSubmit = (values) => {
     setComment({
       // TO DO
-      date: new Date(),
+      date: new Date() as any,
       text: values['room-review'],
       likesCount: 0,
       avatarUrl: photoURL,
       userName: displayedName,
     });
+  };
+
+  const initialValues = {
+    booked: {
+      from: Date.now(),
+      to: Date.now() + 60 * 60 * 24 * 7 * 1000,
+    },
+    guests: {
+      adults: 1,
+      children: 1,
+      babies: 1,
+    },
   };
   return (
     <S.MainContent>
@@ -113,7 +126,7 @@ const MainContent: React.FC<Props> = ({
               popularComments.map((review) => (
                 <Review
                   key={`${review.date}${review.userName}`}
-                  {...{ ...review, date: new Date(review.date.toDate()) }}
+                  {...{ ...review, date: new Date() }}
                 />
               ))
             ) : (
@@ -141,6 +154,7 @@ const MainContent: React.FC<Props> = ({
             roomNumber={888}
             roomType="люкс"
             roomPrice={9990}
+            initialValues={initialValues}
             disabled
           />
         </S.OrderFormWrapper>
