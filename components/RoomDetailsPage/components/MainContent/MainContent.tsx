@@ -10,6 +10,8 @@ import Preloader from 'components/Preloader/Preloader';
 import Reviews from 'components/Reviews/Reviews';
 import RoomImpression from 'components/RoomImpression/RoomImpression';
 import { getRoomDetails as getRoomDetailsRequest } from 'redux/Apartment/redux/actions';
+import { preloadAuthData } from 'redux/Auth/redux/actions';
+import { bookRoom } from 'redux/Booking/redux/actions';
 import { AppState } from 'redux/store.types';
 
 import { roomImagesPreview, benefitsData, rulesData } from './MainContent.data';
@@ -18,20 +20,34 @@ import * as S from './MainContent.styles';
 type StateProps = {
   isPending: boolean;
   roomDetails: Apartment;
+  isAuthSuccess: boolean;
+  userEmail: string;
 };
 
 const mapState = (state: AppState): StateProps => ({
   isPending: state.apartment.isGetRoomDetailsPending,
   roomDetails: state.apartment.roomDetails,
+  isAuthSuccess: state.auth.isAuthSuccess,
+  userEmail: state.auth.userEmail,
 });
 
 const mapDispatch = {
   startGetRoomDetails: getRoomDetailsRequest,
+  checkAuthBeforePageLoaded: preloadAuthData,
+  confirmBookedRoom: bookRoom,
 };
 
 type Props = StateProps & typeof mapDispatch;
 
-const MainContent = ({ isPending, roomDetails, startGetRoomDetails }: Props): JSX.Element => {
+const MainContent = ({
+  isPending,
+  roomDetails,
+  isAuthSuccess,
+  userEmail,
+  startGetRoomDetails,
+  checkAuthBeforePageLoaded,
+  confirmBookedRoom,
+}: Props): JSX.Element => {
   const router = useRouter();
   const roomNumber = Number(router.asPath.split('=')[1]);
 
@@ -43,8 +59,9 @@ const MainContent = ({ isPending, roomDetails, startGetRoomDetails }: Props): JS
   );
 
   useEffect(() => {
+    checkAuthBeforePageLoaded();
     getRoomDetails(roomNumber);
-  }, [getRoomDetails, roomNumber]);
+  }, [checkAuthBeforePageLoaded, getRoomDetails, roomNumber]);
 
   return (
     <>
@@ -92,6 +109,9 @@ const MainContent = ({ isPending, roomDetails, startGetRoomDetails }: Props): JS
                 roomNumber={roomDetails.id}
                 roomType={roomDetails.class}
                 roomPrice={roomDetails.price}
+                isAuthSuccess={isAuthSuccess}
+                userEmail={userEmail}
+                confirmBookedRoom={confirmBookedRoom}
               />
             </S.OrderFormWrapper>
           </S.Details>

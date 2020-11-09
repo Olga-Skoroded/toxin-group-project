@@ -88,10 +88,13 @@ class Booking {
         .get()
         .then((snapshot) => {
           snapshot.forEach((item) => {
-            const itemDateFrom = new Date(bookedRoom.from.seconds * 1000).toLocaleDateString(
+            const bookedRoomDate = <{ from: { seconds: number }; to: { seconds: number } }>(
+              bookedRoom
+            );
+            const itemDateFrom = new Date(bookedRoomDate.from.seconds * 1000).toLocaleDateString(
               'ru-RU',
             );
-            const itemDateToInTimeStamp = bookedRoom.to.seconds * 1000;
+            const itemDateToInTimeStamp = bookedRoomDate.to.seconds * 1000;
             const itemDateTo = new Date(itemDateToInTimeStamp).toLocaleDateString('ru-RU');
 
             const roomData: Apartment = <Apartment>item.data();

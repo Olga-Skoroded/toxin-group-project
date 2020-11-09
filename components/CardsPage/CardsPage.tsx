@@ -23,11 +23,14 @@ const CardsPage: React.FC = (): JSX.Element => {
     <S.Container>
       <SearchRoomForm />
       <OrderForm
+        isAuthSuccess
         overcrowdingPrice={700}
         breakfastPricePerGuest={300}
         roomNumber={888}
         roomType="люкс"
         roomPrice={9990}
+        userEmail="cardsPage@mail.ru"
+        confirmBookedRoom={() => true}
       />
       <S.RoomsWrapper>
         <Rooms rooms={rooms} />

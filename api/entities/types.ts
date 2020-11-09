@@ -93,8 +93,8 @@ export type AdditionalUserInformation = {
 
 export type BookingData = {
   apartmentId: number;
-  from: { seconds: number };
-  to: { seconds: number };
+  from: { seconds: number } | Date;
+  to: { seconds: number } | Date;
   reservationBy?: string;
 };
 

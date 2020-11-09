@@ -80,4 +80,8 @@ const RoomsListContainer = styled.div`
   }}
 `;
 
-export { Container, Title, SubTitle, RoomsListContainer };
+const Text = styled.p`
+  padding: 0 2rem;
+`;
+
+export { Container, Title, SubTitle, RoomsListContainer, Text };

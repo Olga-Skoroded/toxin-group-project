@@ -43,11 +43,23 @@ const SelectedRoomsPage: React.FC<Props> = ({
       <S.Container>
         <S.Title>Ваши забронированные номера:</S.Title>
         <S.RoomsListContainer>
-          {isLoadingData ? <Preloader /> : bookedRooms && <RoomsList rooms={bookedRooms.current} />}
+          {isLoadingData && <Preloader />}
+          {bookedRooms &&
+            (bookedRooms.current.length ? (
+              <RoomsList rooms={bookedRooms.current} />
+            ) : (
+              <S.Text>Нет забронированных номеров</S.Text>
+            ))}
         </S.RoomsListContainer>
         <S.SubTitle>История забронированных номеров:</S.SubTitle>
         <S.RoomsListContainer>
-          {isLoadingData ? <Preloader /> : bookedRooms && <RoomsList rooms={bookedRooms.history} />}
+          {isLoadingData && <Preloader />}
+          {bookedRooms &&
+            (bookedRooms.history.length ? (
+              <RoomsList rooms={bookedRooms.history} />
+            ) : (
+              <S.Text>Пусто... Возможно, это будет ваша первая бронь ?</S.Text>
+            ))}
         </S.RoomsListContainer>
       </S.Container>
     </MainLayout>
