@@ -46,7 +46,7 @@ const SelectedRoomsPage: React.FC<Props> = ({
           {isLoadingData && <Preloader />}
           {bookedRooms &&
             (bookedRooms.current.length ? (
-              <RoomsList rooms={bookedRooms.current} />
+              <RoomsList isForReviews rooms={bookedRooms.current} />
             ) : (
               <S.Text>Нет забронированных номеров</S.Text>
             ))}
@@ -56,7 +56,7 @@ const SelectedRoomsPage: React.FC<Props> = ({
           {isLoadingData && <Preloader />}
           {bookedRooms &&
             (bookedRooms.history.length ? (
-              <RoomsList rooms={bookedRooms.history} />
+              <RoomsList isForReviews rooms={bookedRooms.history} />
             ) : (
               <S.Text>Пусто... Возможно, это будет ваша первая бронь ?</S.Text>
             ))}

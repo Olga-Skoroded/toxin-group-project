@@ -11,9 +11,10 @@ const Room: React.FC<Props> = ({
   reviews,
   imagePaths,
   roomType,
+  currency,
+  isForReviews = false,
   measure = 'в сутки',
   reviewMeasure = 'отзывов',
-  currency,
   rating = 5,
 }: Props) => (
   <S.Room>
@@ -21,7 +22,9 @@ const Room: React.FC<Props> = ({
     <S.Info>
       <S.Container>
         <S.RoomNumber>
-          <S.RoomLink href={`/room-details?room=${number}`}>
+          <S.RoomLink
+            href={isForReviews ? `/room-review?room=${number}` : `/room-details?room=${number}`}
+          >
             <S.NumberSign>№</S.NumberSign>
             {number}
           </S.RoomLink>
