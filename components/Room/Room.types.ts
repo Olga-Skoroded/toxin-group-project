@@ -4,7 +4,10 @@ export type Props = {
   price: number;
   number: number;
   reviews: Review[];
-  isForReviews?: boolean;
+  bookedData?: {
+    from: string;
+    to: string;
+  };
   imagePaths?: string[];
   reviewMeasure?: string;
   roomType?: string;

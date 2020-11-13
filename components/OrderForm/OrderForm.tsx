@@ -17,7 +17,7 @@ type Props = {
   roomPrice: number;
   breakfastPricePerGuest: number;
   overcrowdingPrice: number;
-  initialValues?: {
+  initialProps?: {
     booked: {
       from: number;
       to: number;
@@ -29,13 +29,13 @@ type Props = {
     };
   };
   disabled?: boolean;
-  isAuthSuccess: boolean;
+  isAuthSuccess?: boolean;
   priceItems?: PriceItem[];
   roomType?: string;
   currency?: string;
   measure?: string;
   userEmail?: string;
-  confirmBookedRoom: (data: SelectedBookedRoom) => void;
+  confirmBookedRoom?: (data: SelectedBookedRoom) => void;
 };
 
 const oneDay = 24 * 60 * 60 * 1000;
@@ -105,7 +105,7 @@ const OrderForm: React.FC<Props> = ({
   priceItems,
   overcrowdingPrice,
   breakfastPricePerGuest,
-  initialValues,
+  initialProps,
   disabled = false,
   currency = 'RUB',
   measure = 'в сутки',
@@ -132,7 +132,7 @@ const OrderForm: React.FC<Props> = ({
       <S.Title>Бронирование номера №{roomNumber}</S.Title>
       <Form
         onSubmit={handleFormSubmit}
-        initialValues={initialValues}
+        initialValues={initialProps}
         render={({ handleSubmit, values, initialValues }) => {
           const dates: { from: number; to: number } = values.booked;
           const daysDifference = (dates && getDaysDifference(dates)) || 0;

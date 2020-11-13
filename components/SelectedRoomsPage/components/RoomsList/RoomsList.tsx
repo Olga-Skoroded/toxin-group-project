@@ -5,10 +5,9 @@ import * as S from './RoomsList.style';
 
 type Props = {
   rooms: BookedRoom[];
-  isForReviews?: boolean;
 };
 
-const RoomsList: React.FC<Props> = ({ rooms, isForReviews = false }: Props): JSX.Element => {
+const RoomsList: React.FC<Props> = ({ rooms }: Props): JSX.Element => {
   return (
     <S.Container>
       {rooms &&
@@ -18,7 +17,7 @@ const RoomsList: React.FC<Props> = ({ rooms, isForReviews = false }: Props): JSX
 
           return (
             <S.RoomWrapper key={Number(index)}>
-              <Room {...room} number={id} isForReviews={isForReviews} />
+              <Room {...room} number={id} bookedData={bookedData} />
               <S.Price>
                 <S.PriceDescription>Дата бронирования: </S.PriceDescription>
                 <S.PriceDescription>

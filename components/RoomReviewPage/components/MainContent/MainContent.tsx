@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router';
+import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { Form } from 'react-final-form';
 import { connect } from 'react-redux';
@@ -12,7 +14,8 @@ import Review from 'components/Review/Review';
 import { Props as RoomProps } from 'components/Room/Room.types';
 import StarRating from 'components/StarRating/StarRating';
 import Textarea from 'components/TextArea/TextArea';
-import { requestCurrentRoomInfo } from 'redux/Booking/redux/actions';
+import { loadBookedHistoryRooms, requestCurrentRoomInfo } from 'redux/Booking/redux/actions';
+import { BookedHistoryList } from 'redux/Booking/types';
 import { AppState } from 'redux/store.types';
 
 import { roomImagesPreview, benefitsData, rulesData } from './MainContent.data';
@@ -22,16 +25,23 @@ type StateProps = {
   currentRoom: RoomProps;
   photoURL: string;
   displayedName: string;
+  bookedRooms: BookedHistoryList;
+  isLoadingData: boolean;
+  userEmail: string;
 };
 
 const mapState = (state: AppState): StateProps => ({
   currentRoom: state.booking.currentRoom,
   photoURL: state.auth.photoURL,
   displayedName: state.auth.displayName,
+  bookedRooms: state.booking.bookedRooms,
+  isLoadingData: state.booking.isPending,
+  userEmail: state.auth.userEmail,
 });
 
 const mapDispatch = {
   getRoomInfo: requestCurrentRoomInfo,
+  getBookedRooms: loadBookedHistoryRooms,
 };
 
 type Props = StateProps & typeof mapDispatch;
@@ -44,7 +54,10 @@ const MainContent: React.FC<Props> = ({
   currentRoom,
   photoURL,
   displayedName,
+  bookedRooms,
+  userEmail,
   getRoomInfo,
+  getBookedRooms,
 }: Props) => {
   const [comment, setComment] = useState<ReviewProps>(null);
 
@@ -58,6 +71,8 @@ const MainContent: React.FC<Props> = ({
 
   useEffect(() => {
     getRoomInfo(mockRoomNumber);
+    console.log(userEmail);
+    getBookedRooms(userEmail);
   }, []);
 
   const handleReviewSubmit = (values) => {
@@ -71,10 +86,29 @@ const MainContent: React.FC<Props> = ({
     });
   };
 
-  const initialValues = {
+  // TO DO
+  // const initialValues = {
+  //   roomNumber: 5,
+  //   booked: {
+  //     from: Date.now(),
+  //     to: Date.now() + 60 * 60 * 24 * 7 * 1000,
+  //   },
+  //   guests: {
+  //     adults: 1,
+  //     children: 1,
+  //     babies: 1,
+  //   },
+  // };
+  const router = useRouter();
+  // to do уже есть метод для фильтрации, надо вынести куда-то
+  const roomParams = queryString.parse(router.asPath.split('?')[1]);
+  console.log(roomParams);
+
+  const passedFormProps = {
+    roomNumber: +roomParams.room,
     booked: {
-      from: Date.now(),
-      to: Date.now() + 60 * 60 * 24 * 7 * 1000,
+      from: +roomParams.from,
+      to: +roomParams.to,
     },
     guests: {
       adults: 1,
@@ -82,6 +116,7 @@ const MainContent: React.FC<Props> = ({
       babies: 1,
     },
   };
+
   return (
     <S.MainContent>
       <S.RoomImages>
@@ -151,10 +186,10 @@ const MainContent: React.FC<Props> = ({
           <OrderForm
             overcrowdingPrice={700}
             breakfastPricePerGuest={300}
-            roomNumber={888}
+            roomNumber={passedFormProps.roomNumber}
             roomType="люкс"
             roomPrice={9990}
-            initialValues={initialValues}
+            initialProps={passedFormProps}
             disabled
           />
         </S.OrderFormWrapper>
