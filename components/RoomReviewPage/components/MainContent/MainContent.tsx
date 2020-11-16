@@ -14,6 +14,7 @@ import Review from 'components/Review/Review';
 import { Props as RoomProps } from 'components/Room/Room.types';
 import StarRating from 'components/StarRating/StarRating';
 import Textarea from 'components/TextArea/TextArea';
+import { setRoomReview } from 'redux/Apartment/redux/actions';
 import { loadBookedHistoryRooms, requestCurrentRoomInfo } from 'redux/Booking/redux/actions';
 import { BookedHistoryList } from 'redux/Booking/types';
 import { AppState } from 'redux/store.types';
@@ -42,6 +43,7 @@ const mapState = (state: AppState): StateProps => ({
 const mapDispatch = {
   getRoomInfo: requestCurrentRoomInfo,
   getBookedRooms: loadBookedHistoryRooms,
+  setComment: setRoomReview,
 };
 
 type Props = StateProps & typeof mapDispatch;
@@ -58,8 +60,9 @@ const MainContent: React.FC<Props> = ({
   userEmail,
   getRoomInfo,
   getBookedRooms,
+  setComment,
 }: Props) => {
-  const [comment, setComment] = useState<ReviewProps>(null);
+  const [comment, setCommentz] = useState<ReviewProps>(null);
 
   const mockRoomNumber = 95;
   const reviews = currentRoom && [...currentRoom.reviews];
@@ -71,20 +74,8 @@ const MainContent: React.FC<Props> = ({
 
   useEffect(() => {
     getRoomInfo(mockRoomNumber);
-    console.log(userEmail);
     getBookedRooms(userEmail);
   }, []);
-
-  const handleReviewSubmit = (values) => {
-    setComment({
-      // TO DO
-      date: new Date() as any,
-      text: values['room-review'],
-      likesCount: 0,
-      avatarUrl: photoURL,
-      userName: displayedName,
-    });
-  };
 
   // TO DO
   // const initialValues = {
@@ -102,7 +93,20 @@ const MainContent: React.FC<Props> = ({
   const router = useRouter();
   // to do уже есть метод для фильтрации, надо вынести куда-то
   const roomParams = queryString.parse(router.asPath.split('?')[1]);
-  console.log(roomParams);
+
+  const handleReviewSubmit = (values) => {
+    setComment({
+      roomId: roomParams.room,
+      commentData: {
+        date: new Date() as any,
+        text: values['room-review'],
+        likesCount: 0,
+        avatarUrl: photoURL,
+        userName: displayedName,
+        userEmail,
+      },
+    });
+  };
 
   const passedFormProps = {
     roomNumber: +roomParams.room,
@@ -159,10 +163,7 @@ const MainContent: React.FC<Props> = ({
             <S.Title>Отзывы посетителей:</S.Title>
             {popularComments ? (
               popularComments.map((review) => (
-                <Review
-                  key={`${review.date}${review.userName}`}
-                  {...{ ...review, date: new Date() }}
-                />
+                <Review key={`${review.date}${review.userName}`} {...{ ...review }} />
               ))
             ) : (
               <Preloader label="Загружаем популярные отзывы посетителей..." />

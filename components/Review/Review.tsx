@@ -16,7 +16,8 @@ type Props = {
 };
 
 const Review = ({ avatarUrl, userName, date, text, likesCount }: Props): JSX.Element => {
-  const correctDate = date instanceof Date ? date : date.toDate();
+  // const correctDate = date instanceof Date ? date : date.toDate();
+  const correctDate = new Date(date);
 
   const useStyles = makeStyles(() => ({
     avatarReviews: { width: '3.42857rem', height: '3.42857rem' },
@@ -34,7 +35,7 @@ const Review = ({ avatarUrl, userName, date, text, likesCount }: Props): JSX.Ele
       </S.Header>
       <S.MessageWrapper>
         <S.LeftWrapper>
-          <LikeButton count={likesCount} isActive />
+          <LikeButton count={likesCount} />
         </S.LeftWrapper>
         <S.Text>{text}</S.Text>
       </S.MessageWrapper>

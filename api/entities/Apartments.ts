@@ -1,5 +1,7 @@
 import { boundMethod } from 'autobind-decorator';
 
+import { CommentData } from 'redux/Apartment/types';
+
 import { Database, CollectionReference } from '../Firebase/modules/Database';
 import { Apartment } from './types';
 
@@ -30,6 +32,28 @@ class Apartments {
   @boundMethod
   public async load(id: Apartment['id']): Promise<Apartment> {
     return this.actions.getDocument(this.reference, String(id));
+  }
+
+  @boundMethod
+  public async setRoomReview({ commentData, roomId }: CommentData): Promise<void> {
+    this.reference
+      .doc(String(roomId))
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const document = doc.data();
+          const { userEmail } = commentData;
+
+          console.log('старый док', document);
+          const newDocumentReviews = document.reviews.filter(
+            (review) => review.userEmail !== userEmail,
+          );
+          newDocumentReviews.push(commentData);
+          document.reviews = newDocumentReviews;
+
+          console.log('мы получили документ: ', document);
+        }
+      });
   }
 }
 
