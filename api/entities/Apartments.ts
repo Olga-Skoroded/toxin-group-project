@@ -36,7 +36,7 @@ class Apartments {
 
   @boundMethod
   public async setRoomReview({ commentData, roomId }: CommentData): Promise<void> {
-    this.reference
+    return this.reference
       .doc(String(roomId))
       .get()
       .then((doc) => {
@@ -44,14 +44,15 @@ class Apartments {
           const document = doc.data();
           const { userEmail } = commentData;
 
-          console.log('старый док', document);
           const newDocumentReviews = document.reviews.filter(
             (review) => review.userEmail !== userEmail,
           );
           newDocumentReviews.push(commentData);
           document.reviews = newDocumentReviews;
 
-          console.log('мы получили документ: ', document);
+          this.update(roomId, document);
+
+          return document;
         }
       });
   }

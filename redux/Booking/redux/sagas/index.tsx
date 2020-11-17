@@ -10,6 +10,7 @@ import {
   BookedHistoryList,
   UpdateBookedHistory,
   BookCurrentRoom,
+  CommentData,
 } from 'redux/Booking/types';
 
 import {
@@ -103,7 +104,17 @@ function* confirmBookedRoom({
   yield call(Api.booking.setBookedByUser, data);
 }
 
+function* setReview(data: CommentData) {
+  const result = yield call(Api.apartments.setRoomReview, data.payload);
+
+  yield put({
+    type: CURRENT_ROOM_REQUEST_SUCCESS,
+    payload: result,
+  });
+}
+
 export function* rootSaga(): SagaIterator {
+  yield takeLatest('SET_ROOM_REVIEW', setReview);
   yield takeLeading(LOAD_ROOMS, loadRooms);
   yield takeLatest(LOAD_ROOM_INFO, loadCurrentRoom);
   yield takeLatest(LOAD_BOOKED_HISTORY, loadRoomsHistory);

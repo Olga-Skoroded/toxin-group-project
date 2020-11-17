@@ -7,7 +7,14 @@ import {
   LoadBookedHistory,
   BookCurrentRoom,
   SelectedBookedRoom,
+  CommentData,
+  SetRoomReview,
 } from '../types';
+
+const setRoomReview = (data: CommentData): SetRoomReview => ({
+  type: 'SET_ROOM_REVIEW',
+  payload: data,
+});
 
 const bookRoom = (data: SelectedBookedRoom): BookCurrentRoom => ({
   type: BOOK_ROOM,
@@ -29,4 +36,4 @@ const loadBookedHistoryRooms = (email: string): LoadBookedHistory => ({
   payload: email,
 });
 
-export { requestRooms, loadBookedHistoryRooms, requestCurrentRoomInfo, bookRoom };
+export { requestRooms, loadBookedHistoryRooms, requestCurrentRoomInfo, bookRoom, setRoomReview };

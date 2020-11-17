@@ -1,4 +1,4 @@
-import { Filters, BookedRoom } from 'api/entities/types';
+import { Filters, BookedRoom, Review } from 'api/entities/types';
 import { Props as RoomProps } from 'components/Room/Room.types';
 
 import { Apartment } from '../../api/entities/types';
@@ -18,6 +18,9 @@ type Action<Z, T> = {
   type: Z;
   payload?: T;
 };
+
+export type CommentData = { commentData: Review; roomId: any };
+export type SetRoomReview = Action<'SET_ROOM_REVIEW', CommentData>;
 
 export type SelectedBookedRoom = {
   apartmentId: number;

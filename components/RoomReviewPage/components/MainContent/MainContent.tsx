@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import queryString from 'query-string';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Form } from 'react-final-form';
 import { connect } from 'react-redux';
 
@@ -14,8 +14,11 @@ import Review from 'components/Review/Review';
 import { Props as RoomProps } from 'components/Room/Room.types';
 import StarRating from 'components/StarRating/StarRating';
 import Textarea from 'components/TextArea/TextArea';
-import { setRoomReview } from 'redux/Apartment/redux/actions';
-import { loadBookedHistoryRooms, requestCurrentRoomInfo } from 'redux/Booking/redux/actions';
+import {
+  loadBookedHistoryRooms,
+  requestCurrentRoomInfo,
+  setRoomReview,
+} from 'redux/Booking/redux/actions';
 import { BookedHistoryList } from 'redux/Booking/types';
 import { AppState } from 'redux/store.types';
 
@@ -62,43 +65,29 @@ const MainContent: React.FC<Props> = ({
   getBookedRooms,
   setComment,
 }: Props) => {
-  const [comment, setCommentz] = useState<ReviewProps>(null);
+  const router = useRouter();
+  // to do уже есть метод для фильтрации, надо вынести куда-то
+  const roomParams = queryString.parse(router.asPath.split('?')[1]);
 
-  const mockRoomNumber = 95;
+  useEffect(() => {
+    getRoomInfo(Number(roomParams.room));
+  }, [getRoomInfo, roomParams.room]);
+
   const reviews = currentRoom && [...currentRoom.reviews];
 
   const getMostPopularComments = (count: number) =>
     reviews && reviews.sort(sortDescByLikes).slice(0, count);
 
+  const currentUserReview =
+    (reviews && reviews.filter((review) => review.userEmail === userEmail)) || [];
+
   const popularComments = getMostPopularComments(2);
-
-  useEffect(() => {
-    getRoomInfo(mockRoomNumber);
-    getBookedRooms(userEmail);
-  }, []);
-
-  // TO DO
-  // const initialValues = {
-  //   roomNumber: 5,
-  //   booked: {
-  //     from: Date.now(),
-  //     to: Date.now() + 60 * 60 * 24 * 7 * 1000,
-  //   },
-  //   guests: {
-  //     adults: 1,
-  //     children: 1,
-  //     babies: 1,
-  //   },
-  // };
-  const router = useRouter();
-  // to do уже есть метод для фильтрации, надо вынести куда-то
-  const roomParams = queryString.parse(router.asPath.split('?')[1]);
 
   const handleReviewSubmit = (values) => {
     setComment({
       roomId: roomParams.room,
       commentData: {
-        date: new Date() as any,
+        date: new Date(),
         text: values['room-review'],
         likesCount: 0,
         avatarUrl: photoURL,
@@ -106,6 +95,8 @@ const MainContent: React.FC<Props> = ({
         userEmail,
       },
     });
+
+    getRoomInfo(Number(roomParams.room));
   };
 
   const passedFormProps = {
@@ -168,7 +159,12 @@ const MainContent: React.FC<Props> = ({
             ) : (
               <Preloader label="Загружаем популярные отзывы посетителей..." />
             )}
-            {comment && <Review {...comment} avatarUrl={photoURL} />}
+            {!!currentUserReview.length && (
+              <>
+                <S.Title>Ваш отзыв:</S.Title>
+                <Review {...currentUserReview[0]} />
+              </>
+            )}
           </S.ReviewsContainer>
           <Form
             onSubmit={handleReviewSubmit}
@@ -177,7 +173,7 @@ const MainContent: React.FC<Props> = ({
                 <S.Title>Оставьте свой отзыв об этом номере:</S.Title>
                 <Textarea name="room-review" required />
                 <S.ButtonWrapper>
-                  <Button>{comment ? 'Изменить' : 'Добавить'}</Button>
+                  <Button>Добавить</Button>
                 </S.ButtonWrapper>
               </S.ReviewsWrapper>
             )}

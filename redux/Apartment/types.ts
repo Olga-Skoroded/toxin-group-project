@@ -1,4 +1,4 @@
-import { Apartment, Review } from 'api/entities/types';
+import { Apartment } from 'api/entities/types';
 
 import {
   GET_ROOM_DETAILS_PROCESS,
@@ -16,12 +16,9 @@ type ApartmentState = {
   roomDetails: Apartment | null;
 };
 
-type CommentData = { commentData: Review; roomId: any };
-
 type GetRoomDetailsRequest = Action<typeof GET_ROOM_DETAILS_PROCESS, number>;
 type GetRoomDetailsSuccess = Action<typeof GET_ROOM_DETAILS_SUCCESS, Apartment>;
 type GetRoomDetailsFailed = Action<typeof GET_ROOM_DETAILS_FAILED, null>;
-type SetRoomReview = Action<'SET_ROOM_REVIEW', CommentData>;
 
 type ApartmentActions = GetRoomDetailsRequest | GetRoomDetailsSuccess | GetRoomDetailsFailed;
 
@@ -31,6 +28,4 @@ export type {
   GetRoomDetailsSuccess,
   GetRoomDetailsFailed,
   ApartmentActions,
-  SetRoomReview,
-  CommentData,
 };

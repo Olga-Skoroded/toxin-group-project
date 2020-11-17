@@ -1,5 +1,5 @@
 import { SagaIterator } from 'redux-saga';
-import { call, put, takeLeading, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLeading } from 'redux-saga/effects';
 
 import api from 'api/api';
 import { Apartment } from 'api/entities/types';
@@ -9,7 +9,7 @@ import {
   GET_ROOM_DETAILS_SUCCESS,
   GET_ROOM_DETAILS_FAILED,
 } from '../../constants';
-import { GetRoomDetailsRequest, CommentData } from '../../types';
+import { GetRoomDetailsRequest } from '../../types';
 
 function* getRoomDetails({ payload: id }: GetRoomDetailsRequest) {
   try {
@@ -26,13 +26,7 @@ function* getRoomDetails({ payload: id }: GetRoomDetailsRequest) {
   }
 }
 
-function* setReview(data: CommentData) {
-  console.log('test', data);
-  const result = yield call(api.apartments.setRoomReview, data.payload);
-}
-
 function* rootSaga(): SagaIterator {
-  yield takeLatest('SET_ROOM_REVIEW', setReview);
   yield takeLeading(GET_ROOM_DETAILS_PROCESS, getRoomDetails);
 }
 
