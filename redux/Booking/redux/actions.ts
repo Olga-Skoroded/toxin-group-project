@@ -1,4 +1,4 @@
-import { Apartment, Filters } from 'services/api/entities/model';
+import { Apartment, Filters, CommentData } from 'services/api/entities/model';
 
 import {
   RoomsRequest,
@@ -6,7 +6,6 @@ import {
   LoadBookedHistory,
   BookCurrentRoom,
   SelectedBookedRoom,
-  CommentData,
   SetRoomReview,
   SetRoomRating,
   FinishRoomRating,
