@@ -24,7 +24,7 @@ const apartment = (
           ...actions.payload,
           reviews: actions.payload.reviews.map((review) => ({
             ...review,
-            date: review.date.toDate(),
+            date: review.date,
           })),
         },
       };
