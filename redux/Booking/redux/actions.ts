@@ -1,4 +1,4 @@
-import { Apartment, Filters, CommentData } from 'services/api/entities/model';
+import { Apartment, Filters, CommentData, RoomRatingData } from 'services/api/entities/model';
 
 import {
   RoomsRequest,
@@ -9,7 +9,6 @@ import {
   SetRoomReview,
   SetRoomRating,
   FinishRoomRating,
-  RoomRatingRequest,
   PendingStatusUpdate,
   SetRooms,
   SetFailedStatus,
@@ -22,7 +21,7 @@ const setRoomReview = (data: CommentData): SetRoomReview => ({
   payload: data,
 });
 
-const setRoomRating = (data: RoomRatingRequest): SetRoomRating => ({
+const setRoomRating = (data: RoomRatingData): SetRoomRating => ({
   type: 'SET_ROOM_RATING',
   payload: data,
 });

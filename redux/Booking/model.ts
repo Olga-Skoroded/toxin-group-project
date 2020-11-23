@@ -1,8 +1,13 @@
 import { Action, ActionPayload } from 'redux/action.model';
-import { Filters, BookedRoom, Apartment, CommentData } from 'services/api/entities/model';
+import {
+  Filters,
+  BookedRoom,
+  Apartment,
+  CommentData,
+  RoomRatingData,
+} from 'services/api/entities/model';
 import { RoomProps } from 'shared/view/components/Room/Room.model';
 
-type RoomRatingRequest = { userEmail: string; roomId: number; rating: number };
 type BookedHistoryList = { current: BookedRoom[]; history: BookedRoom[] };
 
 type BookingState = {
@@ -37,7 +42,7 @@ type StartRatingRoom = Action<'START_RATING_ROOM'>;
 type FinishRatingRoom = Action<'FINISH_RATING_ROOM'>;
 type SetNewRatingRoom = ActionPayload<'SET_NEW_ROOM_RATING', number>;
 type SetRoomReview = ActionPayload<'SET_ROOM_REVIEW', CommentData>;
-type SetRoomRating = ActionPayload<'SET_ROOM_RATING', RoomRatingRequest>;
+type SetRoomRating = ActionPayload<'SET_ROOM_RATING', RoomRatingData>;
 type FinishRoomRating = Action<'FINISH_ROOM_RATING'>;
 type CurrentRoomRequest = ActionPayload<'LOAD_ROOM_INFO', { id: number; email: string }>;
 type SetRoom = ActionPayload<'CURRENT_ROOM_REQUEST_SUCCESS', Apartment & { userRating }>;
@@ -62,7 +67,6 @@ type BookingActions =
 export type {
   CurrentRoomRequest,
   SetRoom,
-  RoomRatingRequest,
   SelectedBookedRoom,
   BookedHistoryList,
   RoomsRequest,

@@ -1,10 +1,9 @@
 import { boundMethod } from 'autobind-decorator';
 
-import { RoomRatingRequest } from 'redux/Booking/model';
 import { DocumentData } from 'services/api/Firebase/modules/Database/model';
 
 import { Database, CollectionReference } from '../Firebase/modules/Database';
-import { Apartment, CommentData } from './model';
+import { Apartment, CommentData, RoomRatingData } from './model';
 
 class Apartments {
   private readonly actions: Database;
@@ -71,7 +70,7 @@ class Apartments {
   }
 
   @boundMethod
-  public setRoomRating(data: RoomRatingRequest): void {
+  public setRoomRating(data: RoomRatingData): void {
     const { rating, roomId, userEmail } = data;
 
     this.actions
