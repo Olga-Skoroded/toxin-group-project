@@ -1,5 +1,7 @@
-import ColorsTypesPage from 'components/ColorsTypesPage/ColorsTypesPage';
+import { memo } from 'react';
 
-const ColorsAndTypes: React.FC = () => <ColorsTypesPage />;
+import { ColorsTypesPage } from 'modules/Guide';
+
+const ColorsAndTypes = memo(() => <ColorsTypesPage />);
 
 export default ColorsAndTypes;

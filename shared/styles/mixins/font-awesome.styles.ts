@@ -14,4 +14,4 @@ const fontAwesome = css`
   -webkit-font-smoothing: antialiased;
 `;
 
-export default fontAwesome;
+export { fontAwesome };

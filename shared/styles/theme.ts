@@ -1,4 +1,4 @@
-import { Theme } from '../types/theme';
+import { Theme } from '../model/theme';
 
 const typographyColorValue = '31, 32, 65';
 const primaryColorValue = '188, 156, 255';
@@ -36,4 +36,4 @@ const purpleThemePalette: Theme = {
   },
 };
 
-export default purpleThemePalette;
+export { purpleThemePalette };

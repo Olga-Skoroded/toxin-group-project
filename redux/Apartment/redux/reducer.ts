@@ -1,9 +1,4 @@
-import {
-  GET_ROOM_DETAILS_PROCESS,
-  GET_ROOM_DETAILS_SUCCESS,
-  GET_ROOM_DETAILS_FAILED,
-} from '../constants';
-import { ApartmentState, ApartmentActions } from '../types';
+import { ApartmentState, ApartmentActions } from '../model';
 
 const initialState: ApartmentState = {
   isGetRoomDetailsPending: false,
@@ -15,19 +10,25 @@ const apartment = (
   actions: ApartmentActions,
 ): ApartmentState => {
   switch (actions.type) {
-    case GET_ROOM_DETAILS_PROCESS:
+    case 'GET_ROOM_DETAILS_PROCESS':
       return {
         ...state,
         isGetRoomDetailsPending: true,
         roomDetails: null,
       };
-    case GET_ROOM_DETAILS_SUCCESS:
+    case 'GET_ROOM_DETAILS_SUCCESS':
       return {
         ...state,
         isGetRoomDetailsPending: false,
-        roomDetails: actions.payload,
+        roomDetails: {
+          ...actions.payload,
+          reviews: actions.payload.reviews.map((review) => ({
+            ...review,
+            date: review.date.toDate(),
+          })),
+        },
       };
-    case GET_ROOM_DETAILS_FAILED:
+    case 'GET_ROOM_DETAILS_FAILED':
       return {
         ...state,
         isGetRoomDetailsPending: false,

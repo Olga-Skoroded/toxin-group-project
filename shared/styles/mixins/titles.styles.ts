@@ -1,6 +1,6 @@
 import { css, FlattenSimpleInterpolation } from 'styled-components';
 
-import purpleThemePalette from '../theme';
+import { purpleThemePalette } from '../theme';
 
 const { typography, colors } = purpleThemePalette;
 
@@ -33,4 +33,6 @@ const h3 = ({ color }: Title = {}): FlattenSimpleInterpolation => css`
   text-transform: uppercase;
 `;
 
-export default { h1, h2, h3 };
+const titles = { h1, h2, h3 };
+
+export { titles };

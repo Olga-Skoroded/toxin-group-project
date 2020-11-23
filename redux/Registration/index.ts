@@ -1,7 +1,9 @@
-import registration from './redux/reducer';
+import { registration } from './redux/reducer';
 import { rootSaga } from './redux/sagas';
 
-export const reduxEntry = {
+const reduxEntry = {
   reducers: { registration },
   sagas: [rootSaga],
 };
+
+export { reduxEntry };

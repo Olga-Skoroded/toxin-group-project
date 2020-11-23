@@ -15,4 +15,4 @@ const materialIcons = css`
   -webkit-font-smoothing: antialiased;
 `;
 
-export default materialIcons;
+export { materialIcons };

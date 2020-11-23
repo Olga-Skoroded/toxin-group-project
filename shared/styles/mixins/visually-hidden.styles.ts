@@ -13,4 +13,4 @@ const visuallyHidden = css`
   white-space: nowrap;
 `;
 
-export default visuallyHidden;
+export { visuallyHidden };

@@ -1,22 +1,30 @@
 import { SagaIterator } from 'redux-saga';
-import { put, takeLatest, call, PutEffect } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 
-import Api from 'api/api';
-import { UserCredential } from 'api/Firebase/modules/Authentication/types';
+import { takeLatestAction } from 'redux/action.model';
+import { Dependencies } from 'redux/api.model';
+import { UserCredential } from 'services/api/Firebase/modules/Authentication';
+import { dateValidator } from 'utils/validators';
 
-import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_FAILED } from '../../constants';
-import { ProfileData, RegistrationStatusSuccess, RegistrationStatusFailed } from '../../types';
+import { RegistrationRequest } from '../../model';
+import { registrationStatusFailed, registrationStatusSuccess } from '../actions';
 
-function* startRegistrationProcess(data: {
-  type: typeof REGISTRATION_REQUEST;
-  payload: ProfileData;
-}):
-  | Generator
-  | Generator<PutEffect<RegistrationStatusSuccess | RegistrationStatusFailed>, void, never> {
-  const { email, password, name, surname, birthDate, gender, avatar, receiveOffers } = data.payload;
-
+function* registration({ api }: Dependencies, { payload }: RegistrationRequest) {
+  const { email, password, name, surname, birthDate, gender, avatar, hasSpecialOffers } = payload;
   try {
-    const result: UserCredential = yield call(Api.auth.signUp, {
+    const dateValidationResult = dateValidator(birthDate);
+
+    if (dateValidationResult === 'Invalid date') {
+      throw new Error('All fields must be filled in correctly!');
+    }
+
+    const maxSymbolLength = 50;
+
+    if (name.length > maxSymbolLength || surname.length > maxSymbolLength) {
+      throw new Error('First name or last name is too long');
+    }
+
+    const userCredential: UserCredential = yield call(api.auth.signUp, {
       email,
       password,
       name,
@@ -24,21 +32,18 @@ function* startRegistrationProcess(data: {
       birthDate,
       gender,
       avatar,
-      receiveOffers,
     });
 
-    yield put({
-      type: REGISTRATION_SUCCESS,
-      payload: result,
-    });
-  } catch (error) {
-    yield put({
-      type: REGISTRATION_FAILED,
-      payload: error.message,
-    });
+    yield call(api.subscriptions.add, email, { hasSpecialOffers });
+
+    yield put(registrationStatusSuccess(userCredential));
+  } catch ({ message }) {
+    yield put(registrationStatusFailed(message));
   }
 }
 
-export function* rootSaga(): SagaIterator {
-  yield takeLatest(REGISTRATION_REQUEST, startRegistrationProcess);
+function* rootSaga(deps: Dependencies): SagaIterator {
+  yield takeLatestAction<RegistrationRequest['type']>('REGISTRATION_REQUEST', registration, deps);
 }
+
+export { rootSaga };

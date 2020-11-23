@@ -19,4 +19,4 @@ function getNounInDeclension(value: number, declension: string[]): string {
   }
 }
 
-export default getNounInDeclension;
+export { getNounInDeclension };

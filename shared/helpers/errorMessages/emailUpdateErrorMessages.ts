@@ -5,13 +5,13 @@ type Error = {
 const getEmailUpdateErrorMessage = ({ code }: Error): string => {
   switch (code) {
     case 'auth/invalid-email':
-      return 'Указан недействительный адрес электронной почты';
+      return 'Invalid email address';
     case 'auth/email-already-in-use':
-      return 'Указанный адрес электронной почты уже используется';
+      return 'The specified email address is already in use';
     case 'auth/requires-recent-login':
-      return 'Для изменения адреса электронной почты пройдите повторную аутентификацию';
+      return 'Re-authenticate to change your email address';
     default:
-      return 'Произошла ошибка повторите попытку позже';
+      return 'An error occured, please try again later';
   }
 };
 

@@ -1,15 +1,30 @@
-import { DispatchEvent } from 'react-redux';
+import { UserCredential } from 'services/api/Firebase/modules/Authentication';
 
-import { store } from '../../store';
-import { REGISTRATION_REQUEST, BREAK_REGISTRATION_PROCESS } from '../constants';
-import { ProfileData, RegistrationRequest } from '../types';
+import {
+  BreakRegistrationProcess,
+  ProfileData,
+  RegistrationRequest,
+  RegistrationStatusFailed,
+  RegistrationStatusSuccess,
+} from '../model';
 
-const startRegistration = (data: ProfileData): RegistrationRequest => ({
-  type: REGISTRATION_REQUEST,
+const registration = (data: ProfileData): RegistrationRequest => ({
+  type: 'REGISTRATION_REQUEST',
   payload: data,
 });
 
-const cancelRegistration = (): DispatchEvent =>
-  store.dispatch({ type: BREAK_REGISTRATION_PROCESS });
+const registrationStatusSuccess = (user: UserCredential): RegistrationStatusSuccess => ({
+  type: 'REGISTRATION_SUCCESS',
+  payload: user,
+});
 
-export { startRegistration, cancelRegistration };
+const registrationStatusFailed = (statusText: string): RegistrationStatusFailed => ({
+  type: 'REGISTRATION_FAILED',
+  payload: statusText,
+});
+
+const cancelRegistration = (): BreakRegistrationProcess => ({
+  type: 'BREAK_REGISTRATION_PROCESS',
+});
+
+export { registration, registrationStatusSuccess, registrationStatusFailed, cancelRegistration };

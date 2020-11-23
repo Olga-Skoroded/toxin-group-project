@@ -1,13 +1,4 @@
-import {
-  ROOMS_REQUEST_PENDING,
-  ROOMS_REQUEST_SUCCESS,
-  ROOMS_REQUEST_FAILED,
-  LOAD_ROOMS,
-  CURRENT_ROOM_REQUEST_SUCCESS,
-  UPDATE_BOOKED_HISTORY,
-  LOAD_BOOKED_HISTORY,
-} from '../constants';
-import { BookingActions, BookingState } from '../types';
+import { BookingActions, BookingState } from '../model';
 
 const initialState: BookingState = {
   isRequestSuccessful: true,
@@ -23,15 +14,15 @@ const initialState: BookingState = {
 
 const booking = (state: BookingState = initialState, action: BookingActions): BookingState => {
   switch (action.type) {
-    case LOAD_ROOMS:
+    case 'LOAD_ROOMS':
       return { ...state, rooms: [] };
-    case ROOMS_REQUEST_PENDING:
+    case 'ROOMS_REQUEST_PENDING':
       return {
         ...state,
         isPending: action.payload,
         error: null,
       };
-    case ROOMS_REQUEST_SUCCESS:
+    case 'ROOMS_REQUEST_SUCCESS':
       return {
         ...state,
         rooms: action.payload.map((room) => ({ ...room, number: room.id })),
@@ -59,7 +50,7 @@ const booking = (state: BookingState = initialState, action: BookingActions): Bo
         ...state,
         userRating: action.payload,
       };
-    case CURRENT_ROOM_REQUEST_SUCCESS:
+    case 'CURRENT_ROOM_REQUEST_SUCCESS':
       return {
         ...state,
         isPending: false,
@@ -74,19 +65,19 @@ const booking = (state: BookingState = initialState, action: BookingActions): Bo
         },
         userRating: action.payload.userRating,
       };
-    case ROOMS_REQUEST_FAILED:
+    case 'ROOMS_REQUEST_FAILED':
       return {
         ...state,
         isPending: false,
         isRequestSuccessful: false,
         error: action.payload,
       };
-    case LOAD_BOOKED_HISTORY:
+    case 'LOAD_BOOKED_HISTORY':
       return {
         ...state,
         isPending: true,
       };
-    case UPDATE_BOOKED_HISTORY:
+    case 'UPDATE_BOOKED_HISTORY':
       return {
         ...state,
         isPending: false,
@@ -97,4 +88,4 @@ const booking = (state: BookingState = initialState, action: BookingActions): Bo
   }
 };
 
-export default booking;
+export { booking };

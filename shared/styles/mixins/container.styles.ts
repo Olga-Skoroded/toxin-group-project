@@ -9,4 +9,4 @@ const container = css`
   margin-right: auto;
 `;
 
-export default container;
+export { container };

@@ -1,6 +1,5 @@
-import { Filters } from 'api/entities/types';
+import { Apartment, Filters } from 'services/api/entities/model';
 
-import { LOAD_ROOMS, LOAD_ROOM_INFO, LOAD_BOOKED_HISTORY, BOOK_ROOM } from '../constants';
 import {
   RoomsRequest,
   CurrentRoomRequest,
@@ -12,7 +11,12 @@ import {
   SetRoomRating,
   FinishRoomRating,
   RoomRatingRequest,
-} from '../types';
+  PendingStatusUpdate,
+  SetRooms,
+  SetFailedStatus,
+  BookedHistoryList,
+  UpdateBookedHistory,
+} from '../model';
 
 const setRoomReview = (data: CommentData): SetRoomReview => ({
   type: 'SET_ROOM_REVIEW',
@@ -28,32 +32,56 @@ const finishRoomRating = (): FinishRoomRating => ({
   type: 'FINISH_ROOM_RATING',
 });
 
-const bookRoom = (data: SelectedBookedRoom): BookCurrentRoom => ({
-  type: BOOK_ROOM,
-  payload: data,
-});
-
 const requestRooms = (options: Filters): RoomsRequest => ({
-  type: LOAD_ROOMS,
+  type: 'LOAD_ROOMS',
   payload: options,
 });
 
+const pendingStatusUpdate = (value: boolean): PendingStatusUpdate => ({
+  type: 'ROOMS_REQUEST_PENDING',
+  payload: value,
+});
+
+const setRooms = (data: Apartment[]): SetRooms => ({
+  type: 'ROOMS_REQUEST_SUCCESS',
+  payload: data,
+});
+
+const setFailedStatus = (error: Error): SetFailedStatus => ({
+  type: 'ROOMS_REQUEST_FAILED',
+  payload: error,
+});
+
 const requestCurrentRoomInfo = (id: number, email: string): CurrentRoomRequest => ({
-  type: LOAD_ROOM_INFO,
+  type: 'LOAD_ROOM_INFO',
   payload: { id, email },
 });
 
 const loadBookedHistoryRooms = (email: string): LoadBookedHistory => ({
-  type: LOAD_BOOKED_HISTORY,
+  type: 'LOAD_BOOKED_HISTORY',
   payload: email,
+});
+
+const updateBookedHistory = (data: BookedHistoryList): UpdateBookedHistory => ({
+  type: 'UPDATE_BOOKED_HISTORY',
+  payload: data,
+});
+
+const bookRoom = (data: SelectedBookedRoom): BookCurrentRoom => ({
+  type: 'BOOK_ROOM',
+  payload: data,
 });
 
 export {
   requestRooms,
+  pendingStatusUpdate,
+  setRooms,
+  setFailedStatus,
   loadBookedHistoryRooms,
-  requestCurrentRoomInfo,
+  updateBookedHistory,
   bookRoom,
+  requestCurrentRoomInfo,
   setRoomReview,
   setRoomRating,
-  finishRoomRating,
+  finishRoomRating
 };

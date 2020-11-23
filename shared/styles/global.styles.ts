@@ -1,6 +1,6 @@
 import { createGlobalStyle, css } from 'styled-components';
 
-import { Theme } from '../types/theme';
+import { Theme } from '../model/theme';
 
 type Props = {
   theme: Theme;
@@ -26,4 +26,4 @@ const GlobalStyle = createGlobalStyle<Props>`
   }}
 `;
 
-export default GlobalStyle;
+export { GlobalStyle };

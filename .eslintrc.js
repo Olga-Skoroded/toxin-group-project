@@ -56,5 +56,6 @@ module.exports = {
     'prettier/prettier': 2,
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'react/display-name': 'off',
   },
 };

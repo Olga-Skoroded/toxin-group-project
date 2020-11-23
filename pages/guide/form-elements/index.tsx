@@ -1,5 +1,7 @@
-import FormElementsPage from 'components/FormElementsPage/FormElementsPage';
+import { memo } from 'react';
 
-const FormElements: React.FC = () => <FormElementsPage />;
+import { FormElementsPage } from 'modules/Guide';
+
+const FormElements = memo(() => <FormElementsPage />);
 
 export default FormElements;

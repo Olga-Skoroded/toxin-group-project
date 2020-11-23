@@ -1,9 +1,19 @@
-import { GET_ROOM_DETAILS_PROCESS } from '../constants';
-import { GetRoomDetailsRequest } from '../types';
+import { Apartment } from 'services/api/entities/model';
+
+import { GetRoomDetailsFailed, GetRoomDetailsRequest, GetRoomDetailsSuccess } from '../model';
 
 const getRoomDetails = (id: number): GetRoomDetailsRequest => ({
-  type: GET_ROOM_DETAILS_PROCESS,
+  type: 'GET_ROOM_DETAILS_PROCESS',
   payload: id,
 });
 
-export { getRoomDetails };
+const getRoomDetailsSuccess = (data: Apartment): GetRoomDetailsSuccess => ({
+  type: 'GET_ROOM_DETAILS_SUCCESS',
+  payload: data,
+});
+
+const getRoomDetailsFailed = (): GetRoomDetailsFailed => ({
+  type: 'GET_ROOM_DETAILS_FAILED',
+});
+
+export { getRoomDetails, getRoomDetailsSuccess, getRoomDetailsFailed };
