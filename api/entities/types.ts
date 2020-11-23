@@ -29,9 +29,10 @@ export type Amenities = {
 export type Review = {
   avatarUrl: string;
   userName: string;
-  date: Timestamp;
+  date: Date | Timestamp;
   text: string;
   likesCount: number;
+  userEmail: string;
 };
 
 type Options = {

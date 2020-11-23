@@ -9,11 +9,23 @@ import {
   SelectedBookedRoom,
   CommentData,
   SetRoomReview,
+  SetRoomRating,
+  FinishRoomRating,
+  RoomRatingRequest,
 } from '../types';
 
 const setRoomReview = (data: CommentData): SetRoomReview => ({
   type: 'SET_ROOM_REVIEW',
   payload: data,
+});
+
+const setRoomRating = (data: RoomRatingRequest): SetRoomRating => ({
+  type: 'SET_ROOM_RATING',
+  payload: data,
+});
+
+const finishRoomRating = (): FinishRoomRating => ({
+  type: 'FINISH_ROOM_RATING',
 });
 
 const bookRoom = (data: SelectedBookedRoom): BookCurrentRoom => ({
@@ -26,9 +38,9 @@ const requestRooms = (options: Filters): RoomsRequest => ({
   payload: options,
 });
 
-const requestCurrentRoomInfo = (id: number): CurrentRoomRequest => ({
+const requestCurrentRoomInfo = (id: number, email: string): CurrentRoomRequest => ({
   type: LOAD_ROOM_INFO,
-  payload: id,
+  payload: { id, email },
 });
 
 const loadBookedHistoryRooms = (email: string): LoadBookedHistory => ({
@@ -36,4 +48,12 @@ const loadBookedHistoryRooms = (email: string): LoadBookedHistory => ({
   payload: email,
 });
 
-export { requestRooms, loadBookedHistoryRooms, requestCurrentRoomInfo, bookRoom, setRoomReview };
+export {
+  requestRooms,
+  loadBookedHistoryRooms,
+  requestCurrentRoomInfo,
+  bookRoom,
+  setRoomReview,
+  setRoomRating,
+  finishRoomRating,
+};

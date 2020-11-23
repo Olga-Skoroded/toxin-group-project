@@ -20,6 +20,7 @@ const Star = styled.button<StarProps & Partial<StarRatingProps>>`
       border: 0;
       background-color: transparent;
       transition: 0.3s;
+      cursor: pointer;
 
       &:focus {
         ${disabled &&

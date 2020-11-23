@@ -10,7 +10,8 @@ import {
   BookedHistoryList,
   UpdateBookedHistory,
   BookCurrentRoom,
-  CommentData,
+  SetRoomReview,
+  SetRoomRating,
 } from 'redux/Booking/types';
 
 import {
@@ -60,12 +61,16 @@ function* loadCurrentRoom(
       type: ROOMS_REQUEST_PENDING,
       payload: true,
     });
+    const { id, email } = action.payload;
+    const currentRoom: Apartment[] & { id: number } = yield call(Api.apartments.load, id);
+    if (email) {
+      const reviewsData = yield call(Api.apartments.loadUserReviews, email, Number(currentRoom.id));
 
-    const currentRoom: Apartment[] = yield call(Api.apartments.load, action.payload);
-    yield put({
-      type: CURRENT_ROOM_REQUEST_SUCCESS,
-      payload: currentRoom,
-    });
+      yield put({
+        type: CURRENT_ROOM_REQUEST_SUCCESS,
+        payload: Object.assign(currentRoom, reviewsData),
+      });
+    } else throw new Error('Auth failed!');
   } catch (error) {
     yield put({
       type: ROOMS_REQUEST_FAILED,
@@ -104,8 +109,8 @@ function* confirmBookedRoom({
   yield call(Api.booking.setBookedByUser, data);
 }
 
-function* setReview(data: CommentData) {
-  const result = yield call(Api.apartments.setRoomReview, data.payload);
+function* setReview(data: SetRoomReview) {
+  const result: Apartment = yield call(Api.apartments.setRoomReview, data.payload);
 
   yield put({
     type: CURRENT_ROOM_REQUEST_SUCCESS,
@@ -113,8 +118,41 @@ function* setReview(data: CommentData) {
   });
 }
 
+function* setRoomRating(data: SetRoomRating) {
+  yield put({
+    type: 'START_RATING_ROOM',
+  });
+
+  try {
+    yield call(Api.apartments.setRoomRating, data.payload);
+
+    yield put({
+      type: 'SET_NEW_ROOM_RATING',
+      payload: data.payload.rating,
+    });
+
+    yield put({
+      type: 'RATING_PROCESS_RESPONSE',
+      payload: 'Спасибо, ваше мнение учтено!',
+    });
+  } catch (error) {
+    yield put({
+      type: 'RATING_PROCESS_RESPONSE',
+      payload: 'При изменении вашей оценки произошла ошибка!',
+    });
+  }
+}
+
+function* finishRoomRating() {
+  yield put({
+    type: 'FINISH_RATING_ROOM',
+  });
+}
+
 export function* rootSaga(): SagaIterator {
   yield takeLatest('SET_ROOM_REVIEW', setReview);
+  yield takeLatest('SET_ROOM_RATING', setRoomRating);
+  yield takeLatest('FINISH_ROOM_RATING', finishRoomRating);
   yield takeLeading(LOAD_ROOMS, loadRooms);
   yield takeLatest(LOAD_ROOM_INFO, loadCurrentRoom);
   yield takeLatest(LOAD_BOOKED_HISTORY, loadRoomsHistory);

@@ -19,8 +19,10 @@ type Action<Z, T> = {
   payload?: T;
 };
 
-export type CommentData = { commentData: Review; roomId: any };
+export type CommentData = { commentData: Review; roomId: number };
 export type SetRoomReview = Action<'SET_ROOM_REVIEW', CommentData>;
+export type SetRoomRating = Action<'SET_ROOM_RATING', RoomRatingRequest>;
+export type FinishRoomRating = Action<'FINISH_ROOM_RATING', null>;
 
 export type SelectedBookedRoom = {
   apartmentId: number;
@@ -29,16 +31,21 @@ export type SelectedBookedRoom = {
   user: string;
 };
 
+export type RoomRatingRequest = { userEmail: string; roomId: number; rating: number };
 export type BookedHistoryList = { current: BookedRoom[]; history: BookedRoom[] };
 export type RoomsRequest = Action<typeof LOAD_ROOMS, Filters>;
 export type PendingStatusUpdate = Action<typeof ROOMS_REQUEST_PENDING, boolean>;
 export type SetRooms = Action<typeof ROOMS_REQUEST_SUCCESS, Apartment[]>;
-export type CurrentRoomRequest = Action<typeof LOAD_ROOM_INFO, number>;
-export type SetRoom = Action<typeof CURRENT_ROOM_REQUEST_SUCCESS, Apartment>;
+export type CurrentRoomRequest = Action<typeof LOAD_ROOM_INFO, { id: number; email: string }>;
+export type SetRoom = Action<typeof CURRENT_ROOM_REQUEST_SUCCESS, Apartment & { userRating }>;
 export type SetFailedStatus = Action<typeof ROOMS_REQUEST_FAILED, Error>;
 export type LoadBookedHistory = Action<typeof LOAD_BOOKED_HISTORY, string>;
 export type UpdateBookedHistory = Action<typeof UPDATE_BOOKED_HISTORY, BookedHistoryList>;
 export type BookCurrentRoom = Action<typeof BOOK_ROOM, SelectedBookedRoom>;
+export type RatingProcessResponse = Action<'RATING_PROCESS_RESPONSE', string>;
+export type StartRatingRoom = Action<'START_RATING_ROOM', null>;
+export type FinishRatingRoom = Action<'FINISH_RATING_ROOM', null>;
+export type SetNewRatingRoom = Action<'SET_NEW_ROOM_RATING', number>;
 
 export type BookingState = {
   isPending: boolean;
@@ -47,6 +54,9 @@ export type BookingState = {
   isRequestSuccessful: boolean;
   error: Error;
   bookedRooms: BookedHistoryList;
+  isRatingProcess: boolean;
+  userRating: number;
+  ratingStatus: string;
 };
 
 export type BookingActions =
@@ -57,4 +67,8 @@ export type BookingActions =
   | SetRoom
   | UpdateBookedHistory
   | LoadBookedHistory
-  | CurrentRoomRequest;
+  | CurrentRoomRequest
+  | RatingProcessResponse
+  | StartRatingRoom
+  | FinishRatingRoom
+  | SetNewRatingRoom;

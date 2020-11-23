@@ -1,6 +1,7 @@
 import { boundMethod } from 'autobind-decorator';
 
-import { CommentData } from 'redux/Apartment/types';
+import { DocumentData } from 'api/Firebase/modules/Database/types';
+import { CommentData, RoomRatingRequest } from 'redux/Booking/types';
 
 import { Database, CollectionReference } from '../Firebase/modules/Database';
 import { Apartment } from './types';
@@ -35,7 +36,17 @@ class Apartments {
   }
 
   @boundMethod
-  public async setRoomReview({ commentData, roomId }: CommentData): Promise<void> {
+  public async loadUserReviews(userEmail: string, roomId: number): Promise<unknown> {
+    const document: DocumentData = await this.actions.getDocument(
+      this.actions.ref().collection('reviews'),
+      userEmail,
+    );
+
+    return document ? document.reviews.filter((review) => review.roomId === roomId)[0] : {};
+  }
+
+  @boundMethod
+  public async setRoomReview({ commentData, roomId }: CommentData): Promise<Apartment> {
     return this.reference
       .doc(String(roomId))
       .get()
@@ -52,7 +63,42 @@ class Apartments {
 
           this.update(roomId, document);
 
-          return document;
+          return this.actions.getDocument(this.reference, String(roomId));
+        }
+
+        return null;
+      });
+  }
+
+  @boundMethod
+  public setRoomRating(data: RoomRatingRequest): void {
+    const { rating, roomId, userEmail } = data;
+
+    this.actions
+      .ref()
+      .collection('reviews')
+      .where('user', '==', userEmail)
+      .get()
+      .then((docs) => {
+        if (!docs.empty) {
+          docs.forEach((doc) => {
+            const docData = doc.data();
+
+            const newReviewsArray =
+              docData.reviews.filter((review) => review.roomId !== roomId) || null;
+
+            newReviewsArray.push({ roomId, userRating: rating });
+
+            docData.reviews = newReviewsArray;
+
+            this.actions.ref().collection('reviews').doc(userEmail).set(docData);
+          });
+        } else {
+          this.actions
+            .ref()
+            .collection('reviews')
+            .doc(userEmail)
+            .set({ user: userEmail, reviews: [{ roomId, userRating: rating }] });
         }
       });
   }

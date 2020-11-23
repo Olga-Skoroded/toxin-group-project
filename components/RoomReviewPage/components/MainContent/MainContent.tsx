@@ -18,6 +18,8 @@ import {
   loadBookedHistoryRooms,
   requestCurrentRoomInfo,
   setRoomReview,
+  setRoomRating,
+  finishRoomRating,
 } from 'redux/Booking/redux/actions';
 import { BookedHistoryList } from 'redux/Booking/types';
 import { AppState } from 'redux/store.types';
@@ -32,6 +34,9 @@ type StateProps = {
   bookedRooms: BookedHistoryList;
   isLoadingData: boolean;
   userEmail: string;
+  userRating: number;
+  isRatingProcess: boolean;
+  ratingStatus: string;
 };
 
 const mapState = (state: AppState): StateProps => ({
@@ -40,6 +45,9 @@ const mapState = (state: AppState): StateProps => ({
   displayedName: state.auth.displayName,
   bookedRooms: state.booking.bookedRooms,
   isLoadingData: state.booking.isPending,
+  isRatingProcess: state.booking.isRatingProcess,
+  userRating: state.booking.userRating,
+  ratingStatus: state.booking.ratingStatus,
   userEmail: state.auth.userEmail,
 });
 
@@ -47,11 +55,11 @@ const mapDispatch = {
   getRoomInfo: requestCurrentRoomInfo,
   getBookedRooms: loadBookedHistoryRooms,
   setComment: setRoomReview,
+  setRating: setRoomRating,
+  finishRatingProcess: finishRoomRating,
 };
 
 type Props = StateProps & typeof mapDispatch;
-
-const handleRatingSubmit = (values) => console.log(values);
 
 const sortDescByLikes = (a: ReviewProps, b: ReviewProps) => b.likesCount - a.likesCount;
 
@@ -60,18 +68,29 @@ const MainContent: React.FC<Props> = ({
   photoURL,
   displayedName,
   bookedRooms,
+  isLoadingData,
+  userRating,
+  isRatingProcess,
+  ratingStatus,
   userEmail,
   getRoomInfo,
   getBookedRooms,
   setComment,
+  setRating,
+  finishRatingProcess,
 }: Props) => {
   const router = useRouter();
   // to do уже есть метод для фильтрации, надо вынести куда-то
   const roomParams = queryString.parse(router.asPath.split('?')[1]);
 
+  const handleRatingSubmit = (values) => {
+    setRating({ userEmail, roomId: Number(roomParams.room), rating: values['room-rating'] });
+    setTimeout(finishRatingProcess, 1500);
+  };
+
   useEffect(() => {
-    getRoomInfo(Number(roomParams.room));
-  }, [getRoomInfo, roomParams.room]);
+    getRoomInfo(Number(roomParams.room), userEmail);
+  }, [getRoomInfo, roomParams.room, userEmail]);
 
   const reviews = currentRoom && [...currentRoom.reviews];
 
@@ -85,7 +104,7 @@ const MainContent: React.FC<Props> = ({
 
   const handleReviewSubmit = (values) => {
     setComment({
-      roomId: roomParams.room,
+      roomId: Number(roomParams.room),
       commentData: {
         date: new Date(),
         text: values['room-review'],
@@ -95,8 +114,7 @@ const MainContent: React.FC<Props> = ({
         userEmail,
       },
     });
-
-    getRoomInfo(Number(roomParams.room));
+    // getRoomInfo(Number(roomParams.room), userEmail);
   };
 
   const passedFormProps = {
@@ -128,11 +146,23 @@ const MainContent: React.FC<Props> = ({
           onSubmit={handleRatingSubmit}
           render={({ handleSubmit }) => (
             <S.RatingWrapper onSubmit={handleSubmit}>
-              <S.Title>Оцените Ваши впечатления от номера:</S.Title>
-              <S.StarRatingWrapper>
-                <StarRating disabled={false} name="room-rating" />
-              </S.StarRatingWrapper>
-              <Button type="submit">Применить</Button>
+              {!isLoadingData && currentRoom ? (
+                <>
+                  <S.Title>Оцените Ваши впечатления от номера:</S.Title>
+                  {isRatingProcess && ratingStatus ? (
+                    <>{ratingStatus}</>
+                  ) : (
+                    <>
+                      <S.StarRatingWrapper>
+                        <StarRating rating={userRating || 0} disabled={false} name="room-rating" />
+                      </S.StarRatingWrapper>
+                      <Button type="submit">{userRating ? 'Изменить оценку' : 'Применить'}</Button>
+                    </>
+                  )}
+                </>
+              ) : (
+                <Preloader label="Загрузка вашей оценки" />
+              )}
             </S.RatingWrapper>
           )}
         />
@@ -173,7 +203,7 @@ const MainContent: React.FC<Props> = ({
                 <S.Title>Оставьте свой отзыв об этом номере:</S.Title>
                 <Textarea name="room-review" required />
                 <S.ButtonWrapper>
-                  <Button>Добавить</Button>
+                  <Button>{currentUserReview.length ? 'Изменить' : 'Добавить'}</Button>
                 </S.ButtonWrapper>
               </S.ReviewsWrapper>
             )}
