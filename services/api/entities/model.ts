@@ -1,5 +1,3 @@
-import { Timestamp } from 'services/api/Firebase/modules/Database/model';
-
 export type AdditionalAmenities = {
   breakfast: boolean;
   desk: boolean;
