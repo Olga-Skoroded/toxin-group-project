@@ -1,3 +1,5 @@
+import { Review } from 'services/api/entities/model';
+
 import { BookingActions, BookingState } from '../model';
 
 const initialState: BookingState = {
