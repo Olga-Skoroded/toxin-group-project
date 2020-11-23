@@ -18,13 +18,25 @@ type Props = {
   roomPrice: number;
   breakfastPricePerGuest: number;
   overcrowdingPrice: number;
-  isAuthSuccess: boolean;
+  initialProps?: {
+    booked: {
+      from: number;
+      to: number;
+    };
+    guests: {
+      adults: number;
+      children: number;
+      babies: number;
+    };
+  };
+  disabled?: boolean;
+  isAuthSuccess?: boolean;
   priceItems?: PriceItem[];
   roomType?: string;
   currency?: string;
   measure?: string;
   userEmail?: string;
-  confirmBookedRoom: (data: SelectedBookedRoom) => void;
+  confirmBookedRoom?: (data: SelectedBookedRoom) => void;
 };
 
 const oneDay = 24 * 60 * 60 * 1000;

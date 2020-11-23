@@ -106,7 +106,7 @@ const MainContent: React.FC<Props> = ({
     setComment({
       roomId: Number(roomParams.room),
       commentData: {
-        date: new Date(),
+        date: new Date() as Date,
         text: values['room-review'],
         likesCount: 0,
         avatarUrl: photoURL,
