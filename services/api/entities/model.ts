@@ -108,3 +108,5 @@ export type SubscriptionData = {
 };
 
 export type BookedRoomsHistory = Record<string, BookedRoom[]>;
+
+export type CommentData = { commentData: Review; roomId: number };

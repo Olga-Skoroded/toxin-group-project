@@ -83,8 +83,6 @@ function* confirmBookedRoom({ api }: Dependencies, { payload }: BookCurrentRoom)
 function* setReview({ api }: Dependencies, data: SetRoomReview) {
   const result: Apartment = yield call(api.apartments.setRoomReview, data.payload);
 
-  console.log('получем результат', result);
-
   yield put({
     type: 'CURRENT_ROOM_REQUEST_SUCCESS',
     payload: result,

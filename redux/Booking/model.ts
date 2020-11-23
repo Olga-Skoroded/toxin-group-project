@@ -1,5 +1,5 @@
 import { Action, ActionPayload } from 'redux/action.model';
-import { Filters, BookedRoom, Apartment, Review } from 'services/api/entities/model';
+import { Filters, BookedRoom, Apartment, CommentData } from 'services/api/entities/model';
 import { RoomProps } from 'shared/view/components/Room/Room.model';
 
 type RoomRatingRequest = { userEmail: string; roomId: number; rating: number };
@@ -36,7 +36,6 @@ type RatingProcessResponse = ActionPayload<'RATING_PROCESS_RESPONSE', string>;
 type StartRatingRoom = Action<'START_RATING_ROOM'>;
 type FinishRatingRoom = Action<'FINISH_RATING_ROOM'>;
 type SetNewRatingRoom = ActionPayload<'SET_NEW_ROOM_RATING', number>;
-type CommentData = { commentData: Review; roomId: number };
 type SetRoomReview = ActionPayload<'SET_ROOM_REVIEW', CommentData>;
 type SetRoomRating = ActionPayload<'SET_ROOM_RATING', RoomRatingRequest>;
 type FinishRoomRating = Action<'FINISH_ROOM_RATING'>;
@@ -79,7 +78,6 @@ export type {
   StartRatingRoom,
   FinishRatingRoom,
   SetNewRatingRoom,
-  CommentData,
   SetRoomReview,
   SetRoomRating,
   FinishRoomRating,

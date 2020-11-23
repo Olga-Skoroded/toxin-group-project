@@ -83,5 +83,5 @@ export {
   requestCurrentRoomInfo,
   setRoomReview,
   setRoomRating,
-  finishRoomRating
+  finishRoomRating,
 };

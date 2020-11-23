@@ -1,10 +1,10 @@
 import { boundMethod } from 'autobind-decorator';
 
-import { CommentData, RoomRatingRequest } from 'redux/Booking/model';
+import { RoomRatingRequest } from 'redux/Booking/model';
 import { DocumentData } from 'services/api/Firebase/modules/Database/model';
 
 import { Database, CollectionReference } from '../Firebase/modules/Database';
-import { Apartment } from './model';
+import { Apartment, CommentData } from './model';
 
 class Apartments {
   private readonly actions: Database;
