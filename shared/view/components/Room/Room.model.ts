@@ -10,4 +10,8 @@ export type RoomProps = {
   measure?: string;
   currency?: string;
   rating?: number;
+  bookedData?: {
+    from: string;
+    to: string;
+  };
 };

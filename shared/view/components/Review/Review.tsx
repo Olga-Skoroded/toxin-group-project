@@ -23,6 +23,7 @@ const Review = memo(({ avatarUrl, userName, date, text, likesCount }: Props) => 
   }));
   const classes = useStyles();
 
+  const userDate = new Date(date);
   const { t } = useTranslation(['translations', 'WordForms']);
 
   const getReviewDate = (unformattedDate: Date): string => {
@@ -74,7 +75,7 @@ const Review = memo(({ avatarUrl, userName, date, text, likesCount }: Props) => 
         <Avatar photoURL={`${avatarUrl}`} className={classes.avatarReviews} />
         <S.AuthorWrapper>
           <S.User>{userName}</S.User>
-          <S.Date dateTime={date.toISOString()}>{getReviewDate(date)}</S.Date>
+          <S.Date dateTime={userDate.toISOString()}>{getReviewDate(userDate)}</S.Date>
         </S.AuthorWrapper>
       </S.Header>
       <S.MessageWrapper>

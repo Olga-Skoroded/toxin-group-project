@@ -4,8 +4,12 @@ const initialState: BookingState = {
   isRequestSuccessful: true,
   isPending: false,
   rooms: [],
+  currentRoom: null,
   error: null,
   bookedRooms: null,
+  isRatingProcess: false,
+  ratingStatus: null,
+  userRating: 0,
 };
 
 const booking = (state: BookingState = initialState, action: BookingActions): BookingState => {
@@ -24,6 +28,42 @@ const booking = (state: BookingState = initialState, action: BookingActions): Bo
         rooms: action.payload.map((room) => ({ ...room, number: room.id })),
         isPending: false,
         isRequestSuccessful: true,
+      };
+    case 'RATING_PROCESS_RESPONSE':
+      return {
+        ...state,
+        ratingStatus: action.payload,
+      };
+    case 'START_RATING_ROOM':
+      return {
+        ...state,
+        isRatingProcess: true,
+      };
+    case 'FINISH_RATING_ROOM':
+      return {
+        ...state,
+        ratingStatus: '',
+        isRatingProcess: false,
+      };
+    case 'SET_NEW_ROOM_RATING':
+      return {
+        ...state,
+        userRating: action.payload,
+      };
+    case 'CURRENT_ROOM_REQUEST_SUCCESS':
+      return {
+        ...state,
+        isPending: false,
+        isRequestSuccessful: true,
+        currentRoom: {
+          ...action.payload,
+          number: action.payload.id,
+          reviews: action.payload.reviews.map((review) => ({
+            ...review,
+            date: review.date.seconds * 1000,
+          })),
+        },
+        userRating: action.payload.userRating,
       };
     case 'ROOMS_REQUEST_FAILED':
       return {

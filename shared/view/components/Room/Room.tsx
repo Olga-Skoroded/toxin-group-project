@@ -11,6 +11,15 @@ import * as S from './Room.styles';
 
 type Props = WithTranslation & RoomProps;
 
+const getDate = (date: string) => {
+  const [day, month, year] = date.split('.');
+  const resultDate = new Date();
+  resultDate.setDate(+day);
+  resultDate.setMonth(+month - 1);
+  resultDate.setFullYear(+year);
+  return resultDate.getTime();
+};
+
 const Room = memo(
   ({
     price,
@@ -21,12 +30,22 @@ const Room = memo(
     measure = 'Per day',
     reviewMeasure = 'Reviews',
     currency,
+    bookedData,
     rating = 5,
     t,
   }: Props) => (
     <S.Room>
       <ImageGallery imagePaths={imagePaths} />
-      <Link href={`/rooms/room-details?room=${number}`} passHref>
+      <Link
+        href={
+          bookedData
+            ? `/profile/room-review?room=${number}&from=${getDate(bookedData.from)}&to=${getDate(
+                bookedData.to,
+              )}`
+            : `/rooms/room-details?room=${number}`
+        }
+        passHref
+      >
         <S.Info>
           <S.Container>
             <S.RoomNumber>

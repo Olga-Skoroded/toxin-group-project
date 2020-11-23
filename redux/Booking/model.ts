@@ -1,7 +1,8 @@
-import { ActionPayload } from 'redux/action.model';
-import { Filters, BookedRoom, Apartment } from 'services/api/entities/model';
+import { Action, ActionPayload } from 'redux/action.model';
+import { Filters, BookedRoom, Apartment, Review } from 'services/api/entities/model';
 import { RoomProps } from 'shared/view/components/Room/Room.model';
 
+type RoomRatingRequest = { userEmail: string; roomId: number; rating: number };
 type BookedHistoryList = { current: BookedRoom[]; history: BookedRoom[] };
 
 type BookingState = {
@@ -10,6 +11,10 @@ type BookingState = {
   isRequestSuccessful: boolean;
   error: Error;
   bookedRooms: BookedHistoryList;
+  currentRoom: RoomProps;
+  isRatingProcess: boolean;
+  userRating: number;
+  ratingStatus: string;
 };
 
 type SelectedBookedRoom = {
@@ -27,6 +32,16 @@ type SetFailedStatus = ActionPayload<'ROOMS_REQUEST_FAILED', Error>;
 
 type LoadBookedHistory = ActionPayload<'LOAD_BOOKED_HISTORY', string>;
 type UpdateBookedHistory = ActionPayload<'UPDATE_BOOKED_HISTORY', BookedHistoryList>;
+type RatingProcessResponse = ActionPayload<'RATING_PROCESS_RESPONSE', string>;
+type StartRatingRoom = Action<'START_RATING_ROOM'>;
+type FinishRatingRoom = Action<'FINISH_RATING_ROOM'>;
+type SetNewRatingRoom = ActionPayload<'SET_NEW_ROOM_RATING', number>;
+type CommentData = { commentData: Review; roomId: number };
+type SetRoomReview = ActionPayload<'SET_ROOM_REVIEW', CommentData>;
+type SetRoomRating = ActionPayload<'SET_ROOM_RATING', RoomRatingRequest>;
+type FinishRoomRating = Action<'FINISH_ROOM_RATING'>;
+type CurrentRoomRequest = ActionPayload<'LOAD_ROOM_INFO', { id: number; email: string }>;
+type SetRoom = ActionPayload<'CURRENT_ROOM_REQUEST_SUCCESS', Apartment & { userRating }>;
 
 type BookCurrentRoom = ActionPayload<'BOOK_ROOM', SelectedBookedRoom>;
 
@@ -35,10 +50,20 @@ type BookingActions =
   | SetRooms
   | SetFailedStatus
   | RoomsRequest
+  | SetRoom
   | UpdateBookedHistory
-  | LoadBookedHistory;
+  | LoadBookedHistory
+  | LoadBookedHistory
+  | CurrentRoomRequest
+  | RatingProcessResponse
+  | StartRatingRoom
+  | FinishRatingRoom
+  | SetNewRatingRoom;
 
 export type {
+  CurrentRoomRequest,
+  SetRoom,
+  RoomRatingRequest,
   SelectedBookedRoom,
   BookedHistoryList,
   RoomsRequest,
@@ -50,4 +75,12 @@ export type {
   BookCurrentRoom,
   BookingState,
   BookingActions,
+  RatingProcessResponse,
+  StartRatingRoom,
+  FinishRatingRoom,
+  SetNewRatingRoom,
+  CommentData,
+  SetRoomReview,
+  SetRoomRating,
+  FinishRoomRating,
 };
