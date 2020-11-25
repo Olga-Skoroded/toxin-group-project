@@ -150,7 +150,9 @@ const OrderForm = memo(
         <Form
           onSubmit={handleFormSubmit}
           render={({ handleSubmit, values }) => {
-            const dates: { from: number; to: number } = initialProps.booked;
+            const dates: { from: number; to: number } = initialProps
+              ? initialProps.booked
+              : values.booked;
             const daysDifference = (dates && getDaysDifference(dates)) || 0;
             const guests: {
               adults: number;
@@ -198,7 +200,6 @@ const OrderForm = memo(
                   </S.Price>
                 </S.RoomInfo>
                 <S.Datepicker>
-                  {console.log('initialProps', initialProps)}
                   <TimePicker
                     type="double"
                     dateFromLabelText={t('SearchRoomForm:Arrival')}

@@ -1,3 +1,4 @@
+import { Timestamp } from '../../../services/api/Firebase/modules/Database/model';
 import { ApartmentState, ApartmentActions } from '../model';
 
 const initialState: ApartmentState = {
@@ -22,10 +23,14 @@ const apartment = (
         isGetRoomDetailsPending: false,
         roomDetails: {
           ...actions.payload,
-          reviews: actions.payload.reviews.map((review) => ({
-            ...review,
-            date: review.date,
-          })),
+          reviews: actions.payload.reviews.map((review) => {
+            const reviewDate = <Timestamp>review.date;
+
+            return {
+              ...review,
+              date: reviewDate.toDate(),
+            };
+          }),
         },
       };
     case 'GET_ROOM_DETAILS_FAILED':
