@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { breakpointDown } from 'shared/styles/break-points';
 import { container, titles } from 'shared/styles/mixins';
 
-const MainContent = styled.main`
+const MainContent = styled.div`
   ${container};
   padding: 5rem;
 
