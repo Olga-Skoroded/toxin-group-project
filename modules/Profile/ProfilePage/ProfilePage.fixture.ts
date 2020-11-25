@@ -1,10 +1,4 @@
-type CardsData = {
-  title: string;
-  description: string;
-  href: string;
-};
-
-const cardsData: CardsData[] = [
+const cardsData = [
   {
     title: 'Personal info',
     description: 'Provide personal details and how we can reach you',
