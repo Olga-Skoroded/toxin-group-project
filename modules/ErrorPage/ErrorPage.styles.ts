@@ -1,18 +1,24 @@
 import styled from 'styled-components';
 
+import { container, titles } from 'shared/styles/mixins';
+
 const Container = styled.div`
+  ${container}
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 3.5714rem;
+  margin-bottom: 3.5714rem;
   flex: 1 0 auto;
 `;
 
-const Title = styled.h2`
+const Title = styled.h1`
+  ${titles.h1}
   margin-bottom: 2.8571rem;
 `;
 
 const Description = styled.p`
+  text-align: center;
   margin-bottom: 1.4286rem;
 `;
 
