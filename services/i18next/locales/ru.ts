@@ -334,6 +334,7 @@ export const ru = {
       'Похоже, мы не можем найти нужную вам страницу.',
     'Back to Home': 'Вернуться на главную',
     Error: 'Код ошибки',
+    'Page not found': 'Страница не найдена',
   },
   PersonalInfoPage: {
     'Personal Information': 'Персональная информация',
