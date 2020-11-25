@@ -22,6 +22,7 @@ const Title = styled.h1`
 const Map = styled.iframe`
   width: 100%;
   min-height: 50rem;
+  margin-bottom: 3.5715rem;
   border: none;
 
   @media ${breakpointDown('xs')} {
@@ -33,4 +34,35 @@ const Address = styled.address`
   margin-bottom: 2rem;
 `;
 
-export { MainContent, Navigation, Title, Map, Address };
+const TaxiContainer = styled.div``;
+
+const TaxiList = styled.ul`
+  display: flex;
+  gap: 3.5715rem;
+  list-style: none;
+`;
+
+const TaxiTitle = styled.h2`
+  ${titles.h2};
+  margin-bottom: 1.7857rem;
+`;
+
+const Taxi = styled.h3`
+  ${titles.h3};
+  margin-bottom: 1.4286rem;
+`;
+
+const TaxiOption = styled.li``;
+
+export {
+  MainContent,
+  Navigation,
+  Title,
+  Map,
+  Address,
+  TaxiContainer,
+  TaxiList,
+  Taxi,
+  TaxiOption,
+  TaxiTitle,
+};

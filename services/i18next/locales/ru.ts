@@ -417,5 +417,11 @@ export const ru = {
     'How to find us': 'Как нас найти',
     'Krasnoarmeyskaya Ulitsa, 147, Tomsk, Tomsk Oblast, Russia, 634045':
       'Красноармейская ул., 147, Томск, Томская обл., Россия, 634045',
+    'Taxi to the airport': 'Такси в аэропорт',
+    'Taxi to the hotel': 'Такси в отель',
+    Taxi: 'Такси',
+    Transfer: 'Трансфер',
+    'You will get a discount if you get a taxi via the following widgets':
+      'Вы получите скидку на такси, вызвав его через наши виджеты',
   },
 };
