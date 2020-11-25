@@ -22,6 +22,7 @@ const Dropdown = memo(
     placeholder = 'No placeholder passed',
     items = [{ title: 'No items passed' }],
     enableControls = true,
+    disabled = false,
   }: DropdownProps) => {
     const initialState = items.map((item) => {
       const group =
@@ -79,9 +80,9 @@ const Dropdown = memo(
       [placeholder, groups, t],
     );
 
-    const handleResultBarClick = (): void => {
-      setIsOpen((open) => !open);
-    };
+    const handleResultBarClick = useCallback((): void => {
+      if (!disabled) setIsOpen((open) => !open);
+    }, [disabled]);
 
     const handleDocumentClick = useCallback(
       (event: globalThis.MouseEvent) => {
@@ -89,7 +90,7 @@ const Dropdown = memo(
           handleResultBarClick();
         }
       },
-      [dropdown, isOpen],
+      [handleResultBarClick, isOpen],
     );
 
     useEffect(() => {

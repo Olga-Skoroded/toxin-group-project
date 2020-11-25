@@ -25,7 +25,7 @@ const Room = memo(
     t,
   }: Props) => (
     <S.Room>
-      <ImageGallery imagePaths={imagePaths} />
+      <ImageGallery images={imagePaths} />
       <Link href={`/rooms/room-details?room=${number}`} passHref>
         <S.Info>
           <S.Container>

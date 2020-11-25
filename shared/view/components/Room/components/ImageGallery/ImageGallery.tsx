@@ -1,16 +1,27 @@
-import { memo, useState } from 'react';
+import { memo, useState, MouseEvent } from 'react';
+import { useTranslation } from 'react-i18next';
+import Lightbox from 'react-image-lightbox';
 
 import { DotButton } from '../DotButton/DotButton';
-import { GalleryProps } from './ImageGallery.model';
 import * as S from './ImageGallery.styles';
+
+type Props = {
+  images: string[];
+  thumbnails?: string[];
+};
 
 const defaultState = [false, false, false, false];
 
 const ImageGallery = memo(
-  ({ imagePaths = ['/img/1.jpg', '/img/2.jpg', '/img/3.jpg', '/img/4.jpg'] }: GalleryProps) => {
+  ({
+    images = ['/img/1.jpg', '/img/2.jpg', '/img/3.jpg', '/img/4.jpg'],
+    thumbnails = images,
+  }: Props) => {
     const [imageStates, setImageStates] = useState([true, false, false, false]);
+    const [isOpen, setOpen] = useState(false);
+    const [currentImage, setCurrentImage] = useState(0);
 
-    const handleDotClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleDotClick = (e: MouseEvent<HTMLButtonElement>) => {
       const { index } = e.currentTarget.dataset;
       const state = [...defaultState];
       state[index] = true;
@@ -32,14 +43,50 @@ const ImageGallery = memo(
     const handleArrowPrevClick = makeArrowClickHandler(-1);
     const handleArrowNextClick = makeArrowClickHandler(1);
 
+    const handleImageClick = (index: number) => {
+      setCurrentImage(index);
+      setOpen(true);
+    };
+
+    const { t } = useTranslation('ImageGallery');
+
     return (
       <S.Container>
         <S.ArrowPrevContainer>
-          <S.ArrowButtonPrev aria-label="Назад" onClick={handleArrowPrevClick} />
+          <S.ArrowButtonPrev aria-label={t('Previous image')} onClick={handleArrowPrevClick} />
         </S.ArrowPrevContainer>
-        {imagePaths.map((path, index) => (
-          <S.Img key={String(index)} src={path} isShown={imageStates[index]} alt="Фото номера" />
+        {thumbnails.map((path, index) => (
+          <S.Img
+            key={path}
+            src={path}
+            isShown={imageStates[index]}
+            alt="Фото номера"
+            onClick={() => {
+              handleImageClick(index);
+            }}
+          />
         ))}
+        {isOpen && (
+          <Lightbox
+            mainSrc={images[currentImage]}
+            nextSrc={images[(currentImage + 1) % images.length]}
+            prevSrc={images[(currentImage + images.length - 1) % images.length]}
+            onCloseRequest={() => setOpen(false)}
+            onMovePrevRequest={() => {
+              setCurrentImage((currentImage + images.length - 1) % images.length);
+              handleArrowPrevClick();
+            }}
+            onMoveNextRequest={() => {
+              setCurrentImage((currentImage + 1) % images.length);
+              handleArrowNextClick();
+            }}
+            prevLabel={t('Previous image')}
+            nextLabel={t('Next image')}
+            zoomInLabel={t('Zoom in')}
+            zoomOutLabel={t('Zoom out')}
+            closeLabel={t('Close')}
+          />
+        )}
         <S.Dots>
           {imageStates.map((el, index) => (
             <S.Dot key={String(index)}>
@@ -54,7 +101,7 @@ const ImageGallery = memo(
           ))}
         </S.Dots>
         <S.ArrowNextContainer>
-          <S.ArrowButtonNext aria-label="Вперед" onClick={handleArrowNextClick} />
+          <S.ArrowButtonNext aria-label={t('Next image')} onClick={handleArrowNextClick} />
         </S.ArrowNextContainer>
       </S.Container>
     );

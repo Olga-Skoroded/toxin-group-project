@@ -5,7 +5,13 @@ import { takeLatestAction, takeLeadingAction } from 'redux/action.model';
 import { Dependencies } from 'redux/api.model';
 import { Apartment, BookingData } from 'services/api/entities/model';
 
-import { RoomsRequest, BookedHistoryList, LoadBookedHistory, BookCurrentRoom } from '../../model';
+import {
+  RoomsRequest,
+  BookedHistoryList,
+  LoadBookedHistory,
+  Booking,
+  CancelBooking,
+} from '../../model';
 import {
   pendingStatusUpdate,
   setRooms,
@@ -13,6 +19,8 @@ import {
   updateBookedHistory,
   bookingSuccess,
   bookingFailed,
+  cancelBookingSuccess,
+  cancelBookingFailed,
 } from '../actions';
 
 function* loadRooms({ api }: Dependencies, { payload }: RoomsRequest) {
@@ -35,12 +43,13 @@ function* loadRoomsHistory({ api }: Dependencies, { payload }: LoadBookedHistory
   yield put(updateBookedHistory(bookedHistoryList));
 }
 
-function* confirmBookedRoom({ api }: Dependencies, { payload }: BookCurrentRoom) {
+function* bookRoom({ api }: Dependencies, { payload }: Booking) {
   const { apartmentId, booked, guests, user } = payload;
   try {
     if (!booked || !booked.to || !booked.from) throw new Error('Please select a booking date');
-    if (!guests || (!guests.adults && !guests.children && !guests.babies))
+    if (!guests || (!guests.adults && !guests.children && !guests.babies)) {
       throw new Error('Please indicate the number of guests');
+    }
 
     const data: BookingData = {
       apartmentId,
@@ -57,10 +66,30 @@ function* confirmBookedRoom({ api }: Dependencies, { payload }: BookCurrentRoom)
   }
 }
 
+function* cancelBooking({ api }: Dependencies, { payload }: CancelBooking) {
+  const { apartmentId, booked, user } = payload;
+  try {
+    if (!apartmentId || booked || user) throw new Error('Failed to cancel booking');
+
+    const data = {
+      apartmentId,
+      from: booked.from,
+      to: booked.to,
+      reservationBy: user,
+    };
+
+    yield call(api.booking.cancelBooking, data);
+    yield put(cancelBookingSuccess());
+  } catch ({ message }) {
+    yield put(cancelBookingFailed(message));
+  }
+}
+
 function* rootSaga(deps: Dependencies): SagaIterator {
   yield takeLeadingAction<RoomsRequest['type']>('LOAD_ROOMS', loadRooms, deps);
   yield takeLatestAction<LoadBookedHistory['type']>('LOAD_BOOKED_HISTORY', loadRoomsHistory, deps);
-  yield takeLatestAction<BookCurrentRoom['type']>('BOOK_ROOM', confirmBookedRoom, deps);
+  yield takeLeadingAction<Booking['type']>('BOOKING', bookRoom, deps);
+  yield takeLeadingAction<CancelBooking['type']>('CANCEL_BOOKING', cancelBooking, deps);
 }
 
 export { rootSaga };

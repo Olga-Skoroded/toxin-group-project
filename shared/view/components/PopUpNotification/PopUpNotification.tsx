@@ -7,20 +7,27 @@ import * as S from './PopUpNotification.styles';
 
 type Props = {
   message: string;
+  typeConfirmButton?: 'button' | 'submit';
   withCancelButton?: boolean;
-  onConfirmButtonClick: () => void;
+  onConfirmButtonClick?: () => void;
   onCancelButtonClick?: () => void;
 };
 
 const PopUpNotification = memo(
-  ({ message, onConfirmButtonClick, withCancelButton, onCancelButtonClick }: Props) => {
-    const { t } = useTranslation('shared');
+  ({
+    message,
+    typeConfirmButton = 'button',
+    withCancelButton,
+    onConfirmButtonClick,
+    onCancelButtonClick,
+  }: Props) => {
+    const { t } = useTranslation('Shared');
 
     return (
       <S.PopUpNotification>
         <S.Message>{message}</S.Message>
         <S.Buttons withCancelButton={withCancelButton}>
-          <TextButton type="button" onClick={onConfirmButtonClick}>
+          <TextButton type={typeConfirmButton} onClick={onConfirmButtonClick}>
             {t('Ok')}
           </TextButton>
           {withCancelButton && (

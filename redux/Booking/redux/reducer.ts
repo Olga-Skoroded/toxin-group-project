@@ -10,6 +10,10 @@ const initialState: BookingState = {
   isBookingSuccess: false,
   isBookingFailed: false,
   bookingStatusText: '',
+  isCancelBookingPending: false,
+  isCancelBookingSuccess: false,
+  isCancelBookingFailed: false,
+  cancelBookingStatusText: '',
 };
 
 const booking = (state: BookingState = initialState, action: BookingActions): BookingState => {
@@ -47,7 +51,7 @@ const booking = (state: BookingState = initialState, action: BookingActions): Bo
         isPending: false,
         bookedRooms: { ...action.payload },
       };
-    case 'BOOK_ROOM': {
+    case 'BOOKING': {
       return {
         ...state,
         isBookingPending: true,
@@ -74,13 +78,49 @@ const booking = (state: BookingState = initialState, action: BookingActions): Bo
         bookingStatusText: action.payload,
       };
     }
-    case 'BOOKING_CANCELED': {
+    case 'BOOKING_COMPLETED': {
       return {
         ...state,
         isBookingPending: false,
         isBookingSuccess: false,
         isBookingFailed: false,
         bookingStatusText: '',
+      };
+    }
+    case 'CANCEL_BOOKING': {
+      return {
+        ...state,
+        isCancelBookingPending: true,
+        isCancelBookingSuccess: false,
+        isCancelBookingFailed: false,
+        cancelBookingStatusText: '',
+      };
+    }
+    case 'CANCEL_BOOKING_SUCCESS': {
+      return {
+        ...state,
+        isCancelBookingPending: false,
+        isCancelBookingSuccess: true,
+        isCancelBookingFailed: false,
+        cancelBookingStatusText: '',
+      };
+    }
+    case 'CANCEL_BOOKING_FAILED': {
+      return {
+        ...state,
+        isCancelBookingPending: false,
+        isCancelBookingSuccess: false,
+        isCancelBookingFailed: true,
+        cancelBookingStatusText: '',
+      };
+    }
+    case 'CANCEL_BOOKING_COMPLETED': {
+      return {
+        ...state,
+        isCancelBookingPending: false,
+        isCancelBookingSuccess: false,
+        isCancelBookingFailed: false,
+        cancelBookingStatusText: '',
       };
     }
     default:

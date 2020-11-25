@@ -189,7 +189,13 @@ export const ru = {
   translations: {
     Ago: 'Назад',
   },
-
+  ImageGallery: {
+    'Previous image': 'Предыдущее изображение',
+    'Next image': 'Следующее изображение',
+    'Zoom in': 'Увеличить',
+    'Zoom out': 'Уменьшить',
+    Close: 'Закрыть',
+  },
   AccountEntry: {
     'Sign In with account google': 'Вход через аккаунт google',
     'No Toxin account?': 'Нет аккаунта на Toxin?',
@@ -208,10 +214,16 @@ export const ru = {
     'Service fee discount': 'Сбор за услуги: скидка',
     'Additional service fee': 'Сбор за дополнительные услуги',
     'Book now': 'Забронировать',
+    'Сancel booking': 'Отменить бронирование',
     'Fee for guests from the second': 'Плата за гостей со второго',
     'Payment for an additional guest': 'Оплата дополнительного гостя',
     'Please select a booking date': 'Пожалуйста, выберите дату бронирования',
     'Please indicate the number of guests': 'Пожалуйста, укажите количество гостей',
+    'Failed to book a room': 'Не удалось забронировать номер',
+    'Failed to cancel booking': 'Не удалось отменить бронирование',
+    'Are you sure you want to book this room?': 'Вы действительно хотите забронировать этот номер?',
+    'Are you sure you want to cancel this room reservation?':
+      'Вы действительно хотите отменить бронь этого номера?',
   },
   SearchRoomForm: {
     'We will find rooms according to your wishes': 'Найдём номера под ваши пожелания',

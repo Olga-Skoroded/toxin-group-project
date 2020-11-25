@@ -10,15 +10,16 @@ const Img = styled.img<ImageProps>`
     const { isShown } = props;
     return css`
       position: absolute;
-      opacity: 0;
+      display: none;
       transition: 0.5s;
       height: 100%;
       user-select: none;
+      cursor: zoom-in;
 
       ${isShown &&
       css`
-        opacity: 1;
-      `}
+        display: inline;
+      `};
     `;
   }}
 `;
@@ -94,13 +95,13 @@ const ArrowButton = styled.button`
 
 const ArrowButtonNext = styled(ArrowButton)`
   &::before {
-    content: 'keyboard_arrow_right';
+    content: 'navigate_next';
   }
 `;
 
 const ArrowButtonPrev = styled(ArrowButton)`
   &::before {
-    content: 'keyboard_arrow_left';
+    content: 'navigate_before';
   }
 `;
 
