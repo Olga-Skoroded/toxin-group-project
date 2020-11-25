@@ -414,6 +414,9 @@ export const ru = {
     'An error occured, please try again later': 'Произошла ошибка, повторите попытку позже',
   },
   AboutUsPage: {
+    'About Us': 'О нас',
+    'Here you will find information about us': 'Здесь вы найдете информацию о нас',
+    'hotel, room, about us, address, map': 'отель, номер, о нас, адрес, карта',
     'How to find us': 'Как нас найти',
     'Krasnoarmeyskaya Ulitsa, 147, Tomsk, Tomsk Oblast, Russia, 634045':
       'Красноармейская ул., 147, Томск, Томская обл., Россия, 634045',
