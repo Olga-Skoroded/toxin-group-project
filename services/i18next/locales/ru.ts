@@ -329,6 +329,12 @@ export const ru = {
     'View all rooms that have been booked by you':
       'Просмотрите все номера которые были забронированы вами',
   },
+  ErrorPage: {
+    "We can't seem to find the page you're looking for.":
+      'Похоже, мы не можем найти нужную вам страницу.',
+    'Back to Home': 'Вернуться на главную',
+    Error: 'Код ошибки',
+  },
   PersonalInfoPage: {
     'Personal Information': 'Персональная информация',
     'All information about you that is in our system is collected here':
