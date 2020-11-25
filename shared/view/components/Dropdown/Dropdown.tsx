@@ -22,6 +22,7 @@ const Dropdown = memo(
     placeholder = 'No placeholder passed',
     items = [{ title: 'No items passed' }],
     enableControls = true,
+    disabled = false,
   }: DropdownProps) => {
     const initialState = items.map((item) => {
       const group =
@@ -141,7 +142,11 @@ const Dropdown = memo(
           };
           return (
             <S.Dropdown ref={dropdown}>
-              <S.Result isOpen={isOpen} onClick={handleResultBarClick} type="button">
+              <S.Result
+                isOpen={isOpen}
+                onClick={disabled ? undefined : handleResultBarClick}
+                type="button"
+              >
                 {resultString}
               </S.Result>
               <S.ListContainer isOpen={isOpen}>

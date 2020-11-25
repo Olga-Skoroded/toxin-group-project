@@ -12,10 +12,20 @@ import {
   SetRoomReview,
   SetRoomRating,
   FinishRoomRating,
+  RoomData,
 } from 'redux/Booking/model';
-import { Apartment, BookingData } from 'services/api/entities/model';
+import { Apartment, BookingData, RoomRatingData } from 'services/api/entities/model';
 
-import { pendingStatusUpdate, setFailedStatus, setRooms, updateBookedHistory } from '../actions';
+import {
+  pendingStatusUpdate,
+  setFailedStatus,
+  setRooms,
+  updateBookedHistory,
+  successRoomRequest,
+  startRatingRoom,
+  setNewRoomRating,
+  responseRatingProcess,
+} from '../actions';
 
 function* loadRooms({ api }: Dependencies, { payload }: RoomsRequest) {
   try {
@@ -36,30 +46,22 @@ function* loadCurrentRoom(
   action: CurrentRoomRequest,
 ): Generator | Generator<PutEffect<CurrentRoomRequest>, void, never> {
   try {
-    yield put({
-      type: 'ROOMS_REQUEST_PENDING',
-      payload: true,
-    });
+    yield put(pendingStatusUpdate(true));
     const { id, email } = action.payload;
-    const currentRoom: Apartment[] & { id: number } = yield call(api.apartments.load, id);
+    const currentRoom: RoomData = yield call(api.apartments.load, id);
     if (email) {
-      const reviewsData = yield call(api.apartments.loadUserReviews, email, Number(currentRoom.id));
+      const reviewsData: RoomRatingData = yield call(
+        api.apartments.loadUserReviews,
+        email,
+        Number(currentRoom.id),
+      );
 
-      yield put({
-        type: 'CURRENT_ROOM_REQUEST_SUCCESS',
-        payload: Object.assign(currentRoom, reviewsData),
-      });
+      yield put(successRoomRequest(Object.assign(currentRoom, reviewsData)));
     } else throw new Error('Auth failed!');
   } catch (error) {
-    yield put({
-      type: 'ROOMS_REQUEST_FAILED',
-      payload: error,
-    });
+    yield put(setFailedStatus(error));
   } finally {
-    yield put({
-      type: 'ROOMS_REQUEST_PENDING',
-      payload: false,
-    });
+    yield put(pendingStatusUpdate(false));
   }
 }
 function* loadRoomsHistory({ api }: Dependencies, { payload }: LoadBookedHistory) {
@@ -81,36 +83,22 @@ function* confirmBookedRoom({ api }: Dependencies, { payload }: BookCurrentRoom)
 }
 
 function* setReview({ api }: Dependencies, data: SetRoomReview) {
-  const result: Apartment = yield call(api.apartments.setRoomReview, data.payload);
+  const result: RoomData = yield call(api.apartments.setRoomReview, data.payload);
 
-  yield put({
-    type: 'CURRENT_ROOM_REQUEST_SUCCESS',
-    payload: result,
-  });
+  yield put(successRoomRequest(result));
 }
 
 function* setRoomRating({ api }: Dependencies, data: SetRoomRating) {
-  yield put({
-    type: 'START_RATING_ROOM',
-  });
+  yield put(startRatingRoom());
 
   try {
     yield call(api.apartments.setRoomRating, data.payload);
 
-    yield put({
-      type: 'SET_NEW_ROOM_RATING',
-      payload: data.payload.rating,
-    });
+    yield put(setNewRoomRating(data.payload.rating));
 
-    yield put({
-      type: 'RATING_PROCESS_RESPONSE',
-      payload: 'Спасибо, ваше мнение учтено!',
-    });
+    yield put(responseRatingProcess('Спасибо, ваше мнение учтено!'));
   } catch (error) {
-    yield put({
-      type: 'RATING_PROCESS_RESPONSE',
-      payload: 'При изменении вашей оценки произошла ошибка!',
-    });
+    yield put(responseRatingProcess('При изменении вашей оценки произошла ошибка!'));
   }
 }
 

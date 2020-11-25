@@ -24,9 +24,9 @@ type Props = {
       to: number;
     };
     guests: {
-      adults: number;
-      children: number;
-      babies: number;
+      Adults: number;
+      Children: number;
+      Babies: number;
     };
   };
   disabled?: boolean;
@@ -98,9 +98,11 @@ const OrderForm = memo(
     priceItems,
     overcrowdingPrice,
     breakfastPricePerGuest,
-    isAuthSuccess,
+    initialProps,
+    disabled = false,
     currency = 'RUB',
     measure = 'Per day',
+    isAuthSuccess,
     userEmail,
     confirmBookedRoom,
   }: Props) => {
@@ -135,13 +137,20 @@ const OrderForm = memo(
       return router.push('/profile/selected-rooms');
     };
 
+    const initialDropdownValues = initialProps && {
+      items: dropdownOptions.items.map((item) => ({
+        ...item,
+        initialValue: initialProps.guests[item.inputName],
+      })),
+    };
+
     return (
       <S.Container>
         <S.Title>{`${t('Room reservation')}#${roomNumber}`}</S.Title>
         <Form
           onSubmit={handleFormSubmit}
           render={({ handleSubmit, values }) => {
-            const dates: { from: number; to: number } = values.booked;
+            const dates: { from: number; to: number } = initialProps.booked;
             const daysDifference = (dates && getDaysDifference(dates)) || 0;
             const guests: {
               adults: number;
@@ -189,16 +198,23 @@ const OrderForm = memo(
                   </S.Price>
                 </S.RoomInfo>
                 <S.Datepicker>
+                  {console.log('initialProps', initialProps)}
                   <TimePicker
                     type="double"
                     dateFromLabelText={t('SearchRoomForm:Arrival')}
                     dateToLabelText={t('SearchRoomForm:Departure')}
                     name="booked"
+                    disabled={disabled}
+                    dateFrom={initialProps && new Date(initialProps.booked.from)}
+                    dateTo={initialProps && new Date(initialProps.booked.to)}
                   />
                 </S.Datepicker>
                 <S.Dropdown>
                   <S.DropdownLabel>{t('RoomFilter:Guests')}</S.DropdownLabel>
-                  <Dropdown {...dropdownOptions} />
+                  <Dropdown
+                    {...{ ...dropdownOptions, ...initialDropdownValues }}
+                    disabled={disabled}
+                  />
                 </S.Dropdown>
                 <S.PriceList>
                   <PriceList items={prices} />
@@ -218,7 +234,7 @@ const OrderForm = memo(
                     {formatNumber(getResultPrice(prices), currency)}
                   </S.ResultPrice>
                 </S.ResultWrapper>
-                <ArrowButton type="submit">{t('OrderForm:Book now')}</ArrowButton>
+                {!disabled && <ArrowButton type="submit">{t('OrderForm:Book now')}</ArrowButton>}
               </form>
             );
           }}

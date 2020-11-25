@@ -23,4 +23,5 @@ export type DropdownProps = {
   name: string;
   groups?: Group[];
   enableControls?: boolean;
+  disabled?: boolean;
 };

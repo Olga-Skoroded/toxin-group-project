@@ -9,6 +9,7 @@ import * as S from './TimePicker.styles';
 
 type Props = {
   name: string;
+  disabled?: boolean;
   dateFrom?: Date;
   dateTo?: Date;
   dateFromLabelText?: string;
@@ -17,7 +18,15 @@ type Props = {
 } & S.ContainerElement;
 
 const TimePicker = memo(
-  ({ type, dateFrom, dateTo, name, dateFromLabelText, dateToLabelText }: Props) => {
+  ({
+    type,
+    dateFrom,
+    dateTo,
+    name,
+    dateFromLabelText,
+    dateToLabelText,
+    disabled = false,
+  }: Props) => {
     const [isCalendarVisible, setCalendarVisibility] = useState(false);
     const [selectedDateRange, setSelectedDateRange] = useState({ from: dateFrom, to: dateTo });
     const { t, i18n } = useTranslation(['TimePicker', 'Shared']);
@@ -69,7 +78,7 @@ const TimePicker = memo(
             };
             return (
               <>
-                <S.ContainerElement type={type} onClick={openCalendar}>
+                <S.ContainerElement type={type} onClick={disabled ? undefined : openCalendar}>
                   <Input
                     value={from ? getDateFrom() : getMaskedDate()}
                     label={dateFromLabelText}
@@ -79,9 +88,9 @@ const TimePicker = memo(
                   <S.ExpandIcon />
                 </S.ContainerElement>
                 {type === 'double' && (
-                  <S.ContainerElement onClick={openCalendar}>
+                  <S.ContainerElement onClick={disabled ? undefined : openCalendar}>
                     <Input
-                      value={to ? to.toLocaleDateString(i18n.language) : getMaskedDate()}
+                      value={to ? to.toLocaleDateString('ru-RU') : getMaskedDate()}
                       label={dateToLabelText}
                       placeholder="date to"
                       readOnly

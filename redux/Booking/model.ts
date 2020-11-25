@@ -29,6 +29,8 @@ type SelectedBookedRoom = {
   user: string;
 };
 
+type RoomData = Apartment & { id: number; userRating: number } & RoomRatingData;
+
 type RoomsRequest = ActionPayload<'LOAD_ROOMS', Filters>;
 
 type PendingStatusUpdate = ActionPayload<'ROOMS_REQUEST_PENDING', boolean>;
@@ -45,7 +47,7 @@ type SetRoomReview = ActionPayload<'SET_ROOM_REVIEW', CommentData>;
 type SetRoomRating = ActionPayload<'SET_ROOM_RATING', RoomRatingData>;
 type FinishRoomRating = Action<'FINISH_ROOM_RATING'>;
 type CurrentRoomRequest = ActionPayload<'LOAD_ROOM_INFO', { id: number; email: string }>;
-type SetRoom = ActionPayload<'CURRENT_ROOM_REQUEST_SUCCESS', Apartment & { userRating }>;
+type SetRoom = ActionPayload<'CURRENT_ROOM_REQUEST_SUCCESS', RoomData>;
 
 type BookCurrentRoom = ActionPayload<'BOOK_ROOM', SelectedBookedRoom>;
 
@@ -85,4 +87,5 @@ export type {
   SetRoomReview,
   SetRoomRating,
   FinishRoomRating,
+  RoomData,
 };

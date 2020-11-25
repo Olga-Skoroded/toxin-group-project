@@ -1,4 +1,4 @@
-import { FormEvent, TextareaHTMLAttributes } from 'react';
+import { FormEvent, TextareaHTMLAttributes, memo } from 'react';
 import { Field } from 'react-final-form';
 
 import * as S from './TextArea.styles';
@@ -13,15 +13,17 @@ const handleTextChange = (e: FormEvent<HTMLTextAreaElement>) => {
   target.style.height = `${target.scrollHeight}px`;
 };
 
-const Textarea: React.FC<Props> = ({ name, placeholder = defaultPlaceholder, ...rest }: Props) => {
-  return (
-    <Field
-      name={name}
-      render={({ input }) => (
-        <S.Textarea {...rest} {...input} onInput={handleTextChange} placeholder={placeholder} />
-      )}
-    />
-  );
-};
+const Textarea: React.FC<Props> = memo(
+  ({ name, placeholder = defaultPlaceholder, ...rest }: Props) => {
+    return (
+      <Field
+        name={name}
+        render={({ input }) => (
+          <S.Textarea {...rest} {...input} onInput={handleTextChange} placeholder={placeholder} />
+        )}
+      />
+    );
+  },
+);
 
 export { Textarea };
