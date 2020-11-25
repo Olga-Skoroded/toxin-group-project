@@ -401,4 +401,9 @@ export const ru = {
       'Вы успешно подписаны на рассылку спецпредложений',
     'An error occured, please try again later': 'Произошла ошибка, повторите попытку позже',
   },
+  AboutUsPage: {
+    'How to find us': 'Как нас найти',
+    'Krasnoarmeyskaya Ulitsa, 147, Tomsk, Tomsk Oblast, Russia, 634045':
+      'Красноармейская ул., 147, Томск, Томская обл., Россия, 634045',
+  },
 };
