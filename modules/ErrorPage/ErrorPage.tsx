@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { MainLayout } from 'features/shared/MainLayout/MainLayout';
@@ -6,7 +7,7 @@ import { TextButton } from 'shared/view/elements';
 
 import * as S from './ErrorPage.styles';
 
-const ErrorPage: React.FC = () => {
+const ErrorPage: React.FC = memo(() => {
   const { t } = useTranslation('ErrorPage');
   return (
     <MainLayout>
@@ -19,6 +20,6 @@ const ErrorPage: React.FC = () => {
       </S.Container>
     </MainLayout>
   );
-};
+});
 
 export { ErrorPage };
