@@ -245,7 +245,9 @@ const MainContent: React.FC<Props> = memo(
               roomType="люкс"
               roomPrice={9990}
               initialProps={passedFormProps}
-              disabled
+              userEmail={userEmail}
+              isAuthSuccess
+              isСancellationForm
             />
           </S.OrderFormWrapper>
         </S.Details>

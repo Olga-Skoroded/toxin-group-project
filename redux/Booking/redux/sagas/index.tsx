@@ -98,8 +98,9 @@ function* bookRoom({ api }: Dependencies, { payload }: Booking) {
 
 function* cancelBooking({ api }: Dependencies, { payload }: CancelBooking) {
   const { apartmentId, booked, user } = payload;
+  console.log('payload', payload);
   try {
-    if (!apartmentId || booked || user) throw new Error('Failed to cancel booking');
+    if (!apartmentId || !booked || !user) throw new Error('Failed to cancel booking');
 
     const data = {
       apartmentId,

@@ -291,6 +291,11 @@ export const ru = {
     'hotel, room, registration, authorization, password, forgot password, restore, reset':
       'отель, номер, регистрация, авторизация, пароль, забыли пароль, восстановить, сбросить',
   },
+  RoomReviewPage: {
+    'Room review': 'Оценка номера',
+    'Here is all the information about the room you have booked': 'Здесь находится вся информация о забронированной вам комнате',
+    'hotel, room, review, room review, rating room': 'отель, комната, обзор, обзор комнаты, оценка комнаты',
+  },
   SearchRoomPage: {
     'Find a Room': 'Найти номер',
     'Select and book a room in our hotel': 'Подберите и забронируйте номер в нашем отеле',

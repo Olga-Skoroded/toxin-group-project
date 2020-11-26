@@ -66,15 +66,14 @@ type OwnProps = {
       Babies: number;
     };
   };
-  disabled?: boolean;
   isAuthSuccess?: boolean;
   priceItems?: PriceItem[];
   roomType?: string;
   currency?: string;
   measure?: string;
   userEmail?: string;
-  confirmBookedRoom?: (data: SelectedBookedRoom) => void;
   isСancellationForm?: boolean;
+  confirmBookedRoom?: (data: SelectedBookedRoom) => void;
 };
 
 type Props = OwnProps & StateProps & typeof mapDispatch;
@@ -154,7 +153,6 @@ const OrderForm = memo((props: Props) => {
     isCancelBookingFailed,
     cancelBookingStatusText,
     isСancellationForm = false,
-    disabled = false,
     startBooking,
     stopBooking,
     startCancelBooking,
@@ -180,6 +178,12 @@ const OrderForm = memo((props: Props) => {
     if (!isAuthSuccess) router.push('/auth/login');
 
     if (isСancellationForm) {
+      // console.log('объект с данными', {
+      //   apartmentId: roomNumber,
+      //   booked: values.booked,
+      //   user: userEmail,
+      // });
+      console.log('поле values', values);
       startCancelBooking({
         apartmentId: roomNumber,
         booked: values.booked,
@@ -289,7 +293,7 @@ const OrderForm = memo((props: Props) => {
                     dateFromLabelText={t('SearchRoomForm:Arrival')}
                     dateToLabelText={t('SearchRoomForm:Departure')}
                     name="booked"
-                    disabled={isСancellationForm || disabled}
+                    disabled={isСancellationForm}
                     dateFrom={
                       initialProps && initialProps.booked.from && new Date(initialProps.booked.from)
                     }
@@ -302,7 +306,7 @@ const OrderForm = memo((props: Props) => {
                   <S.DropdownLabel>{t('RoomFilter:Guests')}</S.DropdownLabel>
                   <Dropdown
                     {...{ ...dropdownOptions, ...initialDropdownValues }}
-                    disabled={isСancellationForm || disabled}
+                    disabled={isСancellationForm}
                   />
                 </S.Dropdown>
                 <S.PriceList>
@@ -323,15 +327,13 @@ const OrderForm = memo((props: Props) => {
                     {formatNumber(getResultPrice(prices), currency)}
                   </S.ResultPrice>
                 </S.ResultWrapper>
-                {!disabled && (
-                  <ArrowButton
-                    type="button"
-                    disabled={isVisibleConfirm || isBookingPending || isCancelBookingPending}
-                    onClick={handleBookButtonClick}
-                  >
-                    {isСancellationForm ? t('OrderForm:Сancel booking') : t('OrderForm:Book now')}
-                  </ArrowButton>
-                )}
+                <ArrowButton
+                  type="button"
+                  disabled={isVisibleConfirm || isBookingPending || isCancelBookingPending}
+                  onClick={handleBookButtonClick}
+                >
+                  {isСancellationForm ? t('OrderForm:Сancel booking') : t('OrderForm:Book now')}
+                </ArrowButton>
                 {isVisibleConfirm && (
                   <PopUpNotification
                     message={
