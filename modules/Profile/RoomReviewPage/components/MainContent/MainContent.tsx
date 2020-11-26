@@ -2,12 +2,12 @@ import { useRouter } from 'next/router';
 import queryString from 'query-string';
 import { useEffect, memo } from 'react';
 import { Form } from 'react-final-form';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { OrderForm } from 'features/Rooms/OrderForm/OrderForm';
 import { BookedHistoryList } from 'redux/Booking/model';
 import {
-  loadBookedHistoryRooms,
   requestCurrentRoomInfo,
   setRoomReview,
   setRoomRating,
@@ -24,7 +24,7 @@ import { Preloader } from 'shared/view/elements/Preloader/Preloader';
 import { StarRating } from 'shared/view/elements/StarRating/StarRating';
 import { Textarea } from 'shared/view/elements/TextArea/TextArea';
 
-import { roomImagesPreview, benefitsData, rulesData } from './MainContent.data';
+import { roomImagesPreview, benefitsData, rulesData } from './MainContent.fixture';
 import * as S from './MainContent.styles';
 
 type StateProps = {
@@ -53,7 +53,6 @@ const mapState = (state: AppState): StateProps => ({
 
 const mapDispatch = {
   getRoomInfo: requestCurrentRoomInfo,
-  getBookedRooms: loadBookedHistoryRooms,
   setComment: setRoomReview,
   setRating: setRoomRating,
   finishRatingProcess: finishRoomRating,
@@ -75,11 +74,11 @@ const MainContent: React.FC<Props> = memo(
     ratingStatus,
     userEmail,
     getRoomInfo,
-    getBookedRooms,
     setComment,
     setRating,
     finishRatingProcess,
   }: Props) => {
+    const { t } = useTranslation(['RoomDetailsPage', 'Buttons']);
     const router = useRouter();
     // to do уже есть метод для фильтрации, надо вынести куда-то
     const roomParams = queryString.parse(router.asPath.split('?')[1]);
@@ -149,7 +148,7 @@ const MainContent: React.FC<Props> = memo(
         </S.RoomImages>
         <S.Details>
           <S.Benefits>
-            <S.Title>Сведения о номере</S.Title>
+            <S.Title>{t('Room Details')}</S.Title>
             <Benefits items={benefitsData} />
           </S.Benefits>
           <Form
@@ -158,7 +157,7 @@ const MainContent: React.FC<Props> = memo(
               <S.RatingWrapper onSubmit={handleSubmit}>
                 {!isLoadingData && currentRoom ? (
                   <>
-                    <S.Title>Оцените Ваши впечатления от номера:</S.Title>
+                    <S.Title>{t('Rate your room experience')}:</S.Title>
                     {isRatingProcess && ratingStatus ? (
                       <>{ratingStatus}</>
                     ) : (
@@ -171,33 +170,34 @@ const MainContent: React.FC<Props> = memo(
                           />
                         </S.StarRatingWrapper>
                         <Button type="submit">
-                          {userRating ? 'Изменить оценку' : 'Применить'}
+                          {userRating ? t('Buttons:Change rating') : t('Buttons:Apply')}
                         </Button>
                       </>
                     )}
                   </>
                 ) : (
-                  <Preloader label="Загрузка вашей оценки" />
+                  <Preloader label={t('Uploading your rating')} />
                 )}
               </S.RatingWrapper>
             )}
           />
 
           <S.BulletList>
-            <S.Title>Правила</S.Title>
+            <S.Title>{t('Shared:Rules')}</S.Title>
             <BulletList items={rulesData} />
           </S.BulletList>
           <S.CancellationTerms>
-            <S.Title>Отмена</S.Title>
+            <S.Title>{t('Shared:Cancel')}</S.Title>
             <S.CancellationTermsText>
-              Бесплатная отмена в течение 48 ч. После этого при отмене не позднее чем за 5 дн. до
-              прибытия вы получите полный возврат за вычетом сбора за услуги.
+              {t(
+                'Free cancellation within 48 hours. Thereafter, if canceled no later than 5 days in advance. you will receive a full refund before arrival minus the service fee.',
+              )}
             </S.CancellationTermsText>
           </S.CancellationTerms>
 
           <S.CommentsWrapper>
             <S.ReviewsContainer>
-              <S.Title>Отзывы посетителей:</S.Title>
+              <S.Title>{t('Visitor reviews')}:</S.Title>
               {popularComments ? (
                 popularComments.map((review) => {
                   const reviewDate = review.date as Date;
@@ -213,11 +213,11 @@ const MainContent: React.FC<Props> = memo(
                   );
                 })
               ) : (
-                <Preloader label="Загружаем популярные отзывы посетителей..." />
+                <Preloader label={t('Loading popular visitor reviews...')} />
               )}
               {!!currentUserReview.length && (
                 <>
-                  <S.Title>Ваш отзыв:</S.Title>
+                  <S.Title>{t('Your feedback')}:</S.Title>
                   <Review {...currentUserReview[0]} />
                 </>
               )}
@@ -226,10 +226,12 @@ const MainContent: React.FC<Props> = memo(
               onSubmit={handleReviewSubmit}
               render={({ handleSubmit }) => (
                 <S.ReviewsWrapper onSubmit={handleSubmit}>
-                  <S.Title>Оставьте свой отзыв об этом номере:</S.Title>
+                  <S.Title>{t('Leave your review about this room')}:</S.Title>
                   <Textarea name="room-review" required />
                   <S.ButtonWrapper>
-                    <Button>{currentUserReview.length ? 'Изменить' : 'Добавить'}</Button>
+                    <Button>
+                      {currentUserReview.length ? t('Buttons:Change') : t('Buttons:Add')}
+                    </Button>
                   </S.ButtonWrapper>
                 </S.ReviewsWrapper>
               )}

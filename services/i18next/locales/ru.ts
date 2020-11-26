@@ -109,6 +109,9 @@ export const ru = {
     Apply: 'Применить',
     Clear: 'Очистить',
     Next: 'Далее',
+    'Change rating': 'Изменить оценку',
+    Change: 'Изменить',
+    Add: 'Добавить',
   },
   CheckboxesList: {
     'Smoking is allowed': 'Можно курить',
@@ -279,6 +282,12 @@ export const ru = {
     'number of reviews': 'количество отзывов',
   },
   RoomDetailsPage: {
+    'Loading popular visitor reviews...': 'Загружаем популярные отзывы посетителей...',
+    'Your feedback': 'Ваш отзыв',
+    'Visitor reviews': 'Отзывы посетителей',
+    'Uploading your rating': 'Загрузка вашей оценки',
+    'Leave your review about this room': 'Оставьте свой отзыв об этом номере',
+    'Rate your room experience': 'Оцените Ваши впечатления от номера',
     'Room Details': 'Сведения о номере',
     'More detailed information about the room: rules, number of guests, amenities and much more':
       'Более подробная информация о номере: правила, количество гостей, удобства и многое другое',

@@ -14,9 +14,9 @@ type Props = WithTranslation & RoomProps;
 const getDate = (date: string) => {
   const [day, month, year] = date.split('.');
   const resultDate = new Date();
-  resultDate.setDate(+day);
-  resultDate.setMonth(+month - 1);
-  resultDate.setFullYear(+year);
+  resultDate.setDate(Number(day));
+  resultDate.setMonth(Number(month) - 1);
+  resultDate.setFullYear(Number(year));
   return resultDate.getTime();
 };
 

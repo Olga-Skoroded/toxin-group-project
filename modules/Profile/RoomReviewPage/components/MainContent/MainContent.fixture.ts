@@ -25,15 +25,15 @@ const roomImagesPreview: Required<RoomImagesPreview[]> = [
 ];
 
 const benefitsData: Required<BenefitsData[]> = [
-  { icon: 'insert_emoticon', term: 'Комфорт', definition: 'Шумопоглощающие стены' },
-  { icon: 'location_city', term: 'Удобство', definition: 'Окно в каждой из спален' },
-  { icon: 'whatshot', term: 'Уют', definition: 'Номер оснащён камином' },
+  { icon: 'insert_emoticon', term: 'Comfort', definition: 'Sound absorbing walls' },
+  { icon: 'location_city', term: 'Convenience', definition: 'Window in each of the bedrooms' },
+  { icon: 'whatshot', term: 'Cosiness', definition: 'The room is equipped with a fireplace' },
 ];
 
 const rulesData: Required<string[]> = [
-  'Нельзя с питомцами',
-  'Без вечеринок и мероприятий',
-  'Время прибытия — после 13:00, а выезд до 12:00',
+  'Not allowed with pets',
+  'No parties and events',
+  'Arrival time - after 1 00 PM, and departure before 12 00 AM',
 ];
 
 export { roomImagesPreview, benefitsData, rulesData };
