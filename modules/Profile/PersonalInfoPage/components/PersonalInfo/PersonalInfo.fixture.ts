@@ -6,23 +6,23 @@ type Data = {
 
 const data: Required<Data[]> = [
   {
-    title: 'Имя по документам',
+    title: 'Legal name',
     component: 'displayName',
     description:
-      'Имя, указанное в загранпаспорте, водительском удостоверении или другом выездном документе.',
+      'This is the name on your travel document, which could be a license or a passport.',
   },
   {
-    title: 'Пол',
+    title: 'Gender',
     component: 'gender',
   },
   {
-    title: 'Дата рождения',
+    title: 'Date of birth',
     component: 'birthday',
   },
   {
-    title: 'Электронный адрес',
+    title: 'Email address',
     component: 'email',
-    description: 'Укажите адрес, к которому у вас есть постоянный доступ.',
+    description: 'Use an address you’ll always have access to.',
   },
 ];
 

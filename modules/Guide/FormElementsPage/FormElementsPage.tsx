@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { Form, Field } from 'react-final-form';
 
 import { SubscriptionField } from 'features/Auth/SubscriptionField/SubscriptionField';
-import { CheckboxesList, Dropdown, Review, TimePicker } from 'shared/view/components';
+import { CheckboxesList, Dropdown, Review, TimePicker, PriceSlider } from 'shared/view/components';
 import {
   checkboxesListData,
   expandableCheckboxesListData,
@@ -23,7 +23,6 @@ import {
   LikeButton,
   RadioButton,
   StarRating,
-  Slider,
   TextButton,
   Toggle,
   UILogo,
@@ -144,8 +143,8 @@ const FormElementsPage = memo(() => {
 
             <div>
               <S.SliderWrapper>
-                <Slider
-                  initialValue={values.initialValues.range}
+                <PriceSlider
+                  value={values.initialValues.range}
                   title="range slider"
                   name="range"
                   showValue

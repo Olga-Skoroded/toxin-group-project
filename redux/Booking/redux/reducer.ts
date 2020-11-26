@@ -11,6 +11,14 @@ const initialState: BookingState = {
   isRatingProcess: false,
   ratingStatus: null,
   userRating: 0,
+  isBookingPending: false,
+  isBookingSuccess: false,
+  isBookingFailed: false,
+  bookingStatusText: '',
+  isCancelBookingPending: false,
+  isCancelBookingSuccess: false,
+  isCancelBookingFailed: false,
+  cancelBookingStatusText: '',
 };
 
 const booking = (state: BookingState = initialState, action: BookingActions): BookingState => {
@@ -88,6 +96,78 @@ const booking = (state: BookingState = initialState, action: BookingActions): Bo
         isPending: false,
         bookedRooms: { ...action.payload },
       };
+    case 'BOOKING': {
+      return {
+        ...state,
+        isBookingPending: true,
+        isBookingSuccess: false,
+        isBookingFailed: false,
+        bookingStatusText: '',
+      };
+    }
+    case 'BOOKING_SUCCESS': {
+      return {
+        ...state,
+        isBookingPending: false,
+        isBookingSuccess: true,
+        isBookingFailed: false,
+        bookingStatusText: '',
+      };
+    }
+    case 'BOOKING_FAILED': {
+      return {
+        ...state,
+        isBookingPending: false,
+        isBookingSuccess: false,
+        isBookingFailed: true,
+        bookingStatusText: action.payload,
+      };
+    }
+    case 'BOOKING_COMPLETED': {
+      return {
+        ...state,
+        isBookingPending: false,
+        isBookingSuccess: false,
+        isBookingFailed: false,
+        bookingStatusText: '',
+      };
+    }
+    case 'CANCEL_BOOKING': {
+      return {
+        ...state,
+        isCancelBookingPending: true,
+        isCancelBookingSuccess: false,
+        isCancelBookingFailed: false,
+        cancelBookingStatusText: '',
+      };
+    }
+    case 'CANCEL_BOOKING_SUCCESS': {
+      return {
+        ...state,
+        isCancelBookingPending: false,
+        isCancelBookingSuccess: true,
+        isCancelBookingFailed: false,
+        cancelBookingStatusText: '',
+      };
+    }
+    case 'CANCEL_BOOKING_FAILED': {
+      return {
+        ...state,
+        isCancelBookingPending: false,
+        isCancelBookingSuccess: false,
+        isCancelBookingFailed: true,
+        cancelBookingStatusText: '',
+      };
+    }
+    case 'CANCEL_BOOKING_COMPLETED': {
+      return {
+        ...state,
+        isCancelBookingPending: false,
+        isCancelBookingSuccess: false,
+        isCancelBookingFailed: false,
+        cancelBookingStatusText: '',
+      };
+    }
     default:
       return state;
   }

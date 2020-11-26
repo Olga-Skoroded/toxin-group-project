@@ -27,6 +27,15 @@ type UsernameUpdate = {
   displayName: string;
 };
 
+type AvatarUpdate = {
+  user: User;
+  avatar: Blob;
+};
+
+type AvatarRemove = {
+  user: User;
+};
+
 type ProfileState = {
   isEmailUpdatePending: boolean;
   isEmailUpdateSuccess: boolean;
@@ -46,6 +55,12 @@ type ProfileState = {
   isUsernameUpdateSuccess: boolean;
   isUsernameUpdateCompleted: boolean;
   usernameUpdateStatusText: string;
+  isAvatarUpdateSuccess: boolean;
+  isAvatarUpdateCompleted: boolean;
+  avatarUpdateStatusText: string;
+  isAvatarRemoveSuccess: boolean;
+  isAvatarRemoveCompleted: boolean;
+  avatarRemoveStatusText: string;
 };
 
 type EmailUpdateRequest = ActionPayload<'EMAIL_UPDATE_PROCESS', EmailUpdate>;
@@ -78,6 +93,16 @@ type UsernameUpdateSuccess = ActionPayload<'USERNAME_UPDATE_SUCCESS', string>;
 type UsernameUpdateFailed = ActionPayload<'USERNAME_UPDATE_FAILED', string>;
 type UsernameUpdateCompleted = Action<'USERNAME_UPDATE_COMPLETED'>;
 
+type AvatarUpdateRequest = ActionPayload<'AVATAR_UPDATE_PROCESS', AvatarUpdate>;
+type AvatarUpdateSuccess = ActionPayload<'AVATAR_UPDATE_SUCCESS', string>;
+type AvatarUpdateFailed = ActionPayload<'AVATAR_UPDATE_FAILED', string>;
+type AvatarUpdateCompleted = Action<'AVATAR_UPDATE_COMPLETED'>;
+
+type AvatarRemoveRequest = ActionPayload<'AVATAR_REMOVE_PROCESS', AvatarRemove>;
+type AvatarRemoveSuccess = ActionPayload<'AVATAR_REMOVE_SUCCESS', string>;
+type AvatarRemoveFailed = ActionPayload<'AVATAR_REMOVE_FAILED', string>;
+type AvatarRemoveCompleted = Action<'AVATAR_REMOVE_COMPLETED'>;
+
 type ProfileActions =
   | EmailUpdateRequest
   | EmailUpdateSuccess
@@ -97,13 +122,22 @@ type ProfileActions =
   | UsernameUpdateRequest
   | UsernameUpdateSuccess
   | UsernameUpdateFailed
-  | UsernameUpdateCompleted;
+  | UsernameUpdateCompleted
+  | AvatarUpdateRequest
+  | AvatarUpdateSuccess
+  | AvatarUpdateFailed
+  | AvatarUpdateCompleted
+  | AvatarRemoveRequest
+  | AvatarRemoveSuccess
+  | AvatarRemoveFailed
+  | AvatarRemoveCompleted;
 
 export type {
   EmailUpdate,
   PasswordUpdate,
   UpdateAdditionalUserData,
   UsernameUpdate,
+  AvatarUpdate,
   ProfileState,
   EmailUpdateRequest,
   EmailUpdateSuccess,
@@ -124,5 +158,14 @@ export type {
   UsernameUpdateSuccess,
   UsernameUpdateFailed,
   UsernameUpdateCompleted,
+  AvatarUpdateRequest,
+  AvatarUpdateSuccess,
+  AvatarUpdateFailed,
+  AvatarUpdateCompleted,
+  AvatarRemoveRequest,
+  AvatarRemoveSuccess,
+  AvatarRemoveFailed,
+  AvatarRemoveCompleted,
+  AvatarRemove,
   ProfileActions,
 };

@@ -6,25 +6,28 @@ import { Dependencies } from 'redux/api.model';
 import {
   CurrentRoomRequest,
   RoomsRequest,
-  LoadBookedHistory,
   BookedHistoryList,
-  BookCurrentRoom,
   SetRoomReview,
   SetRoomRating,
   FinishRoomRating,
   RoomData,
 } from 'redux/Booking/model';
-import { Apartment, BookingData, RoomRatingData } from 'services/api/entities/model';
+import { BookingData, Apartment, RoomRatingData } from 'services/api/entities/model';
 
+import { LoadBookedHistory, Booking, CancelBooking } from '../../model';
 import {
-  pendingStatusUpdate,
-  setFailedStatus,
-  setRooms,
-  updateBookedHistory,
   successRoomRequest,
   startRatingRoom,
   setNewRoomRating,
   responseRatingProcess,
+  pendingStatusUpdate,
+  setRooms,
+  setFailedStatus,
+  updateBookedHistory,
+  bookingSuccess,
+  bookingFailed,
+  cancelBookingSuccess,
+  cancelBookingFailed,
 } from '../actions';
 
 function* loadRooms({ api }: Dependencies, { payload }: RoomsRequest) {
@@ -70,16 +73,46 @@ function* loadRoomsHistory({ api }: Dependencies, { payload }: LoadBookedHistory
   yield put(updateBookedHistory(bookedHistoryList));
 }
 
-function* confirmBookedRoom({ api }: Dependencies, { payload }: BookCurrentRoom) {
-  const { apartmentId, booked, user } = payload;
-  const data: BookingData = {
-    apartmentId,
-    from: new Date(booked.from),
-    to: new Date(booked.to),
-    reservationBy: user,
-  };
+function* bookRoom({ api }: Dependencies, { payload }: Booking) {
+  const { apartmentId, booked, guests, user } = payload;
+  try {
+    if (!booked || !booked.to || !booked.from) throw new Error('Please select a booking date');
+    if (!guests || (!guests.adults && !guests.children && !guests.babies)) {
+      throw new Error('Please indicate the number of guests');
+    }
 
-  yield call(api.booking.setBookedByUser, data);
+    const data: BookingData = {
+      apartmentId,
+      from: booked.from,
+      to: booked.to,
+      reservationBy: user,
+    };
+
+    yield call(api.booking.setBookedByUser, data);
+
+    yield put(bookingSuccess());
+  } catch ({ message }) {
+    yield put(bookingFailed(message));
+  }
+}
+
+function* cancelBooking({ api }: Dependencies, { payload }: CancelBooking) {
+  const { apartmentId, booked, user } = payload;
+  try {
+    if (!apartmentId || booked || user) throw new Error('Failed to cancel booking');
+
+    const data = {
+      apartmentId,
+      from: booked.from,
+      to: booked.to,
+      reservationBy: user,
+    };
+
+    yield call(api.booking.cancelBooking, data);
+    yield put(cancelBookingSuccess());
+  } catch ({ message }) {
+    yield put(cancelBookingFailed(message));
+  }
 }
 
 function* setReview({ api }: Dependencies, data: SetRoomReview) {
@@ -111,11 +144,12 @@ function* finishRoomRating() {
 function* rootSaga(deps: Dependencies): SagaIterator {
   yield takeLeadingAction<RoomsRequest['type']>('LOAD_ROOMS', loadRooms, deps);
   yield takeLatestAction<LoadBookedHistory['type']>('LOAD_BOOKED_HISTORY', loadRoomsHistory, deps);
-  yield takeLatestAction<BookCurrentRoom['type']>('BOOK_ROOM', confirmBookedRoom, deps);
   yield takeLatestAction<SetRoomReview['type']>('SET_ROOM_REVIEW', setReview, deps);
   yield takeLatestAction<SetRoomRating['type']>('SET_ROOM_RATING', setRoomRating, deps);
   yield takeLatestAction<CurrentRoomRequest['type']>('LOAD_ROOM_INFO', loadCurrentRoom, deps);
   yield takeLatestAction<FinishRoomRating['type']>('FINISH_ROOM_RATING', finishRoomRating);
+  yield takeLeadingAction<Booking['type']>('BOOKING', bookRoom, deps);
+  yield takeLeadingAction<CancelBooking['type']>('CANCEL_BOOKING', cancelBooking, deps);
 }
 
 export { rootSaga };

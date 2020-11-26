@@ -11,6 +11,7 @@ export const ru = {
     Rules: 'Правила',
     Cancel: 'Отмена',
     Total: 'Итого',
+    Ok: 'Oк',
     'Date mask': 'ДД.ММ.ГГГГ',
   },
   Validators: {
@@ -90,6 +91,9 @@ export const ru = {
     Vote: 'Голос',
     Votes: 'Голосов',
     VotesSecondary: 'Голоса',
+    day: 'день',
+    days: 'дня',
+    daysSecondary: 'дней',
     Second: 'секунда',
     Seconds: 'секунды',
     SecondsSecondary: 'секунд',
@@ -106,6 +110,7 @@ export const ru = {
   Buttons: {
     'Sign In': 'Войти',
     'Sign up': 'Создать',
+    'Restore password': 'Восстановить пароль',
     Apply: 'Применить',
     Clear: 'Очистить',
     Next: 'Далее',
@@ -187,13 +192,17 @@ export const ru = {
   translations: {
     Ago: 'Назад',
   },
-  OrderFormPrices: {
-    'Service fee_discount': 'Сбор за услуги: скидка',
-    'Additional service fee': 'Сбор за дополнительные услуги',
+  ImageGallery: {
+    'Previous image': 'Предыдущее изображение',
+    'Next image': 'Следующее изображение',
+    'Zoom in': 'Увеличить',
+    'Zoom out': 'Уменьшить',
+    Close: 'Закрыть',
   },
   AccountEntry: {
     'Sign In with account google': 'Вход через аккаунт google',
     'No Toxin account?': 'Нет аккаунта на Toxin?',
+    'Forgot password?': 'Забыли пароль?',
   },
   RegistrationForm: {
     'Create account': 'Регистрация аккаунта',
@@ -205,7 +214,19 @@ export const ru = {
   },
   OrderForm: {
     'How many guests': 'Сколько гостей',
+    'Service fee discount': 'Сбор за услуги: скидка',
+    'Additional service fee': 'Сбор за дополнительные услуги',
     'Book now': 'Забронировать',
+    'Сancel booking': 'Отменить бронирование',
+    'Fee for guests from the second': 'Плата за гостей со второго',
+    'Payment for an additional guest': 'Оплата дополнительного гостя',
+    'Please select a booking date': 'Пожалуйста, выберите дату бронирования',
+    'Please indicate the number of guests': 'Пожалуйста, укажите количество гостей',
+    'Failed to book a room': 'Не удалось забронировать номер',
+    'Failed to cancel booking': 'Не удалось отменить бронирование',
+    'Are you sure you want to book this room?': 'Вы действительно хотите забронировать этот номер?',
+    'Are you sure you want to cancel this room reservation?':
+      'Вы действительно хотите отменить бронь этого номера?',
   },
   SearchRoomForm: {
     'We will find rooms according to your wishes': 'Найдём номера под ваши пожелания',
@@ -276,7 +297,8 @@ export const ru = {
     'hotel, room, booking, book': 'отель, номер, бронирование, забронировать',
     'Sort by parameter': 'Сортировать по параметру',
     'The rooms we have selected for you': 'Номера, которые мы для вас подобрали',
-    'No results were found for your request =(': 'К сожалению, мы не смогли ничего подобрать =(',
+    'Unfortunately, no rooms were found for your request. Try changing your search criteria':
+      'К сожалению, по вашему запросу номеров не найдено. Попробуйте изменить критерии поиска',
     price: 'цена',
     rating: 'рейтинг',
     'number of reviews': 'количество отзывов',
@@ -295,8 +317,9 @@ export const ru = {
       'отель, номер, бронирование, забронировать, информация',
     'Loading Room Information ...': 'Загрузка информации о номере ...',
     'Impressions of the room': 'Впечатления от номера',
-    'Failed to load room information': 'Не удалось загрузить информацию о номере',
-    'Free cancellation within 48 hours. Thereafter, if canceled no later than 5 days in advance. you will receive a full refund before arrival minus the service fee.':
+    'Sorry, the room information could not be loaded':
+      'К сожалению, не удалось загрузить информацию о номере',
+    'Free cancellation within 48 hours. Thereafter, if canceled no later than 5 days in advance, you will receive a full refund before arrival minus the service fee.':
       'Бесплатная отмена в течение 48 ч. После этого при отмене не позднее чем за 5 дн. до прибытия вы получите полный возврат за вычетом сбора за услуги.',
   },
   SelectedRoomsPage: {
@@ -359,6 +382,11 @@ export const ru = {
       'Указанный адрес электронной почты уже используется',
     'Re-authenticate to change your email address':
       'Для изменения адреса электронной почты пройдите повторную аутентификацию',
+    'Update avatar': 'Изменить аватар',
+    'Delete avatar': 'Удалить аватар',
+    'Avatar has been saccessfully changed': 'Аватар был успешно изменен',
+    'Avatar has been saccessfully deleted': 'Аватар был успешно удален',
+    'Are you sure you want to delete avatar?': 'Вы уверены, что хотите удалить аватар?',
   },
   LoginAndSecurityPage: {
     Security: 'Безопастность',

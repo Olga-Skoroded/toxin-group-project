@@ -1,5 +1,7 @@
 import { boundMethod } from 'autobind-decorator';
 
+import { HOME_PAGE } from 'shared/constants';
+
 import {
   Authentication,
   UserCredential,
@@ -49,18 +51,17 @@ class Auth {
       }
     }
 
-    const user = this.actions.getCurrentUser();
+    const { user } = credential;
     const photoURL = avatar && (await this.getPhotoURL(user.uid, avatar));
 
-    user
-      .updateProfile({
-        displayName: `${name} ${surname}`,
-        photoURL,
-      })
-      .then(() => {
-        this.addAdditionalUserInformation(user.uid, { gender, birthDate });
-        user.sendEmailVerification();
-      });
+    user.updateProfile({
+      displayName: `${name} ${surname}`,
+      photoURL,
+    });
+
+    await this.addAdditionalUserInformation(user.uid, { gender, birthDate });
+
+    user.sendEmailVerification({ url: HOME_PAGE });
 
     return credential;
   }
@@ -104,7 +105,7 @@ class Auth {
     let resetPassword: void;
 
     try {
-      resetPassword = await this.actions.resetPassword(email);
+      resetPassword = await this.actions.resetPassword(email, { url: `${HOME_PAGE}/auth/login` });
     } catch ({ code }) {
       switch (code) {
         case 'auth/user-not-found':
@@ -145,12 +146,23 @@ class Auth {
     let photoURL: string;
 
     try {
-      photoURL = await this.actions.setUserAvatar(uid, photo);
+      photoURL = await this.actions.setUserAvatar(uid, photo).then((url) => {
+        return url;
+      });
     } catch (err) {
       throw new AuthError();
     }
 
     return photoURL;
+  }
+
+  @boundMethod
+  public async removeUserAvatar(uid: string): Promise<void> {
+    try {
+      this.actions.removeUserAvatar(uid);
+    } catch (err) {
+      throw new AuthError();
+    }
   }
 
   @boundMethod

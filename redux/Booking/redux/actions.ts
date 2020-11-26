@@ -4,7 +4,6 @@ import {
   RoomsRequest,
   CurrentRoomRequest,
   LoadBookedHistory,
-  BookCurrentRoom,
   SelectedBookedRoom,
   SetRoomReview,
   SetRoomRating,
@@ -19,6 +18,15 @@ import {
   SetNewRatingRoom,
   RatingProcessResponse,
   RoomData,
+  Booking,
+  BookingSuccess,
+  BookingFailed,
+  BookingCompleted,
+  CancelBookingData,
+  CancelBooking,
+  CancelBookingSuccess,
+  CancelBookingFailed,
+  CancelBookingCompleted,
 } from '../model';
 
 const setRoomReview = (data: CommentData): SetRoomReview => ({
@@ -84,14 +92,45 @@ const updateBookedHistory = (data: BookedHistoryList): UpdateBookedHistory => ({
   payload: data,
 });
 
-const bookRoom = (data: SelectedBookedRoom): BookCurrentRoom => ({
-  type: 'BOOK_ROOM',
+const booking = (data: SelectedBookedRoom): Booking => ({
+  type: 'BOOKING',
   payload: data,
 });
 
 const responseRatingProcess = (data: string): RatingProcessResponse => ({
   type: 'RATING_PROCESS_RESPONSE',
   payload: data,
+});
+
+const bookingSuccess = (): BookingSuccess => ({
+  type: 'BOOKING_SUCCESS',
+});
+
+const bookingFailed = (statusText: string): BookingFailed => ({
+  type: 'BOOKING_FAILED',
+  payload: statusText,
+});
+
+const completeBooking = (): BookingCompleted => ({
+  type: 'BOOKING_COMPLETED',
+});
+
+const cancelBooking = (data: CancelBookingData): CancelBooking => ({
+  type: 'CANCEL_BOOKING',
+  payload: data,
+});
+
+const cancelBookingSuccess = (): CancelBookingSuccess => ({
+  type: 'CANCEL_BOOKING_SUCCESS',
+});
+
+const cancelBookingFailed = (statusText: string): CancelBookingFailed => ({
+  type: 'CANCEL_BOOKING_FAILED',
+  payload: statusText,
+});
+
+const completeCancelBooking = (): CancelBookingCompleted => ({
+  type: 'CANCEL_BOOKING_COMPLETED',
 });
 
 export {
@@ -101,7 +140,6 @@ export {
   setFailedStatus,
   loadBookedHistoryRooms,
   updateBookedHistory,
-  bookRoom,
   requestCurrentRoomInfo,
   setNewRoomRating,
   setRoomReview,
@@ -110,4 +148,12 @@ export {
   finishRoomRating,
   successRoomRequest,
   responseRatingProcess,
+  booking,
+  bookingSuccess,
+  bookingFailed,
+  completeBooking,
+  cancelBooking,
+  cancelBookingSuccess,
+  cancelBookingFailed,
+  completeCancelBooking,
 };

@@ -9,11 +9,11 @@ import * as S from './TimePicker.styles';
 
 type Props = {
   name: string;
-  disabled?: boolean;
   dateFrom?: Date;
   dateTo?: Date;
   dateFromLabelText?: string;
   dateToLabelText?: string;
+  disabled?: boolean;
   onChange?: (e: ChangeEvent) => void;
 } & S.ContainerElement;
 
@@ -33,31 +33,26 @@ const TimePicker = memo(
 
     const { from, to } = selectedDateRange;
 
+    const formatterForSingle = new Intl.DateTimeFormat(i18n.language, {
+      day: 'numeric',
+      month: 'short',
+    });
+    const formatterForDouble = new Intl.DateTimeFormat(i18n.language);
+
     const getDateFrom = (): string => {
-      const dateOptions: { day: string; month: string } = {
-        day: 'numeric',
-        month: 'short',
-      };
-
-      const selectedDateFrom: string = from
-        .toLocaleDateString(i18n.language, dateOptions)
-        .replace('.', '');
-      let selectedDateTo: string;
-
-      if (to) {
-        selectedDateTo = to.toLocaleDateString(i18n.language, dateOptions).replace('.', '');
-      }
+      const selectedDateFrom = formatterForSingle.format(from);
+      const selectedDateTo = to ? formatterForSingle.format(to) : '';
 
       return type === 'single'
         ? `${`${selectedDateFrom}`} ${to ? `- ${selectedDateTo}` : ''}`
-        : from.toLocaleDateString(i18n.language);
+        : formatterForDouble.format(from);
     };
 
     const getMaskedDate = (): string =>
       type === 'single' ? t('TimePicker:Select Date') : t('Shared:Date mask');
 
     const openCalendar = (): void => {
-      setCalendarVisibility(true);
+      if (!disabled) setCalendarVisibility(true);
     };
 
     const closeCalendar = (): void => {
@@ -71,8 +66,8 @@ const TimePicker = memo(
           render={({ input }) => {
             const applyCalendar = (): void => {
               input.onChange({
-                from: selectedDateRange.from ? selectedDateRange.from.getTime() : '',
-                to: selectedDateRange.to ? selectedDateRange.to.getTime() : '',
+                from: selectedDateRange.from,
+                to: selectedDateRange.to,
               });
               closeCalendar();
             };
@@ -84,16 +79,18 @@ const TimePicker = memo(
                     label={dateFromLabelText}
                     placeholder="date from"
                     readOnly
+                    disabled={disabled}
                   />
                   <S.ExpandIcon />
                 </S.ContainerElement>
                 {type === 'double' && (
                   <S.ContainerElement onClick={disabled ? undefined : openCalendar}>
                     <Input
-                      value={to ? to.toLocaleDateString('ru-RU') : getMaskedDate()}
+                      value={to ? formatterForDouble.format(to) : getMaskedDate()}
                       label={dateToLabelText}
                       placeholder="date to"
                       readOnly
+                      disabled={disabled}
                     />
                     <S.ExpandIcon />
                   </S.ContainerElement>

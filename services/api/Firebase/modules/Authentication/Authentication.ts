@@ -2,7 +2,7 @@ import { boundMethod } from 'autobind-decorator';
 import firebase from 'firebase';
 
 import { Storage } from '../Storage';
-import { Auth, UserCredential, User, Unsubscribe } from './model';
+import { Auth, UserCredential, User, Unsubscribe, ActionCodeSettings } from './model';
 
 class Authentication {
   private readonly auth: Auth;
@@ -43,6 +43,12 @@ class Authentication {
   }
 
   @boundMethod
+  public async removeUserAvatar(uid: string): Promise<void> {
+    const filePath = `users/${uid}/profilePicture/${uid}-avatar`;
+    this.storage.childRef(filePath).delete();
+  }
+
+  @boundMethod
   public signInWithGoogle(): Promise<UserCredential> {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.auth.signInWithPopup(provider);
@@ -54,8 +60,11 @@ class Authentication {
   }
 
   @boundMethod
-  public async resetPassword(email: string): Promise<void> {
-    return this.auth.sendPasswordResetEmail(email);
+  public async resetPassword(
+    email: string,
+    actionCodeSettings?: ActionCodeSettings,
+  ): Promise<void> {
+    return this.auth.sendPasswordResetEmail(email, actionCodeSettings);
   }
 
   @boundMethod

@@ -20,16 +20,26 @@ type BookingState = {
   isRatingProcess: boolean;
   userRating: number;
   ratingStatus: string;
+  isBookingPending: boolean;
+  isBookingSuccess: boolean;
+  isBookingFailed: boolean;
+  bookingStatusText: string;
+  isCancelBookingPending: boolean;
+  isCancelBookingSuccess: boolean;
+  isCancelBookingFailed: boolean;
+  cancelBookingStatusText: string;
 };
 
 type SelectedBookedRoom = {
   apartmentId: number;
   booked: { from: Date; to: Date };
+  guests: { adults: number; children: number; babies: number };
   totalPrice: number;
   user: string;
 };
 
 type RoomData = Apartment & { id: number; userRating: number } & RoomRatingData;
+type CancelBookingData = Omit<SelectedBookedRoom, 'guests' | 'totalPrice'>;
 
 type RoomsRequest = ActionPayload<'LOAD_ROOMS', Filters>;
 
@@ -49,7 +59,15 @@ type FinishRoomRating = Action<'FINISH_ROOM_RATING'>;
 type CurrentRoomRequest = ActionPayload<'LOAD_ROOM_INFO', { id: number; email: string }>;
 type SetRoom = ActionPayload<'CURRENT_ROOM_REQUEST_SUCCESS', RoomData>;
 
-type BookCurrentRoom = ActionPayload<'BOOK_ROOM', SelectedBookedRoom>;
+type Booking = ActionPayload<'BOOKING', SelectedBookedRoom>;
+type BookingSuccess = Action<'BOOKING_SUCCESS'>;
+type BookingFailed = ActionPayload<'BOOKING_FAILED', string>;
+type BookingCompleted = Action<'BOOKING_COMPLETED'>;
+
+type CancelBooking = ActionPayload<'CANCEL_BOOKING', CancelBookingData>;
+type CancelBookingSuccess = Action<'CANCEL_BOOKING_SUCCESS'>;
+type CancelBookingFailed = ActionPayload<'CANCEL_BOOKING_FAILED', string>;
+type CancelBookingCompleted = Action<'CANCEL_BOOKING_COMPLETED'>;
 
 type BookingActions =
   | PendingStatusUpdate
@@ -64,21 +82,37 @@ type BookingActions =
   | RatingProcessResponse
   | StartRatingRoom
   | FinishRatingRoom
-  | SetNewRatingRoom;
+  | SetNewRatingRoom
+  | Booking
+  | BookingSuccess
+  | BookingFailed
+  | BookingCompleted
+  | CancelBooking
+  | CancelBookingSuccess
+  | CancelBookingFailed
+  | CancelBookingCompleted;
 
 export type {
   CurrentRoomRequest,
   SetRoom,
   SelectedBookedRoom,
   BookedHistoryList,
+  BookingState,
+  CancelBookingData,
   RoomsRequest,
   PendingStatusUpdate,
   SetRooms,
   SetFailedStatus,
   LoadBookedHistory,
   UpdateBookedHistory,
-  BookCurrentRoom,
-  BookingState,
+  Booking,
+  BookingSuccess,
+  BookingFailed,
+  BookingCompleted,
+  CancelBooking,
+  CancelBookingSuccess,
+  CancelBookingFailed,
+  CancelBookingCompleted,
   BookingActions,
   RatingProcessResponse,
   StartRatingRoom,

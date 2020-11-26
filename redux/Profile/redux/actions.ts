@@ -25,6 +25,16 @@ import {
   UsernameUpdateFailed,
   UsernameUpdateCompleted,
   GetAdditionalUserDataFailed,
+  AvatarUpdate,
+  AvatarUpdateRequest,
+  AvatarUpdateSuccess,
+  AvatarUpdateFailed,
+  AvatarUpdateCompleted,
+  AvatarRemove,
+  AvatarRemoveRequest,
+  AvatarRemoveSuccess,
+  AvatarRemoveFailed,
+  AvatarRemoveCompleted,
 } from '../model';
 
 const emailUpdate = (data: EmailUpdate): EmailUpdateRequest => ({
@@ -121,6 +131,44 @@ const completeUsernameUpdate = (): UsernameUpdateCompleted => ({
   type: 'USERNAME_UPDATE_COMPLETED',
 });
 
+const avatarUpdate = (data: AvatarUpdate): AvatarUpdateRequest => ({
+  type: 'AVATAR_UPDATE_PROCESS',
+  payload: data,
+});
+
+const avatarUpdateSuccess = (statusText: string): AvatarUpdateSuccess => ({
+  type: 'AVATAR_UPDATE_SUCCESS',
+  payload: statusText,
+});
+
+const avatarUpdateFailed = (statusText: string): AvatarUpdateFailed => ({
+  type: 'AVATAR_UPDATE_FAILED',
+  payload: statusText,
+});
+
+const completeAvatarUpdate = (): AvatarUpdateCompleted => ({
+  type: 'AVATAR_UPDATE_COMPLETED',
+});
+
+const avatarRemove = (data: AvatarRemove): AvatarRemoveRequest => ({
+  type: 'AVATAR_REMOVE_PROCESS',
+  payload: data,
+});
+
+const avatarRemoveSuccess = (statusText: string): AvatarRemoveSuccess => ({
+  type: 'AVATAR_REMOVE_SUCCESS',
+  payload: statusText,
+});
+
+const avatarRemoveFailed = (statusText: string): AvatarRemoveFailed => ({
+  type: 'AVATAR_REMOVE_FAILED',
+  payload: statusText,
+});
+
+const completeAvatarRemove = (): AvatarRemoveCompleted => ({
+  type: 'AVATAR_REMOVE_COMPLETED',
+});
+
 export {
   emailUpdate,
   emailUpdateSuccess,
@@ -141,4 +189,12 @@ export {
   usernameUpdateSuccess,
   usernameUpdateFailed,
   completeUsernameUpdate,
+  avatarUpdate,
+  avatarUpdateSuccess,
+  avatarUpdateFailed,
+  completeAvatarUpdate,
+  avatarRemove,
+  avatarRemoveSuccess,
+  avatarRemoveFailed,
+  completeAvatarRemove,
 };

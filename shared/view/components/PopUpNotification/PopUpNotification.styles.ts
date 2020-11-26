@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components';
 
+type ButtonsProps = {
+  withCancelButton: boolean;
+};
+
 const PopUpNotification = styled.div`
   ${(props) => {
     const { colors } = props.theme;
@@ -24,6 +28,18 @@ const PopUpNotification = styled.div`
 
 const Message = styled.p`
   margin-bottom: 1.5rem;
+  text-align: center;
 `;
 
-export { PopUpNotification, Message };
+const Buttons = styled.div<ButtonsProps>`
+  ${(props) => {
+    const { withCancelButton } = props;
+    return css`
+      width: 80%;
+      display: flex;
+      justify-content: ${withCancelButton ? 'space-between' : 'center'};
+    `;
+  }}
+`;
+
+export { PopUpNotification, Message, Buttons };

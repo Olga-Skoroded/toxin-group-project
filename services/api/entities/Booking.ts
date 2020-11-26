@@ -29,13 +29,13 @@ class Booking {
   }
 
   @boundMethod
-  public remove(id: string): void {
+  public remove(id: number): void {
     this.actions.removeDocument(this.booked.doc(String(id)));
   }
 
   @boundMethod
-  public update(id: string, data: Partial<BookingData>): void {
-    this.actions.update(this.booked.doc(id), data);
+  public update(id: number, data: Partial<BookingData>): void {
+    this.actions.update(this.booked.doc(String(id)), data);
   }
 
   @boundMethod
@@ -115,6 +115,21 @@ class Booking {
     }
 
     return result;
+  }
+
+  @boundMethod
+  public async cancelBooking({ apartmentId, from, to, reservationBy }: BookingData): Promise<void> {
+    this.booked
+      .where('reservationBy', '==', reservationBy)
+      .where('apartmentId', '==', apartmentId)
+      .where('from', '==', from)
+      .where('to', '==', to)
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          this.actions.removeDocument(this.booked.doc(doc.id));
+        });
+      });
   }
 
   @boundMethod

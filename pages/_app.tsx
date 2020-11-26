@@ -9,6 +9,7 @@ import { purpleThemePalette } from 'shared/styles/theme';
 import { Favicon } from 'shared/view/elements';
 import 'services/i18next';
 import 'shared/styles/fonts.css';
+import 'react-image-lightbox/style.css';
 
 const MyApp = memo(({ Component, pageProps }: AppProps) => (
   <ThemeProvider theme={purpleThemePalette}>

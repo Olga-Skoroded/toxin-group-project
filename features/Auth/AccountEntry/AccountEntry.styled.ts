@@ -59,7 +59,7 @@ const FieldsWrapper = styled.div`
   }
 
   & > div:nth-child(2) {
-    padding-bottom: 1.4rem;
+    margin-bottom: 0.1rem;
   }
 `;
 

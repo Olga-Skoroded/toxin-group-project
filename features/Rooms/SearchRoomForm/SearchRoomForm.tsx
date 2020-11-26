@@ -44,8 +44,8 @@ const SearchRoomForm = memo(() => {
                 name="booked"
                 dateFromLabelText={t('Arrival')}
                 dateToLabelText={t('Departure')}
-                dateFrom={new Date(defaultBookingDates.from)}
-                dateTo={new Date(defaultBookingDates.to)}
+                dateFrom={defaultBookingDates.from}
+                dateTo={defaultBookingDates.to}
               />
             </S.TimePickerWrapper>
             <S.DropdownWrapper>

@@ -7,7 +7,7 @@ import { passwordUpdate, completePasswordUpdate } from 'redux/Profile/redux/acti
 import { AppState } from 'redux/store.model';
 import { User } from 'services/api/Firebase/modules/Authentication';
 import { PopUpNotification } from 'shared/view/components';
-import { Button, Input } from 'shared/view/elements';
+import { Button, PasswordField } from 'shared/view/elements';
 import { passwordValidator } from 'utils/validators';
 
 type StateProps = {
@@ -82,7 +82,7 @@ const PasswordUpdate = memo(
                   name="currentPassword"
                   type="password"
                   render={({ input }) => (
-                    <Input {...input} label={t('Current password')} required />
+                    <PasswordField {...input} label={t('Current password')} required />
                   )}
                 />
               )}
@@ -91,7 +91,7 @@ const PasswordUpdate = memo(
                 type="password"
                 validate={passwordValidator}
                 render={({ input }) => (
-                  <Input
+                  <PasswordField
                     {...input}
                     validators={[passwordValidator]}
                     minLength={8}
@@ -103,7 +103,7 @@ const PasswordUpdate = memo(
               <Field
                 name="confirmPassword"
                 type="password"
-                render={({ input }) => <Input {...input} label={t('Confirm password')} />}
+                render={({ input }) => <PasswordField {...input} label={t('Confirm password')} />}
               />
               <Button disabled={isPending} isFlat isFilled>
                 {t('Update password')}

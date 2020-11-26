@@ -151,6 +151,7 @@ const Loading = styled.div`
   display: flex;
   justify-content: center;
   margin: 20rem 0 15rem;
+  ${titles.h1};
 `;
 
 export {

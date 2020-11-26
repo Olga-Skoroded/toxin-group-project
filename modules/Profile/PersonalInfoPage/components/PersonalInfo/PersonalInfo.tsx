@@ -7,6 +7,7 @@ import { AppState } from 'redux/store.model';
 import { AdditionalUserInformation } from 'services/api/entities/model';
 import { User } from 'services/api/Firebase/modules/Authentication';
 
+import { EditAvatar } from '../EditAvatar/EditAvatar';
 import { EditPersonalInfo } from '../EditPersonalInfo/EditPersonalInfo';
 import { data } from './PersonalInfo.fixture';
 import * as S from './PersonalInfo.styles';
@@ -36,8 +37,10 @@ const PersonalInfo = memo(
       gender: '',
       birthday: '',
       email: '',
+      photoURL: '',
     });
     const [currentEditing, setCurrentEditing] = useState('');
+    const [userAvatar, setUserAvatar] = useState('');
 
     const getAdditionalUserData = useCallback(
       (currentUser) => {
@@ -48,7 +51,7 @@ const PersonalInfo = memo(
 
     useEffect(() => {
       if (user) getAdditionalUserData(user);
-    }, [getAdditionalUserData, user, currentEditing]);
+    }, [getAdditionalUserData, user, currentEditing, userAvatar]);
 
     const capitalize = (string: string): string => {
       return string.charAt(0).toUpperCase() + string.slice(1);
@@ -57,13 +60,14 @@ const PersonalInfo = memo(
     const { t } = useTranslation('PersonalInfoPage');
 
     const setAdditionalUserData = useCallback(() => {
-      const { displayName, email } = user;
+      const { displayName, email, photoURL } = user;
 
       setUserData({
         displayName,
         email,
         gender: additionalUserData ? t(capitalize(additionalUserData.gender)) : '',
         birthday: additionalUserData ? additionalUserData.birthDate : '',
+        photoURL,
       });
     }, [additionalUserData, t, user]);
 
@@ -83,8 +87,14 @@ const PersonalInfo = memo(
       }
     };
 
+    const handleAvatarChange = () => {
+      const { photoURL } = user;
+      setUserAvatar(photoURL);
+    };
+
     return (
       <S.PersonalInfo>
+        <EditAvatar user={user} photoURL={userData.photoURL} onChange={handleAvatarChange} />
         {accountData.map((elem) => (
           <S.Item key={elem.title}>
             <EditPersonalInfo

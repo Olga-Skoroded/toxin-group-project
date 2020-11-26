@@ -4,6 +4,7 @@ import { call, put } from 'redux-saga/effects';
 
 import { takeLeadingAction } from 'redux/action.model';
 import { Dependencies } from 'redux/api.model';
+import { HOME_PAGE } from 'shared/constants';
 import {
   getEmailUpdateErrorMessage,
   getPasswordUpdateErrorMessage,
@@ -15,6 +16,8 @@ import {
   UpdateAdditionalUserDataRequest,
   UsernameUpdateRequest,
   GetAdditionalUserDataRequest,
+  AvatarRemoveRequest,
+  AvatarUpdateRequest,
 } from '../../model';
 import {
   emailUpdateFailed,
@@ -27,13 +30,19 @@ import {
   updateAdditionalUserDataSuccess,
   usernameUpdateFailed,
   usernameUpdateSuccess,
+  avatarRemoveSuccess,
+  avatarRemoveFailed,
+  avatarUpdateSuccess,
+  avatarUpdateFailed,
 } from '../actions';
 
 function* emailUpdate(_: Dependencies, { payload }: EmailUpdateRequest) {
   try {
     const { user, email } = payload;
 
-    yield user.verifyBeforeUpdateEmail(email);
+    yield user.updateEmail(email);
+
+    yield user.sendEmailVerification({ url: HOME_PAGE });
 
     yield put(
       emailUpdateSuccess('A confirmation email has been sent to the specified email address'),
@@ -106,6 +115,32 @@ function* usernameUpdate(_: Dependencies, { payload }: UsernameUpdateRequest) {
   }
 }
 
+function* avatarUpdate({ api }: Dependencies, { payload }: AvatarUpdateRequest) {
+  try {
+    const { user, avatar } = payload;
+    const photoURL = yield call(api.auth.getPhotoURL, user.uid, avatar);
+
+    yield user.updateProfile({ photoURL });
+
+    yield put(avatarUpdateSuccess('Avatar has been saccessfully changed'));
+  } catch (err) {
+    yield put(avatarUpdateFailed('An error occured, please try again later'));
+  }
+}
+
+function* avatarRemove({ api }: Dependencies, { payload }: AvatarRemoveRequest) {
+  try {
+    const { user } = payload;
+
+    yield user.updateProfile({ photoURL: null });
+    yield api.auth.removeUserAvatar(user.uid);
+
+    yield put(avatarRemoveSuccess('Avatar has been saccessfully deleted'));
+  } catch (err) {
+    yield put(avatarRemoveFailed('An error occured, please try again later'));
+  }
+}
+
 function* rootSaga(deps: Dependencies): SagaIterator {
   yield takeLeadingAction<EmailUpdateRequest['type']>('EMAIL_UPDATE_PROCESS', emailUpdate, deps);
   yield takeLeadingAction<PasswordUpdateRequest['type']>(
@@ -128,6 +163,8 @@ function* rootSaga(deps: Dependencies): SagaIterator {
     usernameUpdate,
     deps,
   );
+  yield takeLeadingAction<AvatarUpdateRequest['type']>('AVATAR_UPDATE_PROCESS', avatarUpdate, deps);
+  yield takeLeadingAction<AvatarRemoveRequest['type']>('AVATAR_REMOVE_PROCESS', avatarRemove, deps);
 }
 
 export { rootSaga };

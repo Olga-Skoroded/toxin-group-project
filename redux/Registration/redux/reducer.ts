@@ -14,12 +14,13 @@ const registration = (
     case 'REGISTRATION_REQUEST':
       return {
         ...state,
-        statusText: '',
         isProcess: true,
+        statusText: '',
       };
     case 'REGISTRATION_SUCCESS':
       return {
         ...state,
+        isSuccess: true,
       };
     case 'REGISTRATION_FAILED':
       return {

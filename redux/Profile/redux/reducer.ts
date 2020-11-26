@@ -19,6 +19,12 @@ const initialState: ProfileState = {
   isUsernameUpdateSuccess: false,
   isUsernameUpdateCompleted: false,
   usernameUpdateStatusText: '',
+  isAvatarUpdateSuccess: false,
+  isAvatarUpdateCompleted: false,
+  avatarUpdateStatusText: '',
+  isAvatarRemoveSuccess: false,
+  isAvatarRemoveCompleted: false,
+  avatarRemoveStatusText: '',
 };
 
 const profile = (state: ProfileState = initialState, action: ProfileActions): ProfileState => {
@@ -168,6 +174,62 @@ const profile = (state: ProfileState = initialState, action: ProfileActions): Pr
         isUsernameUpdateSuccess: false,
         isUsernameUpdateCompleted: false,
         usernameUpdateStatusText: '',
+      };
+    case 'AVATAR_UPDATE_PROCESS':
+      return {
+        ...state,
+        isAvatarUpdateSuccess: false,
+        isAvatarUpdateCompleted: false,
+        avatarUpdateStatusText: '',
+      };
+    case 'AVATAR_UPDATE_SUCCESS':
+      return {
+        ...state,
+        isAvatarUpdateSuccess: true,
+        isAvatarUpdateCompleted: true,
+        avatarUpdateStatusText: action.payload,
+      };
+    case 'AVATAR_UPDATE_FAILED':
+      return {
+        ...state,
+        isAvatarUpdateSuccess: false,
+        isAvatarUpdateCompleted: true,
+        avatarUpdateStatusText: action.payload,
+      };
+    case 'AVATAR_UPDATE_COMPLETED':
+      return {
+        ...state,
+        isAvatarUpdateSuccess: false,
+        isAvatarUpdateCompleted: false,
+        avatarUpdateStatusText: '',
+      };
+    case 'AVATAR_REMOVE_PROCESS':
+      return {
+        ...state,
+        isAvatarRemoveSuccess: false,
+        isAvatarRemoveCompleted: false,
+        avatarRemoveStatusText: '',
+      };
+    case 'AVATAR_REMOVE_SUCCESS':
+      return {
+        ...state,
+        isAvatarRemoveSuccess: true,
+        isAvatarRemoveCompleted: true,
+        avatarRemoveStatusText: action.payload,
+      };
+    case 'AVATAR_REMOVE_FAILED':
+      return {
+        ...state,
+        isAvatarRemoveSuccess: false,
+        isAvatarRemoveCompleted: true,
+        avatarRemoveStatusText: action.payload,
+      };
+    case 'AVATAR_REMOVE_COMPLETED':
+      return {
+        ...state,
+        isAvatarRemoveSuccess: false,
+        isAvatarRemoveCompleted: false,
+        avatarRemoveStatusText: '',
       };
     default:
       return state;

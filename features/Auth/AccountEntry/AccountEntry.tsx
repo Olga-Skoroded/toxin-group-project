@@ -4,7 +4,7 @@ import { memo } from 'react';
 import { Field, Form } from 'react-final-form';
 import { useTranslation } from 'react-i18next';
 
-import { ArrowButton, Button, Input } from 'shared/view/elements';
+import { ArrowButton, Button, Input, PasswordField } from 'shared/view/elements';
 
 import * as S from './AccountEntry.styled';
 
@@ -57,7 +57,7 @@ const AccountEntry = memo((props: Props) => {
                 name="password"
                 type="password"
                 render={({ input, meta }) => (
-                  <Input {...input} {...meta} placeholder={t('Shared:Password')} required />
+                  <PasswordField {...input} {...meta} placeholder={t('Shared:Password')} required />
                 )}
               />
             </S.FieldsWrapper>
@@ -71,6 +71,10 @@ const AccountEntry = memo((props: Props) => {
             <S.TwoCols>
               <span>{t('AccountEntry:No Toxin account?')}</span>
               <Button href="/auth/sign-up">{t('Buttons:Sign up')}</Button>
+            </S.TwoCols>
+            <S.TwoCols>
+              <span>{t('AccountEntry:Forgot password?')}</span>
+              <Button href="/auth/forgot-password">{t('Buttons:Restore password')}</Button>
             </S.TwoCols>
           </form>
         )}

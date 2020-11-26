@@ -11,8 +11,8 @@ twoWeeksLater.setHours(12, 0, 0, 0);
 const defaultFilters: Filters = {
   price: { from: 2000, to: 7000 },
   booked: {
-    from: today.getTime(),
-    to: twoWeeksLater.getTime(),
+    from: today,
+    to: twoWeeksLater,
   },
   amenities: {
     bedrooms: 1,

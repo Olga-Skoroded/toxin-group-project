@@ -9,6 +9,7 @@ export { Favicon } from './Favicon/Favicon';
 export { Input } from './Input/Input';
 export { LikeButton } from './LikeButton/LikeButton';
 export { Logo } from './Logo/Logo';
+export { PasswordField } from './PasswordField/PasswordField';
 export { Preloader } from './Preloader/Preloader';
 export { RadioButton } from './RadioButton/RadioButton';
 export { StarRating } from './StarRating/StarRating';
