@@ -20,7 +20,7 @@ const MainContent = memo(() => {
           {t('Krasnoarmeyskaya Street, 147, Tomsk, Tomsk Oblast, Russia, 634045')}
         </S.Address>
         <YMaps query={{ lang: mapLanguage[i18n.language] }}>
-          <S.Map defaultState={{ center: [56.45315, 84.97564], zoom: 18 }}>
+          <S.Map defaultState={{ center: [56.45315, 84.97564], zoom: 16 }}>
             <Placemark geometry={[56.45315, 84.97564]} />
             <ZoomControl />
           </S.Map>
