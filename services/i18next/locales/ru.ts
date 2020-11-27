@@ -293,8 +293,10 @@ export const ru = {
   },
   RoomReviewPage: {
     'Room review': 'Оценка номера',
-    'Here is all the information about the room you have booked': 'Здесь находится вся информация о забронированной вам комнате',
-    'hotel, room, review, room review, rating room': 'отель, комната, обзор, обзор комнаты, оценка комнаты',
+    'Here is all the information about the room you have booked':
+      'Здесь находится вся информация о забронированной вам комнате',
+    'hotel, room, review, room review, rating room':
+      'отель, комната, обзор, обзор комнаты, оценка комнаты',
   },
   SearchRoomPage: {
     'Find a Room': 'Найти номер',
