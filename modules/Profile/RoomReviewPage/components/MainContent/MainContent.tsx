@@ -14,7 +14,7 @@ import {
   finishRoomRating,
 } from 'redux/Booking/redux/actions';
 import { AppState } from 'redux/store.model';
-import { ClientRoomProps } from 'shared/model';
+import { ClientRoomProps, Review as ReviewProps } from 'shared/model';
 import { Review } from 'shared/view/components/Review/Review';
 import { Benefits } from 'shared/view/elements/Benefits/Benefits';
 import { BulletList } from 'shared/view/elements/BulletList/BulletList';
