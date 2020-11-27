@@ -416,7 +416,6 @@ export const ru = {
     'An error occured, please try again later': 'Произошла ошибка, повторите попытку позже',
   },
   ServicesPage: {
-    Services: 'Услуги',
     'Services that are available in our hotel': 'Услуги которые доступны в нашем отеле',
     'hotel, services, transfer, food order': 'отель, услуги, трансфер, заказ еды',
     Transfer: 'Трансфер',

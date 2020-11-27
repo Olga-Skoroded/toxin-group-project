@@ -10,7 +10,7 @@ const Services = memo(() => {
   return (
     <>
       <Head>
-        <title>Toxin | {t('Services')}</title>
+        <title>Toxin | {t('Links:Services')}</title>
         <meta name="description" content={t('Services that are available in our hotel')} />
         <meta name="keywords" content={t('hotel, services, transfer, food order')} />
       </Head>
