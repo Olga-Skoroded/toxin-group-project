@@ -14,7 +14,7 @@ import {
   finishRoomRating,
 } from 'redux/Booking/redux/actions';
 import { AppState } from 'redux/store.model';
-import { Review as ReviewProps } from 'services/api/entities/model';
+import { Review as ReviewProps } from 'shared/model';
 import { Review } from 'shared/view/components/Review/Review';
 import { RoomProps } from 'shared/view/components/Room/Room.model';
 import { Benefits } from 'shared/view/elements/Benefits/Benefits';
@@ -27,12 +27,16 @@ import { Textarea } from 'shared/view/elements/TextArea/TextArea';
 import { roomImagesPreview, benefitsData, rulesData } from './MainContent.fixture';
 import * as S from './MainContent.styles';
 
+type ClientRoomProps = Omit<RoomProps, 'reviews'> & {
+  reviews: ReviewProps[];
+};
+
 type ReviewValues = {
   'room-review': string;
 };
 
 type StateProps = {
-  currentRoom: RoomProps;
+  currentRoom: ClientRoomProps;
   photoURL: string;
   displayedName: string;
   bookedRooms: BookedHistoryList;
@@ -204,7 +208,7 @@ const MainContent: React.FC<Props> = memo(
               <S.Title>{t('Visitor reviews')}:</S.Title>
               {popularComments ? (
                 popularComments.map((review) => {
-                  const reviewDate = review.date as Date;
+                  const reviewDate = review.date;
                   const reviewData = {
                     ...review,
                     date: reviewDate,
