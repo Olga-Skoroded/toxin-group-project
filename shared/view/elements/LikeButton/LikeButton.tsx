@@ -1,31 +1,26 @@
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import { ChangeEvent, memo, useState } from 'react';
+import { memo } from 'react';
 
 import * as S from './LikeButton.styles';
 
 type Props = {
-  count: number;
+  likesCount: number;
   isActive?: boolean;
-  onCheckboxChange?: (e: ChangeEvent) => void;
+  onCheckboxChange?: () => void;
 };
 
 const LikeButton = memo((props: Props) => {
-  const { count, isActive } = props;
-  const [likesCount, setLikesCount] = useState(count || 0);
-  const [isLikeButtonPressed, setLikeButtonStatus] = useState(isActive || false);
+  const { likesCount, isActive, onCheckboxChange } = props;
 
   const handleLikeButtonClick = () => {
-    setLikeButtonStatus(!isLikeButtonPressed);
-
-    const newLikesCount = isLikeButtonPressed ? likesCount - 1 : likesCount + 1;
-    setLikesCount(newLikesCount);
+    onCheckboxChange();
   };
 
   return (
-    <S.LikeLabel isActive={isLikeButtonPressed}>
+    <S.LikeLabel isActive={isActive}>
       <FavoriteIcon />
       <S.LikeSpan>{likesCount}</S.LikeSpan>
-      <S.LikeInput type="checkbox" onChange={handleLikeButtonClick} checked={isLikeButtonPressed} />
+      <S.LikeInput type="checkbox" onChange={handleLikeButtonClick} checked={isActive} />
       <S.LikeOutline />
     </S.LikeLabel>
   );

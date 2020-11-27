@@ -8,7 +8,6 @@ export { Header } from './Header/Header';
 export { NavMenu } from './NavMenu/NavMenu';
 export { PopUpNotification } from './PopUpNotification/PopUpNotification';
 export { Review } from './Review/Review';
-export { Reviews } from './Reviews/Reviews';
 export { Room } from './Room/Room';
 export { Rooms } from './Rooms/Rooms';
 export { RoomImpression } from './RoomImpression/RoomImpression';

@@ -1,7 +1,7 @@
 import { boundMethod } from 'autobind-decorator';
 
 import { Database, CollectionReference } from '../Firebase/modules/Database';
-import { Apartment } from './model';
+import { Apartment, Review } from './model';
 
 class Apartments {
   private readonly actions: Database;
@@ -30,6 +30,11 @@ class Apartments {
   @boundMethod
   public async load(id: Apartment['id']): Promise<Apartment> {
     return this.actions.getDocument(this.reference, String(id));
+  }
+
+  @boundMethod
+  public async setReviewLike(roomId: string, reviews: Review[]): Promise<void> {
+    this.reference.doc(String(roomId)).update({ reviews });
   }
 }
 

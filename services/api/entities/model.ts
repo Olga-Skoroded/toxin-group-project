@@ -32,6 +32,8 @@ export type Review = {
   date: Timestamp;
   text: string;
   likesCount: number;
+  likers: string[];
+  id: string;
 };
 
 type Options = {

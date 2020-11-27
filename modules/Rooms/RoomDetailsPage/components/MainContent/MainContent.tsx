@@ -8,10 +8,12 @@ import { getRoomDetails as getRoomDetailsRequest } from 'redux/Apartment/redux/a
 import { preloadAuthData } from 'redux/Auth/redux/actions';
 import { bookRoom } from 'redux/Booking/redux/actions';
 import { AppState } from 'redux/store.model';
+import { User } from 'services/api/Firebase/modules/Authentication/model';
 import { Apartment } from 'shared/model';
-import { Reviews, RoomImpression } from 'shared/view/components';
+import { RoomImpression } from 'shared/view/components';
 import { Benefits, BulletList, Preloader } from 'shared/view/elements';
 
+import { Reviews } from '../Reviews/Reviews';
 import { roomImagesPreview, benefitsData, rulesData } from './MainContent.fixture';
 import * as S from './MainContent.styles';
 
@@ -20,6 +22,7 @@ type StateProps = {
   roomDetails: Apartment;
   isAuthSuccess: boolean;
   userEmail: string;
+  user: User;
 };
 
 const mapState = (state: AppState): StateProps => ({
@@ -27,6 +30,7 @@ const mapState = (state: AppState): StateProps => ({
   roomDetails: state.apartment.roomDetails,
   isAuthSuccess: state.auth.isAuthSuccess,
   userEmail: state.auth.userEmail,
+  user: state.auth.user,
 });
 
 const mapDispatch = {
@@ -43,6 +47,7 @@ const MainContent = memo(
     roomDetails,
     isAuthSuccess,
     userEmail,
+    user,
     startGetRoomDetails,
     checkAuthBeforePageLoaded,
     confirmBookedRoom,
@@ -89,7 +94,7 @@ const MainContent = memo(
                 />
               </S.RoomImpressionWrapper>
               <S.ReviewsWrapper>
-                <Reviews reviews={roomDetails.reviews} />
+                <Reviews reviews={roomDetails.reviews} user={user} roomId={roomNumber} />
               </S.ReviewsWrapper>
               <S.BulletList>
                 <S.Title>{t('Shared:Rules')}</S.Title>

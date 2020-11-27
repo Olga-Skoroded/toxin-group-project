@@ -261,6 +261,9 @@ const FormElementsPage = memo(() => {
             </S.BenefitsWrapper>
             <S.ReviewsWrapper>
               <Review
+                id="1"
+                uid="12"
+                likers={[]}
                 avatarUrl="user.jpg"
                 userName="Мурад Сарафанов"
                 date={new Date('2020-09-27 12:03:14')}

@@ -2,6 +2,7 @@ import { ApartmentState, ApartmentActions } from '../model';
 
 const initialState: ApartmentState = {
   isGetRoomDetailsPending: false,
+  isSetReviewLikePending: false,
   roomDetails: null,
 };
 
@@ -33,6 +34,23 @@ const apartment = (
         ...state,
         isGetRoomDetailsPending: false,
         roomDetails: null,
+      };
+
+    case 'SET_REVIEW_LIKE_PROCESS':
+      return {
+        ...state,
+        isSetReviewLikePending: true,
+        roomDetails: null,
+      };
+    case 'SET_REVIEW_LIKE_SUCCESS':
+      return {
+        ...state,
+        isSetReviewLikePending: false,
+      };
+    case 'SET_REVIEW_LIKE_FAILED':
+      return {
+        ...state,
+        isSetReviewLikePending: false,
       };
     default:
       return state;
