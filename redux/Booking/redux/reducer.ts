@@ -156,7 +156,7 @@ const booking = (state: BookingState = initialState, action: BookingActions): Bo
         isCancelBookingPending: false,
         isCancelBookingSuccess: false,
         isCancelBookingFailed: true,
-        cancelBookingStatusText: '',
+        cancelBookingStatusText: action.payload,
       };
     }
     case 'CANCEL_BOOKING_COMPLETED': {

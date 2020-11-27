@@ -2,6 +2,7 @@ import { boundMethod } from 'autobind-decorator';
 import { nanoid } from 'nanoid';
 
 import { defaultFilters } from 'features/Rooms/SearchRoomForm/SearchRoomForm.fixture';
+import { BookingData as ClientBookingData } from 'shared/model';
 import { matchObjects } from 'utils/object.utils';
 
 import { Database, CollectionReference, QuerySnapshot } from '../Firebase/modules/Database';
@@ -118,16 +119,22 @@ class Booking {
   }
 
   @boundMethod
-  public async cancelBooking({ apartmentId, from, to, reservationBy }: BookingData): Promise<void> {
+  public async cancelBooking({
+    apartmentId,
+    from,
+    reservationBy,
+  }: ClientBookingData): Promise<void> {
     this.booked
       .where('reservationBy', '==', reservationBy)
       .where('apartmentId', '==', apartmentId)
-      .where('from', '==', from)
-      .where('to', '==', to)
       .get()
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
-          this.actions.removeDocument(this.booked.doc(doc.id));
+          const documentBookFrom = doc.data().from.toDate().toLocaleDateString();
+
+          if (documentBookFrom === from.toLocaleDateString()) {
+            this.actions.removeDocument(this.booked.doc(doc.id));
+          }
         });
       });
   }

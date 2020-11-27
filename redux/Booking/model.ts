@@ -2,9 +2,9 @@ import { Action, ActionPayload } from 'redux/action.model';
 import {
   Filters,
   BookedRoom,
-  Apartment,
   CommentData,
   RoomRatingData,
+  Apartment,
 } from 'services/api/entities/model';
 import { RoomProps } from 'shared/view/components/Room/Room.model';
 

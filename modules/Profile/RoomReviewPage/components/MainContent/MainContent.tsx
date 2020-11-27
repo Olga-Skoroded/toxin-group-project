@@ -27,6 +27,10 @@ import { Textarea } from 'shared/view/elements/TextArea/TextArea';
 import { roomImagesPreview, benefitsData, rulesData } from './MainContent.fixture';
 import * as S from './MainContent.styles';
 
+type ReviewValues = {
+  'room-review': string;
+};
+
 type StateProps = {
   currentRoom: RoomProps;
   photoURL: string;
@@ -112,7 +116,7 @@ const MainContent: React.FC<Props> = memo(
 
     const popularComments = getMostPopularComments(2);
 
-    const handleReviewSubmit = (values) => {
+    const handleReviewSubmit = (values: ReviewValues) => {
       setComment({
         roomId: Number(roomParams.room),
         commentData: {
@@ -133,9 +137,9 @@ const MainContent: React.FC<Props> = memo(
         to: Number(roomParams.to),
       },
       guests: {
-        Adults: 1,
-        Children: 1,
-        Babies: 1,
+        adults: 1,
+        children: 1,
+        babies: 1,
       },
     };
 
@@ -190,7 +194,7 @@ const MainContent: React.FC<Props> = memo(
             <S.Title>{t('Shared:Cancel')}</S.Title>
             <S.CancellationTermsText>
               {t(
-                'Free cancellation within 48 hours. Thereafter, if canceled no later than 5 days in advance. you will receive a full refund before arrival minus the service fee.',
+                'RoomDetailsPage:Free cancellation within 48 hours. Thereafter, if canceled no later than 5 days in advance, you will receive a full refund before arrival minus the service fee.',
               )}
             </S.CancellationTermsText>
           </S.CancellationTerms>

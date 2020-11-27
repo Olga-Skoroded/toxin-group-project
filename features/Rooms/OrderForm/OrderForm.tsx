@@ -105,17 +105,17 @@ const dropdownOptions: DropdownProps = {
   items: [
     {
       title: 'Adults',
-      inputName: 'Adults',
+      inputName: 'adults',
       groupName: 'Guests',
     },
     {
       title: 'Children',
-      inputName: 'Children',
+      inputName: 'children',
       groupName: 'Guests',
     },
     {
       title: 'Babies',
-      inputName: 'Babies',
+      inputName: 'babies',
       max: defaultMaxGuests.babies,
       wordForms: ['Baby', 'Babies', 'BabiesSecondary'],
     },
@@ -178,15 +178,14 @@ const OrderForm = memo((props: Props) => {
     if (!isAuthSuccess) router.push('/auth/login');
 
     if (isСancellationForm) {
-      // console.log('объект с данными', {
-      //   apartmentId: roomNumber,
-      //   booked: values.booked,
-      //   user: userEmail,
-      // });
-      console.log('поле values', values);
+      const bookedDates = {
+        from: new Date(initialProps ? initialProps.booked.from : 0),
+        to: new Date(initialProps ? initialProps.booked.to : 0),
+      };
+
       startCancelBooking({
         apartmentId: roomNumber,
-        booked: values.booked,
+        booked: initialProps ? bookedDates : values.booked,
         user: userEmail,
       });
     } else {
@@ -319,7 +318,7 @@ const OrderForm = memo((props: Props) => {
                     <Field
                       type="hidden"
                       render={({ input }) => {
-                        setTimeout(() => input.onChange(getResultPrice(prices)));
+                        // setTimeout(() => input.onChange(getResultPrice(prices)));
                         return <input {...input} />;
                       }}
                       name="totalPrice"
