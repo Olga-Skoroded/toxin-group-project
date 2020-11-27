@@ -10,7 +10,7 @@ const AboutUs = memo(() => {
   return (
     <>
       <Head>
-        <title>Toxin | {t('About Us')}</title>
+        <title>Toxin | {t('Links:About Us')}</title>
         <meta name="description" content={t('Here you will find information about us')} />
         <meta name="keywords" content={t('hotel, room, about us, address, map')} />
       </Head>

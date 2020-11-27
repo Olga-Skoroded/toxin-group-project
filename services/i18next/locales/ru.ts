@@ -154,7 +154,7 @@ export const ru = {
   },
   Links: {
     Navigation: 'Навигация',
-    'About us': 'О нас',
+    'About Us': 'О нас',
     News: 'Новости',
     Support: 'Служба поддержки',
     Services: 'Услуги',
@@ -414,7 +414,6 @@ export const ru = {
     'An error occured, please try again later': 'Произошла ошибка, повторите попытку позже',
   },
   AboutUsPage: {
-    'About Us': 'О нас',
     'Here you will find information about us': 'Здесь вы найдете информацию о нас',
     'hotel, room, about us, address, map': 'отель, номер, о нас, адрес, карта',
     'How to find us': 'Как нас найти',
