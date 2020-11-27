@@ -110,10 +110,9 @@ const MainContent: React.FC<Props> = memo(
         reviews
           .filter((review) => review.userEmail === userEmail)
           .map((review) => {
-            const reviewDate = review.date as Date;
             return {
               ...review,
-              date: reviewDate,
+              date: review.date,
             };
           })) ||
       [];
@@ -208,10 +207,9 @@ const MainContent: React.FC<Props> = memo(
               <S.Title>{t('Visitor reviews')}:</S.Title>
               {popularComments ? (
                 popularComments.map((review) => {
-                  const reviewDate = review.date;
                   const reviewData = {
                     ...review,
-                    date: reviewDate,
+                    date: review.date,
                   };
                   return (
                     <Review
