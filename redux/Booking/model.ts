@@ -6,14 +6,10 @@ import {
   CommentData,
   RoomRatingData,
 } from 'services/api/entities/model';
-import { Review } from 'shared/model';
+import { ClientRoomProps } from 'shared/model';
 import { RoomProps } from 'shared/view/components/Room/Room.model';
 
 type BookedHistoryList = { current: BookedRoom[]; history: BookedRoom[] };
-
-type ClientRoomProps = Omit<RoomProps, 'reviews'> & {
-  reviews: Review[];
-};
 
 type BookingState = {
   isPending: boolean;

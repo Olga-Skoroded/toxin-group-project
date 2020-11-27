@@ -14,9 +14,8 @@ import {
   finishRoomRating,
 } from 'redux/Booking/redux/actions';
 import { AppState } from 'redux/store.model';
-import { Review as ReviewProps } from 'shared/model';
+import { ClientRoomProps } from 'shared/model';
 import { Review } from 'shared/view/components/Review/Review';
-import { RoomProps } from 'shared/view/components/Room/Room.model';
 import { Benefits } from 'shared/view/elements/Benefits/Benefits';
 import { BulletList } from 'shared/view/elements/BulletList/BulletList';
 import { Button } from 'shared/view/elements/Button/Button';
@@ -26,10 +25,6 @@ import { Textarea } from 'shared/view/elements/TextArea/TextArea';
 
 import { roomImagesPreview, benefitsData, rulesData } from './MainContent.fixture';
 import * as S from './MainContent.styles';
-
-type ClientRoomProps = Omit<RoomProps, 'reviews'> & {
-  reviews: ReviewProps[];
-};
 
 type ReviewValues = {
   'room-review': string;
