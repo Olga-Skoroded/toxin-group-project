@@ -1,4 +1,3 @@
-import { Timestamp } from '../../../services/api/Firebase/modules/Database/model';
 import { BookingActions, BookingState } from '../model';
 
 const initialState: BookingState = {
@@ -67,14 +66,10 @@ const booking = (state: BookingState = initialState, action: BookingActions): Bo
         currentRoom: {
           ...action.payload,
           number: action.payload.id,
-          reviews: action.payload.reviews.map((review) => {
-            const reviewDate = <Timestamp>review.date;
-
-            return {
-              ...review,
-              date: reviewDate.toDate(),
-            };
-          }),
+          reviews: action.payload.reviews.map((review) => ({
+            ...review,
+            date: review.date.toDate(),
+          })),
         },
         userRating: action.payload.userRating,
       };
