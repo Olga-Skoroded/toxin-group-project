@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { breakpointDown } from 'shared/styles/break-points';
 import { container } from 'shared/styles/mixins';
 
-const Banner = styled.main`
+const Banner = styled.div`
   ${container}
   display: flex;
   justify-content: center;
