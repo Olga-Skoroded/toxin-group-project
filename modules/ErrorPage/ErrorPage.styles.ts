@@ -7,8 +7,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 3.5714rem;
-  margin-bottom: 3.5714rem;
+  margin: 3.5714rem auto;
   flex: 1 0 auto;
 `;
 
