@@ -4,6 +4,7 @@ import { ApartmentState, ApartmentActions } from './Apartment/model';
 import { Dependencies } from './api.model';
 import { AuthState, AuthActions } from './Auth/model';
 import { BookingState, BookingActions } from './Booking/model';
+import { FoodState, FoodActions } from './Food/model';
 import { LanguageState, LanguageActions } from './Language/model';
 import { ProfileState, ProfileActions } from './Profile/model';
 import { RegistrationState, RegistrationActions } from './Registration/model';
@@ -13,6 +14,7 @@ type AvailableStates =
   | ApartmentState
   | AuthState
   | BookingState
+  | FoodState
   | ProfileState
   | RegistrationState
   | LanguageState
@@ -22,6 +24,7 @@ type AvailableActions =
   | ApartmentActions
   | AuthActions
   | BookingActions
+  | FoodActions
   | ProfileActions
   | RegistrationActions
   | LanguageActions
@@ -31,6 +34,7 @@ type AppState = {
   apartment: ApartmentState;
   auth: AuthState;
   booking: BookingState;
+  food: FoodState;
   language: LanguageState;
   profile: ProfileState;
   registration: RegistrationState;

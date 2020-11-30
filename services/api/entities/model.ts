@@ -107,3 +107,14 @@ export type SubscriptionData = {
 };
 
 export type BookedRoomsHistory = Record<string, BookedRoom[]>;
+
+export type FoodData = {
+  [key: string]: {
+    [key: string]: {
+      grams: number;
+      price: number;
+      description: string;
+      image: string;
+    };
+  };
+};

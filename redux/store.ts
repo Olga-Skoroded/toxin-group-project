@@ -8,6 +8,7 @@ import { apartmentReduxEntry } from './Apartment';
 import { Dependencies } from './api.model';
 import { reduxEntry as AuthReduxEntry } from './Auth';
 import { reduxEntry as BookingReduxEntry } from './Booking';
+import { foodReduxEntry } from './Food';
 import { reduxEntry as LanguageReduxEntry } from './Language';
 import { profileReduxEntry } from './Profile';
 import { reduxEntry as RegistrationReduxEntry } from './Registration';
@@ -25,6 +26,7 @@ const sharedReduxEntries: SharedReduxEntries = [
   apartmentReduxEntry,
   AuthReduxEntry,
   BookingReduxEntry,
+  foodReduxEntry,
   profileReduxEntry,
   RegistrationReduxEntry,
   LanguageReduxEntry,

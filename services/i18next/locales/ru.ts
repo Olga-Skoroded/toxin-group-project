@@ -107,6 +107,41 @@ export const ru = {
     Days: 'дня',
     DaysSecondary: 'дней',
   },
+  Food: {
+    'Tasty tortilla': 'Тейсти-тортилья',
+    'Wheat tortilla, chicken fillet, cheddar cheese, legendary sauce':
+      'Пшеничная лепешка, куриное филе, сыр чеддер, легендарный соус',
+    'Croissant with salmon': 'Круассан с лососем',
+    'Croissant, lightly salted salmon, avocado': 'Круассан, слабосоленый лосось, авокадо',
+    'Tortilla roll with chicken': 'Тортилья-ролл с курицей',
+    'Cheese tortilla, iceberg lettuce, salted gherkin, fresh tomato, chicken fillet, Caesar sauce, mozzarella cheese':
+      'Сырная тортилья, салат айсберг, корнишон соленый, помидор свежий, куриное филе, соус цезарь, сыр моцарелла',
+    'Tortilla roll with salmon': 'Тортилья-ролл с семгой',
+    'Cheese tortilla, iceberg lettuce, fresh cucumber, fresh tomato, salted salmon, Caesar sauce, mozzarella cheese':
+      'Тортилья сырная, салат айсберг, огурец свежий, помидор свежий, лосось слабосоленый, соус цезарь, сыр моцарелла',
+    'Beef stroganoff': 'Бефстроганов',
+    'Beef, cream, mushrooms, pepper': 'Говядина, сливки, шампиньоны, перец',
+    'Homemade dumplings with sour cream': 'Пельмени Домашние со сметаной',
+    'Flour, beef': 'Мука, говядина',
+    'Salmon steak': 'Стейк из лосося',
+    'Choice of cooking method': 'Способ приготовления на выбор',
+    'Homemade chicken cutlets': 'Домашние куриные котлетки',
+    'Chicken fillet, onion (optional cooking method)':
+      'Куриное филе, лук (способ приготовления на выбор)',
+    'Tender chicken fillet': 'Нежное куриное филе',
+    'Tom yum soup with shrimp': 'Суп Том ям с креветкой',
+    'Tom yum pasta, coconut milk, shrimp': 'Паста том ям, кокосовое молоко, креветка',
+    'Andalusian Gazpacho soup': 'Суп Гаспачо по-андалузски',
+    'Tomato, cucumber, celery, salt, pepper': 'Томат, огурцы, сельдерей, соль, перец',
+    'Delicate pumpkin cream soup': 'Нежный крем-суп из тыквы',
+    'Pumpkin, water, sesame seeds, pumpkin seeds': 'Тыква, вода, кунжут, семечки тыквы',
+    'Chicken soup with homemade noodles': 'Куриный супчик с домашней лапшой',
+    'Chicken broth, chicken fillet, onion, carrot, egg noodles':
+      'Бульон куриный, куриное филе, лук, морковь, лапша яичная',
+    'Borscht with beef and homemade sour cream': 'Борщ с говядиной и домашней сметаной',
+    'Beef broth, potatoes, cabbage, beets, carrots, onions, tomato, beef, sour cream':
+      'Бульон говяжий, картофель, капуста, свекла, морковь, лук, томат, говядина, сметана',
+  },
   Buttons: {
     'Sign In': 'Войти',
     'Sign up': 'Создать',
@@ -422,5 +457,12 @@ export const ru = {
     'We can take you to our hotel': 'Мы можем доставить вас в наш отель',
     'Food order': 'Заказ еды',
     'Order food directly to your room': 'Заказывайте еду прямо в номер',
+  },
+  FoodOrderPage: {
+    'Loading restaurant menu...': 'Загрузка меню ресторана...',
+    'Failed to load restaurant menu': 'Не удалось загрузить меню ресторана',
+    Snacks: 'Закуски',
+    'Hot dishes': 'Горячие блюда',
+    Soups: 'Супы',
   },
 };
