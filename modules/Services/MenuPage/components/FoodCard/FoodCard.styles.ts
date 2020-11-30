@@ -2,6 +2,16 @@ import styled, { css } from 'styled-components';
 
 import { titles } from 'shared/styles/mixins';
 
+const Link = styled.a`
+  ${(props) => {
+    const { colors } = props.theme;
+    return css`
+      text-decoration: none;
+      color: ${colors.basicDark};
+    `;
+  }}
+`;
+
 const FoodCard = styled.section`
   ${(props) => {
     const { colors } = props.theme;
@@ -47,4 +57,4 @@ const Image = styled.img`
   margin-top: auto;
 `;
 
-export { FoodCard, Header, Title, Grams, Price, Description, Image };
+export { Link, FoodCard, Header, Title, Grams, Price, Description, Image };

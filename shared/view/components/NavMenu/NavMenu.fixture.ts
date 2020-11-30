@@ -7,7 +7,7 @@ const NavLinks: NavMenuLink[] = [
     path: '/services',
     subMenu: [
       { name: 'Transfer', path: '/services/transfer' },
-      { name: 'Food order', path: '/services/food-order' },
+      { name: 'Food order', path: '/services/menu' },
     ],
   },
   { name: 'Careers', path: '/mock-Careers' },

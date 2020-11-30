@@ -7,7 +7,7 @@ const cardsData = [
   {
     title: 'Food order',
     description: 'Order food directly to your room',
-    href: './services/food-order',
+    href: './services/menu',
   },
 ];
 

@@ -458,7 +458,7 @@ export const ru = {
     'Food order': 'Заказ еды',
     'Order food directly to your room': 'Заказывайте еду прямо в номер',
   },
-  FoodOrderPage: {
+  MenuPage: {
     'Loading restaurant menu...': 'Загрузка меню ресторана...',
     'Failed to load restaurant menu': 'Не удалось загрузить меню ресторана',
     Snacks: 'Закуски',

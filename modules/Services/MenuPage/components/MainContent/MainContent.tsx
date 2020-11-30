@@ -38,7 +38,7 @@ const MainContent = memo(({ isPending, foodData, startGetFoodData }: Props) => {
 
   const [category, setCategory] = useState('snacks');
 
-  const { t } = useTranslation('FoodOrderPage');
+  const { t } = useTranslation('MenuPage');
 
   const categories = {
     snacks: t('Snacks'),
