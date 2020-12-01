@@ -154,7 +154,7 @@ export const ru = {
   },
   Links: {
     Navigation: 'Навигация',
-    'About us': 'О нас',
+    'About Us': 'О нас',
     News: 'Новости',
     Support: 'Служба поддержки',
     Services: 'Услуги',
@@ -423,6 +423,13 @@ export const ru = {
     'You have successfully subscribed to the special offers':
       'Вы успешно подписаны на рассылку спецпредложений',
     'An error occured, please try again later': 'Произошла ошибка, повторите попытку позже',
+  },
+  AboutUsPage: {
+    'Here you will find information about us': 'Здесь вы найдете информацию о нас',
+    'hotel, room, about us, address, map': 'отель, номер, о нас, адрес, карта',
+    'How to find us': 'Как нас найти',
+    'Krasnoarmeyskaya Street, 147, Tomsk, Tomsk Oblast, Russia, 634045':
+      'Красноармейская ул., 147, Томск, Томская обл., Россия, 634045',
   },
   ServicesPage: {
     'Services that are available in our hotel': 'Услуги которые доступны в нашем отеле',

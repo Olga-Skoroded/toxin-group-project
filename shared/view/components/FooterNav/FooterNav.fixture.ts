@@ -6,8 +6,8 @@ const footerNavData: Required<NavProps> = {
       title: 'Navigation',
       items: [
         {
-          href: '/mock',
-          text: 'About us',
+          href: '/about-us',
+          text: 'About Us',
         },
         {
           href: '/mock',
@@ -24,7 +24,7 @@ const footerNavData: Required<NavProps> = {
       ],
     },
     {
-      title: 'About us',
+      title: 'About Us',
       items: [
         {
           href: '/mock',
