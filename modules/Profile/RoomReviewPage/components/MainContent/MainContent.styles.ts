@@ -82,35 +82,12 @@ const Benefits = styled.section`
   }
 `;
 
-const RatingWrapper = styled.form``;
-
-const StarRatingWrapper = styled.div`
-  margin-bottom: 1.4286rem;
-`;
-
 const CommentsWrapper = styled.div`
   grid-column: 1 / 3;
 
   @media ${breakpointDown('sm')} {
     grid-column: 1;
   }
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-
-const ReviewsWrapper = styled.form`
-  grid-column: 1 / 3;
-
-  @media ${breakpointDown('sm')} {
-    grid-column: 1;
-  }
-`;
-
-const ReviewsContainer = styled.div`
-  margin-bottom: 1.4286rem;
 `;
 
 const BulletList = styled.section`
@@ -170,14 +147,9 @@ export {
   Details,
   Title,
   Benefits,
-  RatingWrapper,
-  ReviewsWrapper,
   BulletList,
   CommentsWrapper,
-  ButtonWrapper,
-  ReviewsContainer,
   CancellationTerms,
-  StarRatingWrapper,
   CancellationTermsText,
   OrderFormWrapper,
 };
