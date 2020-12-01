@@ -34,10 +34,9 @@ class Authentication {
     const photoURL = await this.storage
       .childRef(filePath)
       .put(file)
-      .then((fileSnapshot) => {
-        return fileSnapshot.ref.getDownloadURL().then((url) => {
-          return url;
-        });
+      .then(async (fileSnapshot) => {
+        const url = await fileSnapshot.ref.getDownloadURL();
+        return url;
       });
     return photoURL;
   }

@@ -1,14 +1,11 @@
-import { memo } from 'react';
+import { ChangeEvent, memo } from 'react';
 
 import { SliderProps } from './Slider.model';
 import * as S from './Slider.styles';
 
 const Slider = memo(
   ({ value, name, max = 16000, min = 0, step = 100, onChange, onPointerUp }: SliderProps) => {
-    const handleChange = (
-      _: React.ChangeEvent<HTMLInputElement>,
-      currentValue: number | number[],
-    ) => {
+    const handleChange = (_: ChangeEvent<HTMLInputElement>, currentValue: number | number[]) => {
       onChange && onChange(currentValue);
     };
 

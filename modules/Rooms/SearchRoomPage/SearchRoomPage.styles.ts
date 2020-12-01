@@ -70,7 +70,10 @@ const FilterContainer = styled.div`
   }
 `;
 
-const RoomsContainer = styled.section``;
+const RoomsContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
 
 const RoomsTitle = styled.h1`
   ${titles.h1}
@@ -85,6 +88,12 @@ const PreloaderWrapper = styled.div`
   margin-top: 3.5715rem;
 `;
 
+const NothingFound = styled.h1`
+  margin: auto 0;
+  ${titles.h1}
+  text-align: center;
+`;
+
 export {
   Container,
   RoomsContainer,
@@ -94,4 +103,5 @@ export {
   FilterContainer,
   Sort,
   Select,
+  NothingFound,
 };

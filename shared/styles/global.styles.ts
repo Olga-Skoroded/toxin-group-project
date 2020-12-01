@@ -22,6 +22,17 @@ const GlobalStyle = createGlobalStyle<Props>`
         color: ${colors.basicDark};
         font-family: ${typography.fontName};
       }
+
+      body,
+      html {
+        height: 100%;
+      }
+
+      #__next {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+      }
     `;
   }}
 `;

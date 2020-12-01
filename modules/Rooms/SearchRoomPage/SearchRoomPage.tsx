@@ -98,39 +98,47 @@ const SearchRoomPage = memo(({ rooms, getRooms, isPending }: Props) => {
           <RoomFilter initialFilters={filters} loadRooms={loadRooms} isPending={isPending} />
         </S.FilterContainer>
         <S.RoomsContainer>
-          <S.TitleContainer>
-            <S.RoomsTitle>{t('The rooms we have selected for you')}</S.RoomsTitle>
-            <S.Sort>
-              {t('Sort by parameter')}:
-              <S.Select onChange={handleSelectChange}>
-                {sortData.map((paramData) => (
-                  <Fragment key={paramData.parameter}>
-                    <option
-                      value={`${paramData.parameter}${separator}${ascKey}`}
-                      key={`${paramData.parameter}${separator}${ascKey}`}
-                    >
-                      {paramData.name} ↑
-                    </option>
-                    <option
-                      value={`${paramData.parameter}${separator}${descKey}`}
-                      key={`${paramData.parameter}${separator}${descKey}`}
-                    >
-                      {paramData.name} ↓
-                    </option>
-                  </Fragment>
-                ))}
-              </S.Select>
-            </S.Sort>
-          </S.TitleContainer>
           {isPending && (
             <S.PreloaderWrapper>
               <Preloader />
             </S.PreloaderWrapper>
           )}
           {rooms.length ? (
-            <Rooms rooms={sortedRooms} />
+            <>
+              <S.TitleContainer>
+                <S.RoomsTitle>{t('The rooms we have selected for you')}</S.RoomsTitle>
+                <S.Sort>
+                  {t('Sort by parameter')}:
+                  <S.Select onChange={handleSelectChange}>
+                    {sortData.map((paramData) => (
+                      <Fragment key={paramData.parameter}>
+                        <option
+                          value={`${paramData.parameter}${separator}${ascKey}`}
+                          key={`${paramData.parameter}${separator}${ascKey}`}
+                        >
+                          {paramData.name} ↑
+                        </option>
+                        <option
+                          value={`${paramData.parameter}${separator}${descKey}`}
+                          key={`${paramData.parameter}${separator}${descKey}`}
+                        >
+                          {paramData.name} ↓
+                        </option>
+                      </Fragment>
+                    ))}
+                  </S.Select>
+                </S.Sort>
+              </S.TitleContainer>
+              <Rooms rooms={sortedRooms} />
+            </>
           ) : (
-            !isPending && <span>{t('No results were found for your request =(')}</span>
+            !isPending && (
+              <S.NothingFound>
+                {t(
+                  'Unfortunately, no rooms were found for your request. Try changing your search criteria',
+                )}
+              </S.NothingFound>
+            )
           )}
         </S.RoomsContainer>
       </S.Container>
