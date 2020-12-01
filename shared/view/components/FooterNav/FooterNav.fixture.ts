@@ -18,7 +18,7 @@ const footerNavData: Required<NavProps> = {
           text: 'Support',
         },
         {
-          href: '/mock',
+          href: '/services',
           text: 'Services',
         },
       ],

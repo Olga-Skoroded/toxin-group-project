@@ -158,6 +158,8 @@ export const ru = {
     News: 'Новости',
     Support: 'Служба поддержки',
     Services: 'Услуги',
+    Transfer: 'Трансфер',
+    'Food order': 'Заказ еды',
     'About service': 'О сервисе',
     'Our team': 'Наша команда',
     Careers: 'Вакансии',
@@ -421,5 +423,11 @@ export const ru = {
     'You have successfully subscribed to the special offers':
       'Вы успешно подписаны на рассылку спецпредложений',
     'An error occured, please try again later': 'Произошла ошибка, повторите попытку позже',
+  },
+  ServicesPage: {
+    'Services that are available in our hotel': 'Услуги которые доступны в нашем отеле',
+    'hotel, services, transfer, food order': 'отель, услуги, трансфер, заказ еды',
+    'We can take you to our hotel': 'Мы можем доставить вас в наш отель',
+    'Order food directly to your room': 'Заказывайте еду прямо в номер',
   },
 };
