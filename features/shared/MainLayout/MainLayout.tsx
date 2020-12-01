@@ -5,6 +5,8 @@ import { preloadAuthData } from 'redux/Auth/redux/actions';
 import { AppState } from 'redux/store.model';
 import { Footer, Header } from 'shared/view/components';
 
+import * as S from './MainLayout.styles';
+
 type StateProps = {
   displayName: string;
   wasFinishedAuthChecking: boolean;
@@ -36,7 +38,7 @@ const MainLayout = memo(
     return (
       <>
         <Header displayName={displayName} wasFinishedAuthChecking={wasFinishedAuthChecking} />
-        {children}
+        <S.Container>{children}</S.Container>
         <Footer />
       </>
     );

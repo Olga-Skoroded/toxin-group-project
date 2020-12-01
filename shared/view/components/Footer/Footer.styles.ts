@@ -46,7 +46,9 @@ const Title = styled.h2`
   ${visuallyHidden}
 `;
 
-const Wrapper = styled.footer``;
+const Wrapper = styled.footer`
+  flex-shrink: 0;
+`;
 
 const BottomContainer = styled(Container)`
   display: flex;

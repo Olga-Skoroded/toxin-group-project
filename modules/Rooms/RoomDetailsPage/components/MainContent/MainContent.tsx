@@ -96,7 +96,7 @@ const MainContent = memo(
                 <S.Title>{t('Shared:Cancel')}</S.Title>
                 <S.CancellationTermsText>
                   {t(
-                    'Free cancellation within 48 hours. Thereafter, if canceled no later than 5 days in advance. you will receive a full refund before arrival minus the service fee.',
+                    'Free cancellation within 48 hours. Thereafter, if canceled no later than 5 days in advance, you will receive a full refund before arrival minus the service fee.',
                   )}
                 </S.CancellationTermsText>
               </S.CancellationTerms>
@@ -114,7 +114,9 @@ const MainContent = memo(
             </S.Details>
           </S.MainContent>
         ) : (
-          !isPending && <S.Loading>{t('Failed to load room information')}</S.Loading>
+          !isPending && (
+            <S.Loading>{t('Sorry, the room information could not be loaded')}</S.Loading>
+          )
         )}
       </>
     );

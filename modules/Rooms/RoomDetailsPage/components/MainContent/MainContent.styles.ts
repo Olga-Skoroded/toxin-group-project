@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { breakpointDown } from 'shared/styles/break-points';
 import { container, titles } from 'shared/styles/mixins';
 
-const MainContent = styled.main`
+const MainContent = styled.div`
   ${(props) => {
     const { colors } = props.theme;
     return css`
@@ -151,6 +151,7 @@ const Loading = styled.div`
   display: flex;
   justify-content: center;
   margin: 20rem 0 15rem;
+  ${titles.h1};
 `;
 
 export {

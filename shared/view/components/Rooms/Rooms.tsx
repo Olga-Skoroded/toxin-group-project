@@ -15,7 +15,7 @@ const DEFAULT_INCREMENT = 12;
 
 const Rooms = memo(({ rooms }: Props) => {
   const [visibleRooms, setVisibleRooms] = useState<RoomProps[]>([]);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(rooms.length > DEFAULT_INCREMENT);
 
   const getNewRooms = useCallback(async () => {
     setVisibleRooms((prevRooms) => {

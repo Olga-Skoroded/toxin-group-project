@@ -18,11 +18,11 @@ const PriceSlider = memo(
     const [currentValue, setCurrentValue] = useState(value);
 
     const getValuesRangeText = () => {
-      if (Array.isArray(value)) {
-        const [from, to] = value;
+      if (Array.isArray(currentValue)) {
+        const [from, to] = currentValue;
         return `${formatNumber(from)} - ${formatNumber(to)}`;
       }
-      return `${formatNumber(value)}`;
+      return `${formatNumber(currentValue)}`;
     };
 
     return (
@@ -34,11 +34,11 @@ const PriceSlider = memo(
           };
 
           const handlePointerUp = () => {
-            if (Array.isArray(value)) {
-              const [from, to] = value;
+            if (Array.isArray(currentValue)) {
+              const [from, to] = currentValue;
               input.onChange({ from, to });
             } else {
-              input.onChange(value);
+              input.onChange(currentValue);
             }
           };
 

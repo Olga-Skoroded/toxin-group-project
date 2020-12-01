@@ -26,6 +26,7 @@ const mapDispatch = {
 
 type OwnProps = {
   user: User;
+  gender: 'Male' | 'Female' | 'Мужчина' | 'Женщина';
   onConfirm: () => void;
   onCancel: () => void;
   onSuccess: () => void;
@@ -36,6 +37,7 @@ type Props = OwnProps & StateProps & typeof mapDispatch;
 const RemoveAvatar = memo(
   ({
     user,
+    gender,
     onCancel,
     onConfirm,
     isCompleted,
@@ -45,7 +47,7 @@ const RemoveAvatar = memo(
     startAvatarRemove,
     stopAvatarRemove,
   }: Props) => {
-    const { t } = useTranslation('PersonalInfo');
+    const { t } = useTranslation('PersonalInfoPage');
 
     const handleConfirmationCancel = () => {
       onCancel();
@@ -58,7 +60,7 @@ const RemoveAvatar = memo(
     };
 
     const handleConfirmationSuccess = () => {
-      startAvatarRemove({ user });
+      startAvatarRemove({ user, gender });
     };
 
     useEffect(() => {

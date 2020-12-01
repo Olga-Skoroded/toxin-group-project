@@ -30,14 +30,22 @@ const mapDispatch = {
 
 type Props = StateProps & typeof mapDispatch;
 
+type UserData = {
+  displayName: string;
+  email: string;
+  gender: 'Male' | 'Female' | 'Мужчина' | 'Женщина';
+  birthday: string;
+  photoURL: string;
+};
+
 const PersonalInfo = memo(
   ({ user, isSuccess, additionalUserData, startGetAdditionalUserData }: Props) => {
-    const [userData, setUserData] = useState({
-      displayName: '',
-      gender: '',
-      birthday: '',
-      email: '',
-      photoURL: '',
+    const [userData, setUserData] = useState<UserData>({
+      displayName: null,
+      gender: null,
+      birthday: null,
+      email: null,
+      photoURL: null,
     });
     const [currentEditing, setCurrentEditing] = useState('');
     const [userAvatar, setUserAvatar] = useState('');
@@ -65,8 +73,8 @@ const PersonalInfo = memo(
       setUserData({
         displayName,
         email,
-        gender: additionalUserData ? t(capitalize(additionalUserData.gender)) : '',
-        birthday: additionalUserData ? additionalUserData.birthDate : '',
+        gender: additionalUserData ? t(capitalize(additionalUserData.gender)) : null,
+        birthday: additionalUserData ? additionalUserData.birthDate : null,
         photoURL,
       });
     }, [additionalUserData, t, user]);
@@ -94,7 +102,12 @@ const PersonalInfo = memo(
 
     return (
       <S.PersonalInfo>
-        <EditAvatar user={user} photoURL={userData.photoURL} onChange={handleAvatarChange} />
+        <EditAvatar
+          user={user}
+          photoURL={userData.photoURL}
+          gender={userData.gender}
+          onChange={handleAvatarChange}
+        />
         {accountData.map((elem) => (
           <S.Item key={elem.title}>
             <EditPersonalInfo
