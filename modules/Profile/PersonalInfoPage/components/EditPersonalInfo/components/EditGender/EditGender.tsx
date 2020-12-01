@@ -4,11 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import {
+  avatarUpdate,
+  completeAvatarUpdate,
   updateAdditionalUserData,
   completeAdditionalUserDataUpdate,
 } from 'redux/Profile/redux/actions';
 import { AppState } from 'redux/store.model';
 import { User } from 'services/api/Firebase/modules/Authentication/model';
+import { getAvatarByGender, isDefaultAvatar } from 'shared/helpers';
 import { PopUpNotification } from 'shared/view/components';
 import { Button, RadioButton } from 'shared/view/elements';
 
@@ -29,6 +32,8 @@ const mapState = (state: AppState): StateProps => ({
 });
 
 const mapDispatch = {
+  startAvatarUpdate: avatarUpdate,
+  stopAvatarUpdate: completeAvatarUpdate,
   startUpdateAdditionalUserData: updateAdditionalUserData,
   stopUpdateAdditionalUserData: completeAdditionalUserDataUpdate,
 };
@@ -54,10 +59,15 @@ const EditGender = memo(
     isCompleted,
     statusText,
     onChange,
+    startAvatarUpdate,
+    stopAvatarUpdate,
     startUpdateAdditionalUserData,
     stopUpdateAdditionalUserData,
   }: Props) => {
     const onSubmit = ({ gender: newGender }: FormData) => {
+      if (isDefaultAvatar(user.photoURL)) {
+        startAvatarUpdate({ user, avatar: getAvatarByGender(newGender) });
+      }
       startUpdateAdditionalUserData({ user, data: { gender: newGender } });
     };
 
@@ -73,6 +83,7 @@ const EditGender = memo(
     };
 
     const handleConfirmButtonClick = () => {
+      stopAvatarUpdate();
       stopUpdateAdditionalUserData();
       if (isSuccess) onChange('');
     };

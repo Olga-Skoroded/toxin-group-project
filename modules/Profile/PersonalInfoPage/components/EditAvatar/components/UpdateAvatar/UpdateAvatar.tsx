@@ -47,7 +47,7 @@ const UpdateAvatar = memo(
     startAvatarUpdate,
     stopAvatarUpdate,
   }: Props) => {
-    const { t } = useTranslation('PersonalInfo');
+    const { t } = useTranslation('PersonalInfoPage');
 
     const handleNotificationCancel = () => {
       stopAvatarUpdate();

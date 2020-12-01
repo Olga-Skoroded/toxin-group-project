@@ -158,6 +158,8 @@ export const ru = {
     News: 'Новости',
     Support: 'Служба поддержки',
     Services: 'Услуги',
+    Transfer: 'Трансфер',
+    'Food order': 'Заказ еды',
     'About service': 'О сервисе',
     'Our team': 'Наша команда',
     Careers: 'Вакансии',
@@ -294,7 +296,8 @@ export const ru = {
     'hotel, room, booking, book': 'отель, номер, бронирование, забронировать',
     'Sort by parameter': 'Сортировать по параметру',
     'The rooms we have selected for you': 'Номера, которые мы для вас подобрали',
-    'No results were found for your request =(': 'К сожалению, мы не смогли ничего подобрать =(',
+    'Unfortunately, no rooms were found for your request. Try changing your search criteria':
+      'К сожалению, по вашему запросу номеров не найдено. Попробуйте изменить критерии поиска',
     price: 'цена',
     rating: 'рейтинг',
     'number of reviews': 'количество отзывов',
@@ -307,8 +310,9 @@ export const ru = {
       'отель, номер, бронирование, забронировать, информация',
     'Loading Room Information ...': 'Загрузка информации о номере ...',
     'Impressions of the room': 'Впечатления от номера',
-    'Failed to load room information': 'Не удалось загрузить информацию о номере',
-    'Free cancellation within 48 hours. Thereafter, if canceled no later than 5 days in advance. you will receive a full refund before arrival minus the service fee.':
+    'Sorry, the room information could not be loaded':
+      'К сожалению, не удалось загрузить информацию о номере',
+    'Free cancellation within 48 hours. Thereafter, if canceled no later than 5 days in advance, you will receive a full refund before arrival minus the service fee.':
       'Бесплатная отмена в течение 48 ч. После этого при отмене не позднее чем за 5 дн. до прибытия вы получите полный возврат за вычетом сбора за услуги.',
   },
   SelectedRoomsPage: {
@@ -340,6 +344,13 @@ export const ru = {
     'Booked rooms': 'Забронированные номера',
     'View all rooms that have been booked by you':
       'Просмотрите все номера которые были забронированы вами',
+  },
+  ErrorPage: {
+    "We can't seem to find the page you're looking for.":
+      'Похоже, мы не можем найти нужную вам страницу.',
+    'Back to Home': 'Вернуться на главную',
+    Error: 'Код ошибки',
+    'Page not found': 'Страница не найдена',
   },
   PersonalInfoPage: {
     'Personal Information': 'Персональная информация',
@@ -419,5 +430,11 @@ export const ru = {
     'How to find us': 'Как нас найти',
     'Krasnoarmeyskaya Street, 147, Tomsk, Tomsk Oblast, Russia, 634045':
       'Красноармейская ул., 147, Томск, Томская обл., Россия, 634045',
+  },
+  ServicesPage: {
+    'Services that are available in our hotel': 'Услуги которые доступны в нашем отеле',
+    'hotel, services, transfer, food order': 'отель, услуги, трансфер, заказ еды',
+    'We can take you to our hotel': 'Мы можем доставить вас в наш отель',
+    'Order food directly to your room': 'Заказывайте еду прямо в номер',
   },
 };

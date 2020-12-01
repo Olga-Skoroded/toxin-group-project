@@ -2,16 +2,6 @@ import styled, { css } from 'styled-components';
 
 import { titles } from 'shared/styles/mixins';
 
-const Cards = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 22rem);
-  justify-content: center;
-  gap: 2rem;
-  list-style: none;
-`;
-
-const Item = styled.li``;
-
 const Card = styled.a`
   ${(props) => {
     const { colors } = props.theme;
@@ -45,4 +35,4 @@ const Description = styled.p`
   }}
 `;
 
-export { Cards, Item, Card, Title, Description };
+export { Card, Title, Description };
