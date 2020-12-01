@@ -13,11 +13,11 @@ const ServicesPage = memo(() => {
   return (
     <MainLayout>
       <S.Container>
-        <S.Title>{t('Services')}</S.Title>
+        <S.Title>{t('Links:Services')}</S.Title>
         <S.Cards>
           {cardsData.map(({ title, description, href }) => (
             <S.Item key={title}>
-              <Card title={t(title)} description={t(description)} href={href} />
+              <Card title={t(`Links:${title}`)} description={t(description)} href={href} />
             </S.Item>
           ))}
         </S.Cards>

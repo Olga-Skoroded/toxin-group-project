@@ -418,9 +418,7 @@ export const ru = {
   ServicesPage: {
     'Services that are available in our hotel': 'Услуги которые доступны в нашем отеле',
     'hotel, services, transfer, food order': 'отель, услуги, трансфер, заказ еды',
-    Transfer: 'Трансфер',
     'We can take you to our hotel': 'Мы можем доставить вас в наш отель',
-    'Food order': 'Заказ еды',
     'Order food directly to your room': 'Заказывайте еду прямо в номер',
   },
 };
