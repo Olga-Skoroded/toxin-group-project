@@ -3,11 +3,8 @@ import styled from 'styled-components';
 import { breakpointDown } from 'shared/styles/break-points';
 import { container, titles } from 'shared/styles/mixins';
 
-const MainContent = styled.main`
+const MainContent = styled.div`
   ${container};
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   padding: 5rem;
 
   @media ${breakpointDown('xs')} {
@@ -15,10 +12,15 @@ const MainContent = styled.main`
   }
 `;
 
+const Navigation = styled.section``;
+
 const Title = styled.h1`
   ${titles.h1};
-  margin-bottom: 2rem;
-  text-align: center;
+  margin-bottom: 1rem;
 `;
 
-export { MainContent, Title };
+const Address = styled.address`
+  margin-bottom: 2rem;
+`;
+
+export { MainContent, Navigation, Title, Address };

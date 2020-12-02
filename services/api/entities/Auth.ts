@@ -1,6 +1,7 @@
 import { boundMethod } from 'autobind-decorator';
 
 import { HOME_PAGE } from 'shared/constants';
+import { getAvatarByGender } from 'shared/helpers';
 
 import {
   Authentication,
@@ -56,7 +57,7 @@ class Auth {
 
     user.updateProfile({
       displayName: `${name} ${surname}`,
-      photoURL,
+      photoURL: photoURL || getAvatarByGender(gender),
     });
 
     await this.addAdditionalUserInformation(user.uid, { gender, birthDate });

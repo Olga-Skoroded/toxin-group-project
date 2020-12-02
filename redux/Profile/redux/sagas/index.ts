@@ -5,6 +5,7 @@ import { call, put } from 'redux-saga/effects';
 import { takeLeadingAction } from 'redux/action.model';
 import { Dependencies } from 'redux/api.model';
 import { HOME_PAGE } from 'shared/constants';
+import { getAvatarByGender } from 'shared/helpers';
 import {
   getEmailUpdateErrorMessage,
   getPasswordUpdateErrorMessage,
@@ -118,7 +119,8 @@ function* usernameUpdate(_: Dependencies, { payload }: UsernameUpdateRequest) {
 function* avatarUpdate({ api }: Dependencies, { payload }: AvatarUpdateRequest) {
   try {
     const { user, avatar } = payload;
-    const photoURL = yield call(api.auth.getPhotoURL, user.uid, avatar);
+    const photoURL =
+      typeof avatar === 'string' ? avatar : yield call(api.auth.getPhotoURL, user.uid, avatar);
 
     yield user.updateProfile({ photoURL });
 
@@ -130,10 +132,10 @@ function* avatarUpdate({ api }: Dependencies, { payload }: AvatarUpdateRequest) 
 
 function* avatarRemove({ api }: Dependencies, { payload }: AvatarRemoveRequest) {
   try {
-    const { user } = payload;
+    const { user, gender } = payload;
 
-    yield user.updateProfile({ photoURL: null });
-    yield api.auth.removeUserAvatar(user.uid);
+    yield user.updateProfile({ photoURL: getAvatarByGender(gender) });
+    yield call(api.auth.removeUserAvatar, user.uid);
 
     yield put(avatarRemoveSuccess('Avatar has been saccessfully deleted'));
   } catch (err) {

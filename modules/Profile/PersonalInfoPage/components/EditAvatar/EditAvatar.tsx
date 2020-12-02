@@ -3,6 +3,7 @@ import { useState, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { User } from 'services/api/Firebase/modules/Authentication/model';
+import { isDefaultAvatar } from 'shared/helpers';
 import { Avatar, TextButton } from 'shared/view/elements';
 
 import { RemoveAvatar } from './components/RemoveAvatar/RemoveAvatar';
@@ -12,14 +13,15 @@ import * as S from './EditAvatar.styles';
 type Props = {
   user: User;
   photoURL: string;
+  gender: 'Male' | 'Female' | 'Мужчина' | 'Женщина';
   onChange: () => void;
 };
 
-const EditAvatar = memo(({ user, photoURL, onChange }: Props) => {
+const EditAvatar = memo(({ user, photoURL, gender, onChange }: Props) => {
   const [isEditorVisible, setEditorVisible] = useState(false);
   const [isConfirmationVisible, setConfirmationVisible] = useState(false);
   const [image, setImage] = useState(null);
-  const { t } = useTranslation('PersonalInfo');
+  const { t } = useTranslation('PersonalInfoPage');
 
   const useStyles = makeStyles(() => ({
     avatarLoader: { width: '7.14285rem', height: '7.14285rem' },
@@ -70,7 +72,7 @@ const EditAvatar = memo(({ user, photoURL, onChange }: Props) => {
           <S.EditButton>{t('Update avatar')}</S.EditButton>
           <S.HiddenInput type="file" accept="image/*" onChange={handleInputChange} />
         </S.EditButtonWrapper>
-        {photoURL && (
+        {!isDefaultAvatar(photoURL) && (
           <TextButton isSecondary onClick={handleRemoveButtonClick}>
             {t('Delete avatar')}
           </TextButton>
@@ -79,6 +81,7 @@ const EditAvatar = memo(({ user, photoURL, onChange }: Props) => {
       {isConfirmationVisible && (
         <RemoveAvatar
           user={user}
+          gender={gender}
           onConfirm={handleConfirmationConfirm}
           onCancel={handleConfirmationCancel}
           onSuccess={handleChangesSuccess}

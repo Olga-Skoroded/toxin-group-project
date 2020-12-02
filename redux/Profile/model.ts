@@ -29,11 +29,12 @@ type UsernameUpdate = {
 
 type AvatarUpdate = {
   user: User;
-  avatar: Blob;
+  avatar: Blob | string;
 };
 
 type AvatarRemove = {
   user: User;
+  gender: 'Male' | 'Female' | 'Мужчина' | 'Женщина';
 };
 
 type ProfileState = {

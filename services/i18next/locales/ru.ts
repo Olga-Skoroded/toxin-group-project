@@ -154,10 +154,12 @@ export const ru = {
   },
   Links: {
     Navigation: 'Навигация',
-    'About us': 'О нас',
+    'About Us': 'О нас',
     News: 'Новости',
     Support: 'Служба поддержки',
     Services: 'Услуги',
+    Transfer: 'Трансфер',
+    'Food order': 'Заказ еды',
     'About service': 'О сервисе',
     'Our team': 'Наша команда',
     Careers: 'Вакансии',
@@ -343,6 +345,13 @@ export const ru = {
     'View all rooms that have been booked by you':
       'Просмотрите все номера которые были забронированы вами',
   },
+  ErrorPage: {
+    "We can't seem to find the page you're looking for.":
+      'Похоже, мы не можем найти нужную вам страницу.',
+    'Back to Home': 'Вернуться на главную',
+    Error: 'Код ошибки',
+    'Page not found': 'Страница не найдена',
+  },
   PersonalInfoPage: {
     'Personal Information': 'Персональная информация',
     'All information about you that is in our system is collected here':
@@ -414,5 +423,18 @@ export const ru = {
     'You have successfully subscribed to the special offers':
       'Вы успешно подписаны на рассылку спецпредложений',
     'An error occured, please try again later': 'Произошла ошибка, повторите попытку позже',
+  },
+  AboutUsPage: {
+    'Here you will find information about us': 'Здесь вы найдете информацию о нас',
+    'hotel, room, about us, address, map': 'отель, номер, о нас, адрес, карта',
+    'How to find us': 'Как нас найти',
+    'Krasnoarmeyskaya Street, 147, Tomsk, Tomsk Oblast, Russia, 634045':
+      'Красноармейская ул., 147, Томск, Томская обл., Россия, 634045',
+  },
+  ServicesPage: {
+    'Services that are available in our hotel': 'Услуги которые доступны в нашем отеле',
+    'hotel, services, transfer, food order': 'отель, услуги, трансфер, заказ еды',
+    'We can take you to our hotel': 'Мы можем доставить вас в наш отель',
+    'Order food directly to your room': 'Заказывайте еду прямо в номер',
   },
 };

@@ -1,12 +1,15 @@
 import { useRouter } from 'next/router';
 import { memo, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { MainLayout } from 'features/shared/MainLayout/MainLayout';
 import { preloadAuthData } from 'redux/Auth/redux/actions';
 import { AppState } from 'redux/store.model';
+import { Card } from 'shared/view/elements/Card/Card';
 
-import { MainContent } from './components/MainContent/MainContent';
+import { cardsData } from './ProfilePage.fixture';
+import * as S from './ProfilePage.styles';
 
 type StateProps = {
   isAuthSuccess: boolean;
@@ -33,9 +36,20 @@ const ProfilePage = memo(({ isAuthSuccess, checkAuthBeforePageLoaded }: Props) =
     }
   });
 
+  const { t } = useTranslation('AccountSettingsPage');
+
   return (
     <MainLayout>
-      <MainContent />
+      <S.Container>
+        <S.Title>{t('Account')}</S.Title>
+        <S.Cards>
+          {cardsData.map(({ title, description, href }) => (
+            <S.Item key={title}>
+              <Card title={t(title)} description={t(description)} href={href} />
+            </S.Item>
+          ))}
+        </S.Cards>
+      </S.Container>
     </MainLayout>
   );
 });
