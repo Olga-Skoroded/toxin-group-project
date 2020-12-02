@@ -19,7 +19,7 @@ const takeLatestAction = <T extends string>(
 const takeLeadingAction = <T extends string>(
   type: T,
   worker: (deps: Dependencies, action: Action<T>) => unknown,
-  deps: Dependencies,
+  deps?: Dependencies,
 ): ForkEffect<unknown> => takeLeading(type, worker, deps);
 
 export type { Action, ActionPayload };

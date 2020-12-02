@@ -220,12 +220,15 @@ const OrderForm = memo((props: Props) => {
     }
   }, [isBookingSuccess, stopBooking, isCancelBookingSuccess, stopCancelBooking, router]);
 
-  const initialDropdownValues = initialProps && {
-    items: dropdownOptions.items.map((item) => ({
-      ...item,
-      initialValue: initialProps.guests[item.inputName],
-    })),
-  };
+  const dropdownData = initialProps
+    ? {
+        ...dropdownOptions,
+        items: dropdownOptions.items.map((item) => ({
+          ...item,
+          initialValue: initialProps.guests[item.inputName],
+        })),
+      }
+    : dropdownOptions;
 
   return (
     <>
@@ -303,10 +306,7 @@ const OrderForm = memo((props: Props) => {
                 </S.Datepicker>
                 <S.Dropdown>
                   <S.DropdownLabel>{t('RoomFilter:Guests')}</S.DropdownLabel>
-                  <Dropdown
-                    {...{ ...dropdownOptions, ...initialDropdownValues }}
-                    disabled={isСancellationForm}
-                  />
+                  <Dropdown {...dropdownData} disabled={isСancellationForm} />
                 </S.Dropdown>
                 <S.PriceList>
                   <PriceList items={prices} />
