@@ -118,3 +118,9 @@ export type FoodData = {
     };
   };
 };
+
+export type FoodOrderData = {
+  user: string;
+  room: number;
+  food: string;
+};

@@ -18,7 +18,7 @@ const FoodCard = memo(({ title, grams, price, description, image }: Props) => {
   const { t } = useTranslation('Food');
 
   return (
-    <Link href={`/?name=${title}`} passHref>
+    <Link href={`/services/menu/food-order?name=${title}`} passHref>
       <S.Link>
         <S.FoodCard>
           <S.Header>
