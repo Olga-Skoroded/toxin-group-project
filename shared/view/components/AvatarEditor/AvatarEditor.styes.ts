@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 
+import { breakpointDown } from 'shared/styles/break-points';
 import { materialIcons, titles } from 'shared/styles/mixins';
 
 const AvatarEditor = styled.div`
@@ -9,7 +10,7 @@ const AvatarEditor = styled.div`
     return css`
       max-width: 35.7143rem;
       box-shadow: 0 0 1.7857rem rgba(0, 0, 0, 0.2);
-      padding: 1rem 2.1rem 2rem 2.1rem;
+      padding: 1rem 2rem 2rem;
       border: 0.0714rem solid rgba(0, 0, 0, 0.12);
       border-radius: 0.2857rem;
       background: ${colors.defaultBackground};
@@ -18,6 +19,10 @@ const AvatarEditor = styled.div`
       align-items: center;
       margin: 0 auto;
       justify-content: center;
+
+      @media ${breakpointDown('xs')} {
+        padding: 1rem;
+      }
     `;
   }}
 `;

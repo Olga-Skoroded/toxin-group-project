@@ -44,8 +44,8 @@ const AvatarEditor: React.FC<Props> = ({ image, onSave, onCancel }: Props) => {
       <Editor
         ref={canvas}
         image={image}
-        width={300}
-        height={300}
+        width={250}
+        height={250}
         border={5}
         borderRadius={150}
         color={[255, 255, 255, 0.6]}
