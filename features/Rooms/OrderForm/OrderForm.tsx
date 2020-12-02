@@ -318,7 +318,6 @@ const OrderForm = memo((props: Props) => {
                     <Field
                       type="hidden"
                       render={({ input }) => {
-                        // setTimeout(() => input.onChange(getResultPrice(prices)));
                         return <input {...input} />;
                       }}
                       name="totalPrice"

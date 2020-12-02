@@ -35,7 +35,11 @@ const mapDispatch = {
   setComment: setRoomReview,
 };
 
-type Props = typeof mapDispatch & ReturnType<typeof mapState> & { roomId: string };
+type OwnProps = {
+  roomId: string;
+};
+
+type Props = typeof mapDispatch & ReturnType<typeof mapState> & OwnProps;
 
 const sortDescByLikes = (a: ReviewProps, b: ReviewProps) => b.likesCount - a.likesCount;
 

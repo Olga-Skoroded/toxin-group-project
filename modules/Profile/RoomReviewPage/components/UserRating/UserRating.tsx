@@ -35,7 +35,11 @@ type StateProps = {
   userRating: number;
 };
 
-type Props = typeof mapDispatch & ReturnType<typeof mapState> & { room: string };
+type OwnProps = {
+  room: string;
+};
+
+type Props = typeof mapDispatch & ReturnType<typeof mapState> & OwnProps;
 
 const UserRating: React.FC<Props> = memo(
   ({

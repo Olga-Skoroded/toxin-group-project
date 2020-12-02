@@ -32,7 +32,6 @@ type Props = StateProps & typeof mapDispatch;
 const MainContent: React.FC<Props> = memo(({ userEmail, getRoomInfo }: Props) => {
   const { t } = useTranslation(['RoomDetailsPage', 'Buttons']);
   const router = useRouter();
-  // to do уже есть метод для фильтрации, надо вынести куда-то
   const roomParams = queryString.parse(router.asPath.split('?')[1]);
 
   useEffect(() => {
