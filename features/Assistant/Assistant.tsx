@@ -50,7 +50,7 @@ const Assistant: React.FC<Props> = memo(
         render={({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <S.Assistant>
-              <Header name="Бот Евгений" photoURL="" />
+              <Header name="Бот Евгений" avatarUrl="" />
               <S.MessagesArea ref={messageContainer}>
                 {messages.map((message) => (
                   <Message
