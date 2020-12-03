@@ -238,6 +238,7 @@ export const ru = {
     'Email address': 'Адрес электронной почты',
   },
   RoomFilter: {
+    Filters: 'Фильтры',
     'Dates of stay in hotel': 'Даты пребывания в отеле',
     Guests: 'гости',
     'How many guests': 'Сколько гостей',

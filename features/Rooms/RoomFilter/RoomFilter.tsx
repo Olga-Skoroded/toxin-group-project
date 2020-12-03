@@ -83,7 +83,7 @@ const RoomFilter = memo(({ initialFilters, loadRooms, isPending = false }: Props
 
         return (
           <S.RoomFilter>
-            <S.MobileButton onClick={handleMobileFiltersClick}>Фильтры</S.MobileButton>
+            <S.MobileButton onClick={handleMobileFiltersClick}>{t('Filters')}</S.MobileButton>
             <S.Filters onSubmit={handleSubmit} isOpenMobileFilters={isOpenMobileFilters}>
               <S.TimePickerWrapper>
                 <TimePicker
