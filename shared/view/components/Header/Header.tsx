@@ -35,8 +35,14 @@ const Header = memo(({ user, wasFinishedAuthChecking }: Props) => {
         <NavMenu menu={NavLinks} />
         {wasFinishedAuthChecking ? (
           <S.AccountPanel>
-            {user ? <HeaderUserProfile displayName={user.displayName} /> : <HeaderUserLogin />}
-            <S.UserAvatar photoURL={user.photoURL} />
+            {user ? (
+              <>
+                <HeaderUserProfile displayName={user.displayName} />
+                <S.UserAvatar photoURL={user.photoURL} />
+              </>
+            ) : (
+              <HeaderUserLogin />
+            )}
           </S.AccountPanel>
         ) : (
           <CircularProgress />
