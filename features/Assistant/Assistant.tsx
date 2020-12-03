@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 import { memo, useRef } from 'react';
+import Draggable from 'react-draggable';
 import { Form } from 'react-final-form';
 import { connect } from 'react-redux';
 
@@ -48,23 +49,27 @@ const Assistant: React.FC<Props> = memo(
       <Form
         onSubmit={submitForm}
         render={({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
-            <S.Assistant>
-              <Header name="Бот Евгений" avatarUrl="" />
-              <S.MessagesArea ref={messageContainer}>
-                {messages.map((message) => (
-                  <Message
-                    key={nanoid()}
-                    text={message.text}
-                    name={message.author}
-                    type={message.type}
-                    data={message.data}
-                  />
-                ))}
-              </S.MessagesArea>
-              <TypeMessageArea submitMessage={submitMessage} />
-            </S.Assistant>
-          </form>
+          <Draggable handle=".handle" bounds="body">
+            <S.DraggableForm onSubmit={handleSubmit}>
+              <S.Assistant>
+                <div className="handle">
+                  <Header name="Бот Евгений" avatarUrl="" />
+                </div>
+                <S.MessagesArea ref={messageContainer}>
+                  {messages.map((message) => (
+                    <Message
+                      key={nanoid()}
+                      text={message.text}
+                      name={message.author}
+                      type={message.type}
+                      data={message.data}
+                    />
+                  ))}
+                </S.MessagesArea>
+                <TypeMessageArea submitMessage={submitMessage} />
+              </S.Assistant>
+            </S.DraggableForm>
+          </Draggable>
         )}
       />
     );

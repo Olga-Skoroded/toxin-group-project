@@ -15,6 +15,7 @@ const Header = styled.header`
       color: white;
       font-size: 1.3rem;
       flex: 1;
+      cursor: all-scroll;
     `;
   }}
 `;

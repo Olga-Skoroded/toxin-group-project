@@ -1,13 +1,9 @@
 import styled from 'styled-components';
 
 const Assistant = styled.div`
-  position: fixed;
-  bottom: 3rem;
-  right: 6rem;
   width: 25rem;
   height: 40rem;
   background: white;
-  z-index: 10;
   border-radius: 1rem;
   box-shadow: 0.1429rem 0.5714rem 0.3571rem 0.1429rem #00000021;
   border-top: 0.0714rem solid gainsboro;
@@ -23,4 +19,11 @@ const MessagesArea = styled.div`
   overflow-y: scroll;
 `;
 
-export { Assistant, MessagesArea };
+const DraggableForm = styled.form`
+  z-index: 1000;
+  position: fixed;
+  bottom: 3rem;
+  right: 6rem;
+`;
+
+export { Assistant, MessagesArea, DraggableForm };
