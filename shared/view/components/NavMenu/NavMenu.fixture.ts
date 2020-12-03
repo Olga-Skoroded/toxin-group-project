@@ -1,7 +1,7 @@
 import { NavMenuLink } from './NavMenu.model';
 
 const NavLinks: NavMenuLink[] = [
-  { name: 'About Us', path: '/about-us', isActive: true },
+  { name: 'About Us', path: '/about-us' },
   {
     name: 'Services',
     path: '/services',

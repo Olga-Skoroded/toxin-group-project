@@ -6,46 +6,49 @@ type Container = {
   isShownMenu: boolean;
 };
 
-type MenuItem = {
-  isActive?: boolean;
-};
-
-const SelectedLanguage = styled.div``;
-
 const Container = styled.div`
+  position: relative;
+  cursor: pointer;
+  margin-right: 1rem;
+  padding-right: 1rem;
+
+  @media ${breakpointDown('lg')} {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.0714rem solid gainsboro;
+    padding: 0.6rem;
+    border-radius: 0.5714rem;
+    flex-direction: column;
+    width: 100%;
+    margin: 1rem 0 2rem;
+  }
+`;
+
+const SelectedLanguage = styled.span`
   ${(props) => {
     const { colors } = props.theme;
 
     return css`
-      position: relative;
-      cursor: pointer;
-      margin-right: 1rem;
-      padding: 0 1rem;
-      border-left: 1px solid ${colors.basicLight};
-      border-right: 1px solid ${colors.basicLight};
+      margin-right: 0.5rem;
+      font-weight: bold;
+      color: ${colors.basic};
 
-      @media ${breakpointDown('lg')} {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 0.0714rem solid gainsboro;
-        padding: 0.6rem;
-        border-radius: 0.5714rem;
-        flex-direction: column;
-        width: 100%;
-        margin: 0 0 2rem;
+      &:hover {
+        color: ${colors.basicDarkest};
       }
     `;
   }}
 `;
 
 const IconExpander = styled.span`
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
   width: 1.5rem;
   height: 100%;
-  position: absolute;
-  right: 0;
   cursor: pointer;
-  display: none;
 
   & > svg {
     width: 100%;
@@ -53,24 +56,23 @@ const IconExpander = styled.span`
   }
 
   @media ${breakpointDown('lg')} {
-    display: block;
-    top: 0;
     width: 3.5rem;
   }
 `;
 
-const MenuContainer = styled.div<Container>`
+const MenuContainer = styled.ul<Container>`
   ${(props) => {
     const { isShownMenu } = props;
 
     return css`
-      padding: 1.5rem;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 10;
-      background: white;
       display: ${isShownMenu ? 'block' : 'none'};
+      z-index: 10;
+      padding: 1.5rem;
+      background: white;
+      list-style: none;
 
       @media ${breakpointDown('lg')} {
         position: relative;
@@ -82,10 +84,9 @@ const MenuContainer = styled.div<Container>`
   }}
 `;
 
-const MenuItem = styled.div<MenuItem>`
+const MenuItem = styled.li`
   ${(props) => {
     const { colors } = props.theme;
-    const { isActive } = props;
 
     return css`
       margin: 0;
@@ -93,10 +94,10 @@ const MenuItem = styled.div<MenuItem>`
       border-bottom: 0.2rem solid ${colors.primary};
       transition: all 0.1s ease-in-out;
       color: ${colors.basic};
-      font-weight: ${isActive ? 'bold' : 'normal'};
 
       &:hover {
         transform: scale(1.1);
+        color: ${colors.basicDarkest};
       }
     `;
   }}

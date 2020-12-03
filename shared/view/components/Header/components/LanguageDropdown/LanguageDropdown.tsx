@@ -1,6 +1,6 @@
 import CloseIcon from '@material-ui/icons/Close';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { useState, useEffect, useRef, memo } from 'react';
+import { useState, useEffect, useRef, memo, KeyboardEvent, MouseEvent, FocusEvent } from 'react';
 import { connect } from 'react-redux';
 
 import { changeLanguage } from 'redux/Language/redux/actions';
@@ -29,20 +29,46 @@ const mapDispatch = {
 const LanguageDropdown = memo(({ currentLanguage, setNewLanguage }: Props) => {
   const [isShownMenu, setShownMenu] = useState(false);
 
-  const openMenu = () => setShownMenu(true);
+  const openMenu = () => {
+    setShownMenu(true);
+  };
 
-  const setLanguage = (evt: React.MouseEvent<HTMLDivElement>) => {
-    const targetElement: HTMLDivElement = evt.target as HTMLDivElement;
+  const handleIconClick = () => {
+    setShownMenu((prevState) => !prevState);
+  };
+
+  const handleIconKeyDown = (e: KeyboardEvent<HTMLSpanElement>) => {
+    if (e.keyCode === 32) {
+      e.preventDefault();
+      setShownMenu((prevState) => !prevState);
+    }
+  };
+
+  const setLanguage = (e: MouseEvent<HTMLLIElement> | KeyboardEvent<HTMLLIElement>) => {
+    const targetElement = e.target as HTMLLIElement;
 
     const targetLanguage = targetElement.getAttribute('data-language');
 
     setNewLanguage(targetLanguage);
   };
 
+  const handleLanguageKeyDown = (e: KeyboardEvent<HTMLLIElement>) => {
+    if (e.keyCode === 32) {
+      e.preventDefault();
+      setLanguage(e);
+    }
+  };
+
+  const handleSubMenuBlur = (e: FocusEvent<HTMLUListElement>) => {
+    if (!e.currentTarget.contains(e.relatedTarget as HTMLUListElement)) {
+      setShownMenu(false);
+    }
+  };
+
   const dropdownLink = useRef(null);
 
   useEffect(() => {
-    const handleDocumentMouseMove = (e: TouchEvent) => {
+    const handleDocumentMouseMove = (e: globalThis.MouseEvent) => {
       if (isShownMenu && !dropdownLink.current.contains(e.target)) setShownMenu(false);
     };
 
@@ -60,18 +86,22 @@ const LanguageDropdown = memo(({ currentLanguage, setNewLanguage }: Props) => {
       <S.SelectedLanguage onMouseOver={openMenu} onTouchStart={openMenu}>
         {formatLanguage(currentLanguage)}
       </S.SelectedLanguage>
-      <>
-        <S.IconExpander onClick={openMenu} onTouchStart={openMenu}>
-          {isShownMenu ? <CloseIcon /> : <ExpandMore />}
-        </S.IconExpander>
-        <S.MenuContainer isShownMenu={isShownMenu}>
-          {availableLanguages.map((item, index) => (
-            <S.MenuItem key={index.toString()} data-language={item.lang} onClick={setLanguage}>
-              {item.desc}
-            </S.MenuItem>
-          ))}
-        </S.MenuContainer>
-      </>
+      <S.IconExpander onClick={handleIconClick} onKeyDown={handleIconKeyDown} tabIndex={0}>
+        {isShownMenu ? <CloseIcon /> : <ExpandMore />}
+      </S.IconExpander>
+      <S.MenuContainer onBlur={handleSubMenuBlur} isShownMenu={isShownMenu}>
+        {availableLanguages.map((item, index) => (
+          <S.MenuItem
+            key={index.toString()}
+            data-language={item.lang}
+            onClick={setLanguage}
+            onKeyDown={handleLanguageKeyDown}
+            tabIndex={0}
+          >
+            {item.desc}
+          </S.MenuItem>
+        ))}
+      </S.MenuContainer>
     </S.Container>
   );
 });
