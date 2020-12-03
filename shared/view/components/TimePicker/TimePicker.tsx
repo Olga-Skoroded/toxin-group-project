@@ -73,7 +73,7 @@ const TimePicker = memo(
             };
             return (
               <>
-                <S.ContainerElement type={type} onClick={openCalendar}>
+                <S.ContainerElement type={type} onClick={disabled ? undefined : openCalendar}>
                   <Input
                     value={from ? getDateFrom() : getMaskedDate()}
                     label={dateFromLabelText}
@@ -84,7 +84,7 @@ const TimePicker = memo(
                   <S.ExpandIcon />
                 </S.ContainerElement>
                 {type === 'double' && (
-                  <S.ContainerElement onClick={openCalendar}>
+                  <S.ContainerElement onClick={disabled ? undefined : openCalendar}>
                     <Input
                       value={to ? formatterForDouble.format(to) : getMaskedDate()}
                       label={dateToLabelText}

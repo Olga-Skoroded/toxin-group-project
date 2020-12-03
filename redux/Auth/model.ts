@@ -11,6 +11,7 @@ type AuthState = {
   isAuthProcessNow: boolean;
   authStatusText: string;
   user: null | User;
+  photoURL: string;
   displayName: null | string;
   wasFinishedAuthChecking: boolean;
   userEmail: string;

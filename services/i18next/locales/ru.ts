@@ -114,6 +114,9 @@ export const ru = {
     Apply: 'Применить',
     Clear: 'Очистить',
     Next: 'Далее',
+    'Change rating': 'Изменить оценку',
+    Change: 'Изменить',
+    Add: 'Добавить',
   },
   CheckboxesList: {
     'Smoking is allowed': 'Можно курить',
@@ -290,6 +293,13 @@ export const ru = {
     'hotel, room, registration, authorization, password, forgot password, restore, reset':
       'отель, номер, регистрация, авторизация, пароль, забыли пароль, восстановить, сбросить',
   },
+  RoomReviewPage: {
+    'Room review': 'Оценка номера',
+    'Here is all the information about the room you have booked':
+      'Здесь находится вся информация о забронированной вам комнате',
+    'hotel, room, review, room review, rating room':
+      'отель, комната, обзор, обзор комнаты, оценка комнаты',
+  },
   SearchRoomPage: {
     'Find a Room': 'Найти номер',
     'Select and book a room in our hotel': 'Подберите и забронируйте номер в нашем отеле',
@@ -303,6 +313,12 @@ export const ru = {
     'number of reviews': 'количество отзывов',
   },
   RoomDetailsPage: {
+    'Loading popular visitor reviews...': 'Загружаем популярные отзывы посетителей...',
+    'Your feedback': 'Ваш отзыв',
+    'Visitor reviews': 'Отзывы посетителей',
+    'Uploading your rating': 'Загрузка вашей оценки',
+    'Leave your review about this room': 'Оставьте свой отзыв об этом номере',
+    'Rate your room experience': 'Оцените Ваши впечатления от номера',
     'Room Details': 'Сведения о номере',
     'More detailed information about the room: rules, number of guests, amenities and much more':
       'Более подробная информация о номере: правила, количество гостей, удобства и многое другое',

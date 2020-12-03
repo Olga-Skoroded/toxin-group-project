@@ -3,7 +3,10 @@ export type StarProps = {
 };
 
 export type StarRatingProps = {
+  name?: string;
+  disabled?: boolean;
   rating?: number;
+  starCount?: number;
 };
 
 export type StarRatingKeywords = {

@@ -1,14 +1,23 @@
-import { Apartment, Filters } from 'services/api/entities/model';
+import { Apartment, Filters, CommentData, RoomRatingData } from 'services/api/entities/model';
 
 import {
   RoomsRequest,
+  CurrentRoomRequest,
+  LoadBookedHistory,
+  SelectedBookedRoom,
+  SetRoomReview,
+  SetRoomRating,
+  FinishRoomRating,
   PendingStatusUpdate,
   SetRooms,
   SetFailedStatus,
   BookedHistoryList,
-  LoadBookedHistory,
   UpdateBookedHistory,
-  SelectedBookedRoom,
+  SetRoom,
+  StartRatingRoom,
+  SetNewRatingRoom,
+  RatingProcessResponse,
+  RoomData,
   Booking,
   BookingSuccess,
   BookingFailed,
@@ -20,6 +29,20 @@ import {
   CancelBookingCompleted,
 } from '../model';
 
+const setRoomReview = (data: CommentData): SetRoomReview => ({
+  type: 'SET_ROOM_REVIEW',
+  payload: data,
+});
+
+const setRoomRating = (data: RoomRatingData): SetRoomRating => ({
+  type: 'SET_ROOM_RATING',
+  payload: data,
+});
+
+const finishRoomRating = (): FinishRoomRating => ({
+  type: 'FINISH_ROOM_RATING',
+});
+
 const requestRooms = (options: Filters): RoomsRequest => ({
   type: 'LOAD_ROOMS',
   payload: options,
@@ -30,6 +53,15 @@ const pendingStatusUpdate = (value: boolean): PendingStatusUpdate => ({
   payload: value,
 });
 
+const successRoomRequest = (data: RoomData): SetRoom => ({
+  type: 'CURRENT_ROOM_REQUEST_SUCCESS',
+  payload: data,
+});
+
+const startRatingRoom = (): StartRatingRoom => ({
+  type: 'START_RATING_ROOM',
+});
+
 const setRooms = (data: Apartment[]): SetRooms => ({
   type: 'ROOMS_REQUEST_SUCCESS',
   payload: data,
@@ -38,6 +70,16 @@ const setRooms = (data: Apartment[]): SetRooms => ({
 const setFailedStatus = (error: Error): SetFailedStatus => ({
   type: 'ROOMS_REQUEST_FAILED',
   payload: error,
+});
+
+const setNewRoomRating = (data: number): SetNewRatingRoom => ({
+  type: 'SET_NEW_ROOM_RATING',
+  payload: data,
+});
+
+const requestCurrentRoomInfo = (id: number, email: string): CurrentRoomRequest => ({
+  type: 'LOAD_ROOM_INFO',
+  payload: { id, email },
 });
 
 const loadBookedHistoryRooms = (email: string): LoadBookedHistory => ({
@@ -52,6 +94,11 @@ const updateBookedHistory = (data: BookedHistoryList): UpdateBookedHistory => ({
 
 const booking = (data: SelectedBookedRoom): Booking => ({
   type: 'BOOKING',
+  payload: data,
+});
+
+const responseRatingProcess = (data: string): RatingProcessResponse => ({
+  type: 'RATING_PROCESS_RESPONSE',
   payload: data,
 });
 
@@ -93,6 +140,14 @@ export {
   setFailedStatus,
   loadBookedHistoryRooms,
   updateBookedHistory,
+  requestCurrentRoomInfo,
+  setNewRoomRating,
+  setRoomReview,
+  setRoomRating,
+  startRatingRoom,
+  finishRoomRating,
+  successRoomRequest,
+  responseRatingProcess,
   booking,
   bookingSuccess,
   bookingFailed,
