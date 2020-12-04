@@ -18,7 +18,7 @@ const FoodCard = memo(({ title, grams, price, description, image }: Props) => {
   const { t } = useTranslation('Food');
 
   const handleLinkClick = () => {
-    sessionStorage.setItem('food', title);
+    if (typeof window !== 'undefined') sessionStorage.setItem('food', title);
   };
 
   return (
