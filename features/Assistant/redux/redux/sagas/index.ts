@@ -8,6 +8,21 @@ import { Dependencies } from 'redux/api.model';
 import { SendMessage, AssistantState } from '../../model';
 import { pushMessage, changeDialogState, setFindingRoomFilter } from '../actions';
 
+function* sendBotAnswer(text: string, data: unknown = null) {
+  const delay = (time: number) => new Promise((resolve) => setTimeout(resolve, time));
+
+  yield call(delay, 500);
+
+  yield put(
+    pushMessage({
+      author: 'Евгений',
+      type: 'to',
+      text,
+      data: data || null,
+    }),
+  );
+}
+
 function* sendMessage({ api }: Dependencies, data) {
   yield put(pushMessage(data.payload));
 
@@ -22,24 +37,13 @@ function* sendMessage({ api }: Dependencies, data) {
   if (currentState.dialogState === null) {
     switch (true) {
       case answers.findRoom.test(text):
-        yield put(
-          pushMessage({
-            author: 'Евгений',
-            text:
-              'Хорошо, давайте попробуем подобрать вам номер. На какую сумму вы рассчитываете ?',
-            type: 'to',
-          }),
+        yield sendBotAnswer(
+          'Хорошо, давайте попробуем подобрать вам номер. На какую сумму вы рассчитываете ?',
         );
         yield put(changeDialogState('FINDING_ROOM_AWAIT_COST'));
         break;
       default:
-        yield put(
-          pushMessage({
-            author: 'Евгений',
-            text: 'Я не понимаю что вы от меня хотите :(',
-            type: 'to',
-          }),
-        );
+        yield sendBotAnswer('Я не понимаю что вы от меня хотите :(');
         break;
     }
   } else {
@@ -52,29 +56,19 @@ function* sendMessage({ api }: Dependencies, data) {
           }),
         );
 
-        yield put(
-          pushMessage({
-            author: 'Евгений',
-            text: `Вот какие варианты я нашёл с ценой до ${text.match(answers.roomCost)[0]} руб.:`,
-            type: 'to',
-            data: {
-              type: 'rooms',
-              payload: yield call(api.booking.filterRooms, {
-                ...defaultFilters,
-                price: { from: 0, to: Number(text.match(answers.roomCost)[0]) },
-              }),
-            },
-          }),
+        yield sendBotAnswer(
+          `Вот какие варианты я нашёл с ценой до ${text.match(answers.roomCost)[0]} руб.:`,
+          {
+            type: 'rooms',
+            payload: yield call(api.booking.filterRooms, {
+              ...defaultFilters,
+              price: { from: 0, to: Number(text.match(answers.roomCost)[0]) },
+            }),
+          },
         );
         break;
       default:
-        yield put(
-          pushMessage({
-            author: 'Евгений',
-            text: 'Я не понимаю что вы от меня хотите :(',
-            type: 'to',
-          }),
-        );
+        yield sendBotAnswer('Я не понимаю что вы от меня хотите :(');
         break;
     }
   }

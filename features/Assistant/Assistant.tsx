@@ -1,5 +1,4 @@
-import { nanoid } from 'nanoid';
-import { memo, useRef } from 'react';
+import { memo, useRef, useState, useEffect } from 'react';
 import Draggable from 'react-draggable';
 import { Form } from 'react-final-form';
 import { connect } from 'react-redux';
@@ -31,9 +30,29 @@ type Props = StateProps & typeof mapDispatch;
 
 const submitForm = (values) => values;
 
-const Assistant: React.FC<Props> = memo(
+const Assistant = memo(
   ({ messages, userName, pushMessage }: Props): JSX.Element => {
     const messageContainer = useRef(null);
+    const assistantBlock = useRef(null);
+    const [isMinimized, setMinimized] = useState(false);
+    const [position, setPosition] = useState({ x: 0, y: 0 });
+
+    const changeMinimizedState = () => {
+      setMinimized((prevState) => !prevState);
+    };
+
+    useEffect(() => {
+      const initialCoordsOffset = window.innerWidth > 1280 ? 30 : 0;
+
+      setPosition({
+        x: window.innerWidth - (assistantBlock.current.clientWidth + initialCoordsOffset),
+        y: window.innerHeight - (assistantBlock.current.clientHeight + initialCoordsOffset),
+      });
+    }, []);
+
+    const handleDrag = (_, data) => {
+      setPosition({ x: data.x, y: data.y });
+    };
 
     const submitMessage = (text: string) => {
       pushMessage({ author: userName || 'Аноним', text, type: 'from' });
@@ -49,24 +68,31 @@ const Assistant: React.FC<Props> = memo(
       <Form
         onSubmit={submitForm}
         render={({ handleSubmit }) => (
-          <Draggable handle=".handle" bounds="body">
-            <S.DraggableForm onSubmit={handleSubmit}>
+          <Draggable handle=".handle" bounds="body" position={position} onDrag={handleDrag}>
+            <S.DraggableForm onSubmit={handleSubmit} ref={assistantBlock}>
               <S.Assistant>
                 <div className="handle">
-                  <Header name="Бот Евгений" avatarUrl="" />
+                  <Header
+                    name="Бот Евгений"
+                    avatarUrl=""
+                    isMinimized={isMinimized}
+                    setMinimized={changeMinimizedState}
+                  />
                 </div>
-                <S.MessagesArea ref={messageContainer}>
-                  {messages.map((message) => (
-                    <Message
-                      key={nanoid()}
-                      text={message.text}
-                      name={message.author}
-                      type={message.type}
-                      data={message.data}
-                    />
-                  ))}
-                </S.MessagesArea>
-                <TypeMessageArea submitMessage={submitMessage} />
+                <S.ContentArea isMinimized={isMinimized}>
+                  <S.MessagesArea ref={messageContainer}>
+                    {messages.map((message, index) => (
+                      <Message
+                        key={String(index)}
+                        text={message.text}
+                        name={message.author}
+                        type={message.type}
+                        data={message.data}
+                      />
+                    ))}
+                  </S.MessagesArea>
+                  <TypeMessageArea submitMessage={submitMessage} />
+                </S.ContentArea>
               </S.Assistant>
             </S.DraggableForm>
           </Draggable>

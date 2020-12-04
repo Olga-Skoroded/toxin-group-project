@@ -6,17 +6,15 @@ type Props = {
   submitMessage: (message: string) => void;
 };
 
-const TypeMessageArea: React.FC<Props> = memo(
+const TypeMessageArea = memo(
   ({ submitMessage }: Props): JSX.Element => {
     const [text, setText] = useState('');
 
-    const onSubmitButtonClick = () => submitMessage(text);
+    const onSubmitButtonClick = () => text.trim() ?? submitMessage(text);
 
     const onMessageAreaKeyPress = (event: React.KeyboardEvent): void => {
-      const HTMLElement = event.target as HTMLTextAreaElement;
-
-      if (event.key === 'Enter') {
-        submitMessage(HTMLElement.value);
+      if (event.key === 'Enter' && text.trim()) {
+        submitMessage(text);
         setText('');
       }
     };

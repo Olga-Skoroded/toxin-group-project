@@ -23,7 +23,7 @@ type Props = {
   data?: { type: string; payload: Apartment[] };
 } & ReturnType<typeof mapState>;
 
-const Message: React.FC<Props> = memo(
+const Message = memo(
   ({ name, text, type, data, findRoomFilter }: Props): JSX.Element => {
     return (
       <S.Container type={type}>
