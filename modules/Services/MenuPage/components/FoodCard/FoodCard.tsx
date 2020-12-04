@@ -17,9 +17,13 @@ type Props = {
 const FoodCard = memo(({ title, grams, price, description, image }: Props) => {
   const { t } = useTranslation('Food');
 
+  const handleLinkClick = () => {
+    sessionStorage.setItem('food', title);
+  };
+
   return (
-    <Link href={`/services/menu/food-order?name=${title}`} passHref>
-      <S.Link>
+    <Link href="/services/menu/food-order" passHref>
+      <S.Link onClick={handleLinkClick}>
         <S.FoodCard>
           <S.Header>
             <S.Title>{t(title)}</S.Title>

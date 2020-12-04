@@ -58,7 +58,7 @@ const FoodOrderForm = memo(
     const [rooms, setRooms] = useState<{ value: number; text: string }[]>(null);
     const [isVisibleConfirm, setVisibleConfirm] = useState(false);
     const router = useRouter();
-    const foodName = decodeURI(router.asPath.split('=')[1]);
+    const foodName = sessionStorage.getItem('food');
     const { t } = useTranslation('FoodOrderPage');
 
     const handleFormSubmit = ({ room }: { room: number }) => {
