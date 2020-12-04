@@ -134,7 +134,11 @@ const Dropdown = memo(
           };
           return (
             <S.Dropdown ref={dropdown}>
-              <S.Result isOpen={isOpen} onClick={handleResultBarClick} type="button">
+              <S.Result
+                isOpen={isOpen}
+                onClick={disabled ? undefined : handleResultBarClick}
+                type="button"
+              >
                 {resultString}
               </S.Result>
               <S.ListContainer isOpen={isOpen}>

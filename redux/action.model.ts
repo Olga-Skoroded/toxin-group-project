@@ -13,13 +13,13 @@ type ActionPayload<Z, T> = Action<Z> & {
 const takeLatestAction = <T extends string>(
   type: T,
   worker: (deps: Dependencies, action: Action<T>) => unknown,
-  deps: Dependencies,
+  deps?: Dependencies,
 ): ForkEffect<unknown> => takeLatest(type, worker, deps);
 
 const takeLeadingAction = <T extends string>(
   type: T,
   worker: (deps: Dependencies, action: Action<T>) => unknown,
-  deps: Dependencies,
+  deps?: Dependencies,
 ): ForkEffect<unknown> => takeLeading(type, worker, deps);
 
 export type { Action, ActionPayload };

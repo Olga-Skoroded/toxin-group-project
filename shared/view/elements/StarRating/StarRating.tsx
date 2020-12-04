@@ -1,26 +1,66 @@
-import { memo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { memo, useState } from 'react';
+import { Field, FieldInputProps } from 'react-final-form';
 
-import { keywords } from './StarRating.fixture';
 import { StarRatingProps } from './StarRating.model';
 import * as S from './StarRating.styles';
 
-const StarRating = memo(({ rating = 0 }: StarRatingProps) => {
-  const { t } = useTranslation('StarRating');
-  const ratingTextKey = Object.values(keywords)[rating];
-  const title = `${t('Room rating')} - ${ratingTextKey}`;
+const starIconName = 'star';
+const starBorderIconName = 'star_border';
 
-  return (
+const StarRating = memo(({ name, rating = 4, starCount = 5, disabled = true }: StarRatingProps) => {
+  const [activeFlags, setActiveFlags] = useState(
+    new Array(starCount).fill(false).map((_, index) => index < rating),
+  );
+
+  const [hoveredStarIndex, setHoveredStar] = useState<number | null>(null);
+
+  const getContent = (input?: FieldInputProps<number, HTMLElement>) => (
     <S.StarRating>
-      <S.Title>{title}</S.Title>
-      {Object.keys(keywords).map((key, index) => {
-        if (index === 0) return '';
+      {activeFlags.map((isActive, index) => {
+        const makeHandler = () => () => {
+          setHoveredStar(index);
+        };
 
-        const isActive = index <= rating;
-        const iconName = isActive ? 'star' : 'star_border';
-        return <S.Star iconName={iconName} key={key} />;
+        const makeClickHandler = () => () => {
+          setActiveFlags((flags) => {
+            const updatedFlags = flags.map((_, starIndex) => starIndex <= index);
+            if (input) {
+              setTimeout(() => input.onChange(updatedFlags.lastIndexOf(true) + 1));
+            }
+            return updatedFlags;
+          });
+        };
+
+        const handleClick = makeClickHandler();
+        const handleHover = makeHandler();
+        const handleMouseLeave = () => setHoveredStar(null);
+
+        let iconName;
+        if (hoveredStarIndex !== null) {
+          iconName = index <= hoveredStarIndex ? starIconName : starBorderIconName;
+        } else {
+          iconName = isActive ? starIconName : starBorderIconName;
+        }
+
+        return (
+          <S.Star
+            tabIndex={disabled ? undefined : 0}
+            iconName={iconName}
+            key={String(index)}
+            onClick={disabled ? undefined : handleClick}
+            onMouseEnter={disabled ? undefined : handleHover}
+            onMouseLeave={disabled ? undefined : handleMouseLeave}
+            disabled={disabled}
+            type="button"
+          />
+        );
       })}
     </S.StarRating>
+  );
+  return disabled ? (
+    getContent()
+  ) : (
+    <Field name={name} initialValue={rating} render={({ input }) => getContent(input)} />
   );
 });
 

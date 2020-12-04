@@ -55,13 +55,25 @@ type OwnProps = {
   roomPrice: number;
   breakfastPricePerGuest: number;
   overcrowdingPrice: number;
-  isAuthSuccess: boolean;
+  initialProps?: {
+    booked: {
+      from: number;
+      to: number;
+    };
+    guests: {
+      Adults: number;
+      Children: number;
+      Babies: number;
+    };
+  };
+  isAuthSuccess?: boolean;
   priceItems?: PriceItem[];
   roomType?: string;
   currency?: string;
   measure?: string;
   userEmail?: string;
   isСancellationForm?: boolean;
+  confirmBookedRoom?: (data: SelectedBookedRoom) => void;
 };
 
 type Props = OwnProps & StateProps & typeof mapDispatch;
@@ -127,9 +139,10 @@ const OrderForm = memo((props: Props) => {
     priceItems,
     overcrowdingPrice,
     breakfastPricePerGuest,
-    isAuthSuccess,
+    initialProps,
     currency = 'RUB',
     measure = 'Per day',
+    isAuthSuccess,
     userEmail,
     isBookingPending,
     isBookingSuccess,
@@ -165,9 +178,14 @@ const OrderForm = memo((props: Props) => {
     if (!isAuthSuccess) router.push('/auth/login');
 
     if (isСancellationForm) {
+      const bookedDates = {
+        from: new Date(initialProps ? initialProps.booked.from : 0),
+        to: new Date(initialProps ? initialProps.booked.to : 0),
+      };
+
       startCancelBooking({
         apartmentId: roomNumber,
-        booked: values.booked,
+        booked: initialProps ? bookedDates : values.booked,
         user: userEmail,
       });
     } else {
@@ -202,6 +220,16 @@ const OrderForm = memo((props: Props) => {
     }
   }, [isBookingSuccess, stopBooking, isCancelBookingSuccess, stopCancelBooking, router]);
 
+  const dropdownData = initialProps
+    ? {
+        ...dropdownOptions,
+        items: dropdownOptions.items.map((item) => ({
+          ...item,
+          initialValue: initialProps.guests[item.inputName],
+        })),
+      }
+    : dropdownOptions;
+
   return (
     <>
       <S.Container>
@@ -209,7 +237,12 @@ const OrderForm = memo((props: Props) => {
         <Form
           onSubmit={handleFormSubmit}
           render={({ handleSubmit, values }) => {
-            const dates = values.booked;
+            const dates = initialProps
+              ? {
+                  from: new Date(initialProps.booked.from),
+                  to: new Date(initialProps.booked.to),
+                }
+              : values.booked;
             const daysDifference =
               (dates && dates.from && dates.to && getDaysDifference(dates)) || 0;
             const guests = values.guests && {
@@ -263,11 +296,17 @@ const OrderForm = memo((props: Props) => {
                     dateToLabelText={t('SearchRoomForm:Departure')}
                     name="booked"
                     disabled={isСancellationForm}
+                    dateFrom={
+                      initialProps && initialProps.booked.from && new Date(initialProps.booked.from)
+                    }
+                    dateTo={
+                      initialProps && initialProps.booked.to && new Date(initialProps.booked.to)
+                    }
                   />
                 </S.Datepicker>
                 <S.Dropdown>
                   <S.DropdownLabel>{t('RoomFilter:Guests')}</S.DropdownLabel>
-                  <Dropdown {...dropdownOptions} disabled={isСancellationForm} />
+                  <Dropdown {...dropdownData} disabled={isСancellationForm} />
                 </S.Dropdown>
                 <S.PriceList>
                   <PriceList items={prices} />
@@ -279,7 +318,6 @@ const OrderForm = memo((props: Props) => {
                     <Field
                       type="hidden"
                       render={({ input }) => {
-                        setTimeout(() => input.onChange(getResultPrice(prices)));
                         return <input {...input} />;
                       }}
                       name="totalPrice"
