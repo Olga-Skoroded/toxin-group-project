@@ -18,3 +18,4 @@ export { TextButton } from './TextButton/TextButton';
 export { Toggle } from './Toggle/Toggle';
 export { NavAccountSettings } from './NavAccountSettings/NavAccountSettings';
 export { UILogo } from './UI-Logo/UI-Logo';
+export { Select } from './Select/Select';
