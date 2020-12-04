@@ -1,10 +1,11 @@
 import { SagaIterator } from 'redux-saga';
 
+import { FoodState, FoodActions } from 'modules/Services/redux/Food/model';
+
 import { ApartmentState, ApartmentActions } from './Apartment/model';
 import { Dependencies } from './api.model';
 import { AuthState, AuthActions } from './Auth/model';
 import { BookingState, BookingActions } from './Booking/model';
-import { FoodState, FoodActions } from './Food/model';
 import { LanguageState, LanguageActions } from './Language/model';
 import { ProfileState, ProfileActions } from './Profile/model';
 import { RegistrationState, RegistrationActions } from './Registration/model';

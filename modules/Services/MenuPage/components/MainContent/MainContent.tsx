@@ -2,7 +2,7 @@ import { FormEvent, memo, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
-import { getFoodData as getFoodDataRequest } from 'redux/Food/redux/actions';
+import { getFoodData as getFoodDataRequest } from 'modules/Services/redux/Food/redux/actions';
 import { AppState } from 'redux/store.model';
 import { FoodData } from 'services/api/entities/model';
 import { Preloader } from 'shared/view/elements';

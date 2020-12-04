@@ -4,8 +4,8 @@ import { Form } from 'react-final-form';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
+import { completeFoodOrder, foodOrder } from 'modules/Services/redux/Food/redux/actions';
 import { loadBookedHistoryRooms } from 'redux/Booking/redux/actions';
-import { completeFoodOrder, foodOrder } from 'redux/Food/redux/actions';
 import { AppState } from 'redux/store.model';
 import { BookedRoomsHistory } from 'services/api/entities/model';
 import { User } from 'services/api/Firebase/modules/Authentication';
