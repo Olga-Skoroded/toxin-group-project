@@ -16,8 +16,8 @@ const Container = styled.div`
 
   @media ${breakpointDown('md')} {
     display: flex;
-    padding-left: 2.2857rem;
-    padding-right: 2.2857rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     flex-direction: column;
   }
 `;
