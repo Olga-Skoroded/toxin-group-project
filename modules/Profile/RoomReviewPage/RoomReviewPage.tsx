@@ -2,14 +2,12 @@ import { memo } from 'react';
 
 import { MainLayout } from 'features/shared/MainLayout/MainLayout';
 
-import MainContent from './components/MainContent/MainContent';
+import { MainContent } from './components/MainContent/MainContent';
 
-const RoomReviewPage: React.FC = memo(
-  (): JSX.Element => (
-    <MainLayout>
-      <MainContent />
-    </MainLayout>
-  ),
-);
+const RoomReviewPage = memo(() => (
+  <MainLayout>
+    <MainContent />
+  </MainLayout>
+));
 
 export { RoomReviewPage };

@@ -1,8 +1,10 @@
+import { useRouter } from 'next/router';
 import { memo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { MainLayout } from 'features/shared/MainLayout/MainLayout';
+import { preloadAuthData } from 'redux/Auth/redux/actions';
 import { loadBookedHistoryRooms } from 'redux/Booking/redux/actions';
 import { AppState } from 'redux/store.model';
 import { BookedRoomsHistory } from 'services/api/entities/model';
@@ -12,25 +14,45 @@ import { RoomsList } from './components/RoomsList/RoomsList';
 import * as S from './SelectedRoomsPage.style';
 
 type StateProps = {
+  isAuthSuccess: boolean;
   bookedRooms: BookedRoomsHistory;
   isLoadingData: boolean;
   userEmail: string;
 };
 
 const mapState = (state: AppState): StateProps => ({
+  isAuthSuccess: state.auth.isAuthSuccess,
   bookedRooms: state.booking.bookedRooms,
   isLoadingData: state.booking.isPending,
   userEmail: state.auth.userEmail,
 });
 
 const mapDispatch = {
+  checkAuthBeforePageLoaded: preloadAuthData,
   getBookedRooms: loadBookedHistoryRooms,
 };
 
 type Props = StateProps & typeof mapDispatch;
 
 const SelectedRoomsPage = memo(
-  ({ bookedRooms, userEmail, isLoadingData, getBookedRooms }: Props) => {
+  ({
+    isAuthSuccess,
+    bookedRooms,
+    userEmail,
+    isLoadingData,
+    checkAuthBeforePageLoaded,
+    getBookedRooms,
+  }: Props) => {
+    const router = useRouter();
+
+    useEffect(() => {
+      checkAuthBeforePageLoaded();
+
+      if (typeof isAuthSuccess === 'boolean') {
+        if (!isAuthSuccess) router.push('/');
+      }
+    });
+
     useEffect(() => {
       getBookedRooms(userEmail);
     }, [getBookedRooms, userEmail]);
