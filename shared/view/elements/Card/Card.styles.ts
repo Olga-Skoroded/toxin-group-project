@@ -16,6 +16,13 @@ const Card = styled.a`
       border: 0.0714rem solid rgba(0, 0, 0, 0.12);
       border-radius: 0.2857rem;
       text-decoration: none;
+      outline: none;
+
+      &:hover,
+      &:focus {
+        transform: scale(1.1);
+        transition: all 0.5s ease-in-out;
+      }
     `;
   }}
 `;
