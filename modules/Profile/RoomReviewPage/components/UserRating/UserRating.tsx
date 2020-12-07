@@ -41,7 +41,11 @@ type OwnProps = {
 
 type Props = typeof mapDispatch & ReturnType<typeof mapState> & OwnProps;
 
-const UserRating: React.FC<Props> = memo(
+type FormData = {
+  'room-rating': number;
+};
+
+const UserRating = memo(
   ({
     isLoadingData,
     currentRoom,
@@ -52,10 +56,10 @@ const UserRating: React.FC<Props> = memo(
     room,
     setRating,
     finishRatingProcess,
-  }: Props): JSX.Element => {
+  }: Props) => {
     const { t } = useTranslation(['RoomDetailsPage', 'Buttons']);
 
-    const handleRatingSubmit = (values) => {
+    const handleRatingSubmit = (values: FormData) => {
       setRating({ userEmail, roomId: Number(room), rating: values['room-rating'] });
       setTimeout(finishRatingProcess, 1500);
     };
