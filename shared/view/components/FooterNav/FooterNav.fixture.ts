@@ -56,8 +56,8 @@ const footerNavData: Required<NavProps> = {
           text: 'Communities',
         },
         {
-          href: '/mock',
-          text: 'Contact us',
+          href: '/contact-us',
+          text: 'Contact Us',
         },
       ],
     },
