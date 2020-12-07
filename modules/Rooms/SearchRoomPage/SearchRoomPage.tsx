@@ -19,8 +19,8 @@ import { getPassedFilters } from './utils/getPassedFilters';
 
 type StateProps = {
   isPending: boolean;
-  sortOrder: string;
-  sortParam: string;
+  sortOrder: SortOrder;
+  sortParam: SortParam;
   sortedRooms: RoomProps[];
 };
 
