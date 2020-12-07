@@ -5,9 +5,9 @@ const cardsData = [
     href: '/services/transfer',
   },
   {
-    title: 'Food order',
+    title: 'Food Order',
     description: 'Order food directly to your room',
-    href: './services/food-order',
+    href: './services/menu',
   },
 ];
 

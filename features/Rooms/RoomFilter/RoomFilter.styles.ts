@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 
+import { breakpointDown } from 'shared/styles/break-points';
 import { titles } from 'shared/styles/mixins';
 import { Button } from 'shared/view/elements';
 
@@ -7,8 +8,32 @@ type TitleProps = {
   elementType: 'checkbox' | 'dropdown';
 };
 
+type FiltersProps = {
+  isOpenMobileFilters: boolean;
+};
+
 const RoomFilter = styled.div`
   max-width: 19rem;
+`;
+
+const MobileButton = styled(Button)`
+  display: none;
+  width: 100%;
+
+  @media ${breakpointDown('md')} {
+    display: block;
+  }
+`;
+
+const Filters = styled.form<FiltersProps>`
+  ${({ isOpenMobileFilters }) => {
+    return css`
+      @media ${breakpointDown('md')} {
+        display: ${isOpenMobileFilters ? 'block;' : 'none;'};
+        margin-top: 1rem;
+      }
+    `;
+  }}
 `;
 
 const TimePickerWrapper = styled.div`
@@ -53,6 +78,8 @@ const SubmitButton = styled(Button)`
 
 export {
   RoomFilter,
+  MobileButton,
+  Filters,
   Title,
   TimePickerWrapper,
   DropdownWrapper,

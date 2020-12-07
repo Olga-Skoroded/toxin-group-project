@@ -31,9 +31,9 @@ function* subscriptionUpdate({ api }: Dependencies, { payload }: SubscriptionUpd
   try {
     const isDocument = yield call(api.subscriptions.load, email);
     if (isDocument) {
-      yield call(api.subscriptions.update, email, subscriptions);
+      yield call(api.subscriptions.update, email.toLowerCase(), subscriptions);
     } else {
-      yield call(api.subscriptions.add, email, subscriptions);
+      yield call(api.subscriptions.add, email.toLowerCase(), subscriptions);
     }
 
     const userAuthInfo = yield call(api.auth.fetchSignInMethodsForEmail, email);

@@ -107,6 +107,41 @@ export const ru = {
     Days: 'дня',
     DaysSecondary: 'дней',
   },
+  Food: {
+    'Tasty tortilla': 'Тейсти-тортилья',
+    'Wheat tortilla, chicken fillet, cheddar cheese, legendary sauce':
+      'Пшеничная лепешка, куриное филе, сыр чеддер, легендарный соус',
+    'Croissant with salmon': 'Круассан с лососем',
+    'Croissant, lightly salted salmon, avocado': 'Круассан, слабосоленый лосось, авокадо',
+    'Tortilla roll with chicken': 'Тортилья-ролл с курицей',
+    'Cheese tortilla, iceberg lettuce, salted gherkin, fresh tomato, chicken fillet, Caesar sauce, mozzarella cheese':
+      'Сырная тортилья, салат айсберг, корнишон соленый, помидор свежий, куриное филе, соус цезарь, сыр моцарелла',
+    'Tortilla roll with salmon': 'Тортилья-ролл с семгой',
+    'Cheese tortilla, iceberg lettuce, fresh cucumber, fresh tomato, salted salmon, Caesar sauce, mozzarella cheese':
+      'Тортилья сырная, салат айсберг, огурец свежий, помидор свежий, лосось слабосоленый, соус цезарь, сыр моцарелла',
+    'Beef stroganoff': 'Бефстроганов',
+    'Beef, cream, mushrooms, pepper': 'Говядина, сливки, шампиньоны, перец',
+    'Homemade dumplings with sour cream': 'Пельмени Домашние со сметаной',
+    'Flour, beef': 'Мука, говядина',
+    'Salmon steak': 'Стейк из лосося',
+    'Choice of cooking method': 'Способ приготовления на выбор',
+    'Homemade chicken cutlets': 'Домашние куриные котлетки',
+    'Chicken fillet, onion (optional cooking method)':
+      'Куриное филе, лук (способ приготовления на выбор)',
+    'Tender chicken fillet': 'Нежное куриное филе',
+    'Tom yum soup with shrimp': 'Суп Том ям с креветкой',
+    'Tom yum pasta, coconut milk, shrimp': 'Паста том ям, кокосовое молоко, креветка',
+    'Andalusian Gazpacho soup': 'Суп Гаспачо по-андалузски',
+    'Tomato, cucumber, celery, salt, pepper': 'Томат, огурцы, сельдерей, соль, перец',
+    'Delicate pumpkin cream soup': 'Нежный крем-суп из тыквы',
+    'Pumpkin, water, sesame seeds, pumpkin seeds': 'Тыква, вода, кунжут, семечки тыквы',
+    'Chicken soup with homemade noodles': 'Куриный супчик с домашней лапшой',
+    'Chicken broth, chicken fillet, onion, carrot, egg noodles':
+      'Бульон куриный, куриное филе, лук, морковь, лапша яичная',
+    'Borscht with beef and homemade sour cream': 'Борщ с говядиной и домашней сметаной',
+    'Beef broth, potatoes, cabbage, beets, carrots, onions, tomato, beef, sour cream':
+      'Бульон говяжий, картофель, капуста, свекла, морковь, лук, томат, говядина, сметана',
+  },
   Buttons: {
     'Sign In': 'Войти',
     'Sign up': 'Создать',
@@ -114,6 +149,9 @@ export const ru = {
     Apply: 'Применить',
     Clear: 'Очистить',
     Next: 'Далее',
+    'Change rating': 'Изменить оценку',
+    Change: 'Изменить',
+    Add: 'Добавить',
   },
   CheckboxesList: {
     'Smoking is allowed': 'Можно курить',
@@ -159,7 +197,7 @@ export const ru = {
     Support: 'Служба поддержки',
     Services: 'Услуги',
     Transfer: 'Трансфер',
-    'Food order': 'Заказ еды',
+    'Food Order': 'Заказ еды',
     'About service': 'О сервисе',
     'Our team': 'Наша команда',
     Careers: 'Вакансии',
@@ -238,6 +276,7 @@ export const ru = {
     'Email address': 'Адрес электронной почты',
   },
   RoomFilter: {
+    Filters: 'Фильтры',
     'Dates of stay in hotel': 'Даты пребывания в отеле',
     Guests: 'гости',
     'How many guests': 'Сколько гостей',
@@ -290,6 +329,13 @@ export const ru = {
     'hotel, room, registration, authorization, password, forgot password, restore, reset':
       'отель, номер, регистрация, авторизация, пароль, забыли пароль, восстановить, сбросить',
   },
+  RoomReviewPage: {
+    'Room review': 'Оценка номера',
+    'Here is all the information about the room you have booked':
+      'Здесь находится вся информация о забронированной вам комнате',
+    'hotel, room, review, room review, rating room':
+      'отель, комната, обзор, обзор комнаты, оценка комнаты',
+  },
   SearchRoomPage: {
     'Find a Room': 'Найти номер',
     'Select and book a room in our hotel': 'Подберите и забронируйте номер в нашем отеле',
@@ -303,6 +349,12 @@ export const ru = {
     'number of reviews': 'количество отзывов',
   },
   RoomDetailsPage: {
+    'Loading popular visitor reviews...': 'Загружаем популярные отзывы посетителей...',
+    'Your feedback': 'Ваш отзыв',
+    'Visitor reviews': 'Отзывы посетителей',
+    'Uploading your rating': 'Загрузка вашей оценки',
+    'Leave your review about this room': 'Оставьте свой отзыв об этом номере',
+    'Rate your room experience': 'Оцените Ваши впечатления от номера',
     'Room Details': 'Сведения о номере',
     'More detailed information about the room: rules, number of guests, amenities and much more':
       'Более подробная информация о номере: правила, количество гостей, удобства и многое другое',
@@ -436,5 +488,30 @@ export const ru = {
     'hotel, services, transfer, food order': 'отель, услуги, трансфер, заказ еды',
     'We can take you to our hotel': 'Мы можем доставить вас в наш отель',
     'Order food directly to your room': 'Заказывайте еду прямо в номер',
+  },
+  MenuPage: {
+    Menu: 'Меню',
+    'Restaurant menu': 'Меню ресторана',
+    'hotel, services, menu, restaurant': 'отель, услуги, меню, ресторан',
+    'Loading restaurant menu...': 'Загрузка меню ресторана...',
+    'Failed to load restaurant menu': 'Не удалось загрузить меню ресторана',
+    Snacks: 'Закуски',
+    'Hot dishes': 'Горячие блюда',
+    Soups: 'Супы',
+  },
+  FoodOrderPage: {
+    'Room service': 'Заказ еды в номер',
+    'hotel, services, food order': 'отель, услуги, заказ еды',
+    Room: 'Комната',
+    'Choose a room': 'Выберите комнату',
+    'You have no rooms booked': 'У вас нет забронированных комнат',
+    'Please make a choice': 'Пожалуйста сделайте выбор',
+    'Are you sure you want to order room service?': 'Вы действительно хотите заказать еду в номер?',
+    'Please select a room for food delivery': 'Пожалуйста выберите номер для доставки еды',
+    'Failed to place food order': 'Не удалось оформить заказ',
+    'Order has been successfully placed': 'Заказ успешно оформлен',
+    Order: 'Заказать',
+    'Loading order data...': 'Загрузка данных о заказе...',
+    'Failed to load order data': 'Не удалось загрузить данные для заказа',
   },
 };

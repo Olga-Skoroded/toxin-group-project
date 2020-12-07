@@ -14,12 +14,14 @@ const Button = styled.a<Props>`
       justify-content: center;
       align-items: center;
       padding: 1.0714rem 1.3571rem 1rem;
-      ${isFlat &&
-      css`
-        padding-top: 0.7143rem;
-        padding-bottom: 0.7143rem;
-      `}
-      white-space: nowrap;
+      ${isFlat
+        ? css`
+            padding-top: 0.7143rem;
+            padding-bottom: 0.7143rem;
+          `
+        : css`
+            height: 3.1428rem;
+          `}
       text-align: center;
       background-color: transparent;
       border: 0;

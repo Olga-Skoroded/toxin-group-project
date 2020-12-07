@@ -1,4 +1,4 @@
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Form } from 'react-final-form';
 import { useTranslation } from 'react-i18next';
 import { animateScroll as scroll } from 'react-scroll';
@@ -51,9 +51,16 @@ const getCheckboxProps = (
 };
 
 const RoomFilter = memo(({ initialFilters, loadRooms, isPending = false }: Props) => {
+  const [isOpenMobileFilters, setOpenMobileFilters] = useState(false);
+
   const handleFormSubmit = (values?: Filters) => {
     loadRooms(values);
     scroll.scrollToTop();
+    setOpenMobileFilters(false);
+  };
+
+  const handleMobileFiltersClick = () => {
+    setOpenMobileFilters((prevState) => !prevState);
   };
 
   const { t } = useTranslation(['RoomFilter', 'Buttons']);
@@ -76,7 +83,8 @@ const RoomFilter = memo(({ initialFilters, loadRooms, isPending = false }: Props
 
         return (
           <S.RoomFilter>
-            <form onSubmit={handleSubmit}>
+            <S.MobileButton onClick={handleMobileFiltersClick}>{t('Filters')}</S.MobileButton>
+            <S.Filters onSubmit={handleSubmit} isOpenMobileFilters={isOpenMobileFilters}>
               <S.TimePickerWrapper>
                 <TimePicker
                   type="single"
@@ -142,7 +150,7 @@ const RoomFilter = memo(({ initialFilters, loadRooms, isPending = false }: Props
               <S.SubmitButton disabled={isPending} isFilled>
                 {t('Buttons:Apply')}
               </S.SubmitButton>
-            </form>
+            </S.Filters>
           </S.RoomFilter>
         );
       }}

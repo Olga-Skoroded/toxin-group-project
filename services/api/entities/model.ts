@@ -1,4 +1,6 @@
-import { Timestamp } from 'services/api/Firebase/modules/Database/model';
+import { Review as ClientReview } from 'shared/model';
+
+import { Timestamp } from '../Firebase/modules/Database/model';
 
 export type AdditionalAmenities = {
   breakfast: boolean;
@@ -32,6 +34,7 @@ export type Review = {
   date: Timestamp;
   text: string;
   likesCount: number;
+  userEmail: string;
 };
 
 type Options = {
@@ -92,8 +95,8 @@ export type AdditionalUserInformation = {
 
 export type BookingData = {
   apartmentId: number;
-  from: { seconds: number } | Date;
-  to: { seconds: number } | Date;
+  from: Timestamp | Date;
+  to: Timestamp | Date;
   reservationBy?: string;
 };
 
@@ -107,3 +110,23 @@ export type SubscriptionData = {
 };
 
 export type BookedRoomsHistory = Record<string, BookedRoom[]>;
+
+export type FoodData = {
+  [key: string]: {
+    [key: string]: {
+      grams: number;
+      price: number;
+      description: string;
+      image: string;
+    };
+  };
+};
+
+export type FoodOrderData = {
+  user: string;
+  room: number;
+  food: string;
+};
+export type CommentData = { commentData: ClientReview; roomId: number };
+
+export type RoomRatingData = { userEmail?: string; roomId: number; rating: number };

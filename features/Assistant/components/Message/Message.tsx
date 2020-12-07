@@ -25,12 +25,14 @@ type Props = {
 
 const Message = memo(
   ({ name, text, type, data, findRoomFilter }: Props): JSX.Element => {
+    const hasMessageData = !!data;
+
     return (
       <S.Container type={type}>
         <S.Author>{name}</S.Author>
         <S.Message type={type}>
           <S.MessageElement>{text}</S.MessageElement>
-          {!!data &&
+          {hasMessageData &&
             data.type === 'rooms' &&
             data.payload.slice(0, 2).map((room, index) => (
               <S.MessageElement key={String(index)}>

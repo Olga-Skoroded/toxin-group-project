@@ -22,7 +22,7 @@ const RoomsList = memo(({ rooms }: Props) => {
 
           return (
             <S.RoomWrapper key={Number(index)}>
-              <Room {...room} number={id} />
+              <Room {...room} number={id} bookedData={bookedData} />
               <S.Price>
                 <S.PriceDescription>{`${t('Booking Date')}:`}</S.PriceDescription>
                 <S.PriceDescription>
