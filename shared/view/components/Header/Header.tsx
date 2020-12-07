@@ -3,6 +3,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MenuOpenIcon from '@material-ui/icons/MenuOpen';
 import { memo, useState } from 'react';
 
+import { User } from 'services/api/Firebase/modules/Authentication';
 import { NavMenu } from 'shared/view/components';
 import { NavLinks } from 'shared/view/components/NavMenu/NavMenu.fixture';
 
@@ -12,11 +13,11 @@ import { LanguageDropdown } from './components/LanguageDropdown/LanguageDropdown
 import * as S from './Header.styles';
 
 export type Props = {
-  displayName?: string;
+  user?: User;
   wasFinishedAuthChecking: boolean;
 };
 
-const Header = memo(({ displayName, wasFinishedAuthChecking }: Props) => {
+const Header = memo(({ user, wasFinishedAuthChecking }: Props) => {
   const [isOpenMobileMenu, setMobileMenuStatus] = useState(false);
 
   const changeOpenMenuStatus = () => {
@@ -36,7 +37,14 @@ const Header = memo(({ displayName, wasFinishedAuthChecking }: Props) => {
         <LanguageDropdown />
         {wasFinishedAuthChecking ? (
           <S.AccountPanel>
-            {displayName ? <HeaderUserProfile displayName={displayName} /> : <HeaderUserLogin />}
+            {user ? (
+              <>
+                <HeaderUserProfile displayName={user.displayName} />
+                <S.UserAvatar photoURL={user.photoURL} />
+              </>
+            ) : (
+              <HeaderUserLogin />
+            )}
           </S.AccountPanel>
         ) : (
           <CircularProgress />
