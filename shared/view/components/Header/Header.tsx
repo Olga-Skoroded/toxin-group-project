@@ -19,7 +19,9 @@ export type Props = {
 const Header = memo(({ displayName, wasFinishedAuthChecking }: Props) => {
   const [isOpenMobileMenu, setMobileMenuStatus] = useState(false);
 
-  const changeOpenMenuStatus = () => setMobileMenuStatus(!isOpenMobileMenu);
+  const changeOpenMenuStatus = () => {
+    setMobileMenuStatus((prevState) => !prevState);
+  };
 
   return (
     <S.Header>
@@ -30,8 +32,8 @@ const Header = memo(({ displayName, wasFinishedAuthChecking }: Props) => {
         </S.HamburgerButtonWrapper>
       </S.HeaderLogoWrapper>
       <S.MobileMenu isShown={isOpenMobileMenu}>
-        <LanguageDropdown />
         <NavMenu menu={NavLinks} />
+        <LanguageDropdown />
         {wasFinishedAuthChecking ? (
           <S.AccountPanel>
             {displayName ? <HeaderUserProfile displayName={displayName} /> : <HeaderUserLogin />}
