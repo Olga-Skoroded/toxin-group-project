@@ -11,22 +11,24 @@ type Props = {
 };
 
 const RoomsList = memo(({ rooms }: Props) => {
-  const { t } = useTranslation('SelectedRoomsPage');
+  const { t, i18n } = useTranslation('SelectedRoomsPage');
+
+  const formatter = Intl.DateTimeFormat(i18n.language);
 
   return (
     <S.Container>
       {rooms &&
-        rooms.map(({ room, bookedData }, index) => {
+        rooms.map(({ room, bookedData }) => {
           const { id } = room;
           const { from, to } = bookedData;
 
           return (
-            <S.RoomWrapper key={Number(index)}>
+            <S.RoomWrapper key={id}>
               <Room {...room} number={id} bookedData={bookedData} />
               <S.Price>
-                <S.PriceDescription>{`${t('Booking Date')}:`}</S.PriceDescription>
+                <S.PriceDescription>{t('Booking Date')}:</S.PriceDescription>
                 <S.PriceDescription>
-                  {from} - {to}
+                  {formatter.format(from)} - {formatter.format(to)}
                 </S.PriceDescription>
               </S.Price>
             </S.RoomWrapper>
