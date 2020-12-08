@@ -1,15 +1,16 @@
 import { useRouter } from 'next/router';
 import queryString from 'query-string';
-import { useEffect, memo } from 'react';
+import { useEffect, memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 
 import { OrderForm } from 'features/Rooms/OrderForm/OrderForm';
+import { getRoomDetails as getRoomDetailsRequest } from 'redux/Apartment/redux/actions';
 import { preloadAuthData } from 'redux/Auth/redux/actions';
 import { requestCurrentRoomInfo } from 'redux/Booking/redux/actions';
 import { AppState } from 'redux/store.model';
-import { Benefits } from 'shared/view/elements/Benefits/Benefits';
-import { BulletList } from 'shared/view/elements/BulletList/BulletList';
+import { Apartment } from 'shared/model';
+import { Benefits, BulletList, Preloader } from 'shared/view/elements';
 
 import { Comments } from '../Comments/Comments';
 import { UserRating } from '../UserRating/UserRating';
@@ -19,22 +20,35 @@ import * as S from './MainContent.styles';
 type StateProps = {
   isAuthSuccess: boolean;
   userEmail: string;
+  isPending: boolean;
+  roomDetails: Apartment;
 };
 
 const mapState = (state: AppState): StateProps => ({
   isAuthSuccess: state.auth.isAuthSuccess,
   userEmail: state.auth.userEmail,
+  isPending: state.apartment.isGetRoomDetailsPending,
+  roomDetails: state.apartment.roomDetails,
 });
 
 const mapDispatch = {
   checkAuthBeforePageLoaded: preloadAuthData,
   getRoomInfo: requestCurrentRoomInfo,
+  startGetRoomDetails: getRoomDetailsRequest,
 };
 
 type Props = StateProps & typeof mapDispatch;
 
 const MainContent = memo(
-  ({ isAuthSuccess, userEmail, getRoomInfo, checkAuthBeforePageLoaded }: Props) => {
+  ({
+    isAuthSuccess,
+    userEmail,
+    isPending,
+    roomDetails,
+    getRoomInfo,
+    checkAuthBeforePageLoaded,
+    startGetRoomDetails,
+  }: Props) => {
     const { t } = useTranslation(['RoomDetailsPage', 'Buttons']);
     const router = useRouter();
     const roomParams = queryString.parse(router.asPath.split('?')[1]);
@@ -46,10 +60,6 @@ const MainContent = memo(
         if (!isAuthSuccess) router.push('/');
       }
     });
-
-    useEffect(() => {
-      getRoomInfo(Number(roomParams.room), userEmail);
-    }, [getRoomInfo, roomParams.room, userEmail]);
 
     const passedFormProps = {
       roomNumber: Number(roomParams.room),
@@ -63,6 +73,21 @@ const MainContent = memo(
         babies: 1,
       },
     };
+
+    useEffect(() => {
+      getRoomInfo(passedFormProps.roomNumber, userEmail);
+    }, [getRoomInfo, passedFormProps.roomNumber, userEmail]);
+
+    const getRoomDetails = useCallback(
+      (id: number) => {
+        startGetRoomDetails(id);
+      },
+      [startGetRoomDetails],
+    );
+
+    useEffect(() => {
+      getRoomDetails(passedFormProps.roomNumber);
+    }, [getRoomDetails, passedFormProps.roomNumber]);
 
     return (
       <S.MainContent>
@@ -93,17 +118,28 @@ const MainContent = memo(
             <Comments roomId={roomParams.room} />
           </S.CommentsWrapper>
           <S.OrderFormWrapper>
-            <OrderForm
-              overcrowdingPrice={700}
-              breakfastPricePerGuest={300}
-              roomNumber={passedFormProps.roomNumber}
-              roomType="люкс"
-              roomPrice={9990}
-              initialProps={passedFormProps}
-              userEmail={userEmail}
-              isAuthSuccess
-              isСancellationForm
-            />
+            {isPending && (
+              <S.Loading>
+                <Preloader label={t('Loading Room Information ...')} />
+              </S.Loading>
+            )}
+            {roomDetails ? (
+              <OrderForm
+                overcrowdingPrice={roomDetails.overcrowdingPrice}
+                breakfastPricePerGuest={roomDetails.breakfastPricePerGuest}
+                roomNumber={passedFormProps.roomNumber}
+                roomType={roomDetails.class}
+                roomPrice={roomDetails.price}
+                initialProps={passedFormProps}
+                userEmail={userEmail}
+                isAuthSuccess
+                isСancellationForm
+              />
+            ) : (
+              !isPending && (
+                <S.Loading>{t('Sorry, the room information could not be loaded')}</S.Loading>
+              )
+            )}
           </S.OrderFormWrapper>
         </S.Details>
       </S.MainContent>
