@@ -16,6 +16,7 @@ const Content = styled.div`
 
 const Description = styled.p`
   margin-bottom: 1rem;
+  overflow-wrap: anywhere;
 `;
 
 export { Header, Title, Content, Description };
