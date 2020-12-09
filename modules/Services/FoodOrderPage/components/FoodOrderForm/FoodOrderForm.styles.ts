@@ -32,6 +32,7 @@ const Loading = styled.div`
   justify-content: center;
   margin: 5rem 0;
   ${titles.h1};
+  text-align: center;
 `;
 
 const FoodOrderButton = styled(ArrowButton)``;
