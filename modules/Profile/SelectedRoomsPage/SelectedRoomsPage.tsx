@@ -62,7 +62,7 @@ const SelectedRoomsPage = memo(
     return (
       <MainLayout>
         <S.Container>
-          <S.Title>{`${t('Your booked rooms')}:`}</S.Title>
+          <S.Title>{t('Your booked rooms')}:</S.Title>
           <S.RoomsListContainer>
             {isLoadingData && <Preloader />}
             {bookedRooms &&
@@ -72,14 +72,14 @@ const SelectedRoomsPage = memo(
                 <S.Text>{t('No rooms booked')}</S.Text>
               ))}
           </S.RoomsListContainer>
-          <S.SubTitle>{`${t('History of booked rooms')}:`}</S.SubTitle>
+          <S.SubTitle>{t('History of booked rooms')}:</S.SubTitle>
           <S.RoomsListContainer>
             {isLoadingData && <Preloader />}
             {bookedRooms &&
               (bookedRooms.history.length ? (
                 <RoomsList rooms={bookedRooms.history} />
               ) : (
-                <S.Text>{t('Empty ... Perhaps this will be your first booking?')}</S.Text>
+                <S.Text>{t('Empty... Perhaps this will be your first booking?')}</S.Text>
               ))}
           </S.RoomsListContainer>
         </S.Container>
