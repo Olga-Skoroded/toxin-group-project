@@ -43,6 +43,7 @@ type RoomData = Apartment & { id: number; userRating: number } & RoomRatingData;
 type CancelBookingData = Omit<SelectedBookedRoom, 'guests' | 'totalPrice'>;
 
 type RoomsRequest = ActionPayload<'LOAD_ROOMS', Filters>;
+type RequestRoomsWithoutFilter = Action<'LOAD_FULL_ROOMS'>;
 
 type PendingStatusUpdate = ActionPayload<'ROOMS_REQUEST_PENDING', boolean>;
 type SetRooms = ActionPayload<'ROOMS_REQUEST_SUCCESS', Apartment[]>;
@@ -123,4 +124,5 @@ export type {
   SetRoomRating,
   FinishRoomRating,
   RoomData,
+  RequestRoomsWithoutFilter,
 };

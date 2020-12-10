@@ -40,17 +40,31 @@ class Booking {
   }
 
   @boundMethod
+  public async getAllRooms(): Promise<Apartment[]> {
+    return this.apartments.get().then((snapshot) => this.addDataToStorage(snapshot, []));
+  }
+
+  @boundMethod
   public async filterRooms(options: Filters = defaultFilters): Promise<Apartment[]> {
     const { price, booked } = options;
+    const availableClasses = Object.keys(options.class).filter(
+      (elem) => options.class[elem] !== false,
+    );
     const affordableRooms: Apartment[] = await this.apartments
       .where('price', '<=', price.to)
       .where('price', '>=', price.from)
       .get()
       .then((snapshot) => this.addDataToStorage(snapshot, []));
 
+    const checkRoomClass = (checkableClass: string): boolean => {
+      return availableClasses.some((roomClass) => roomClass === checkableClass);
+    };
+
     const bookedRoomIDs = await this.getBooked(new Date(booked.from), new Date(booked.to));
 
-    const availableRooms = affordableRooms.filter((room) => !bookedRoomIDs.includes(room.id));
+    const availableRooms = affordableRooms.filter(
+      (room) => !bookedRoomIDs.includes(room.id) && checkRoomClass(room.class),
+    );
 
     const comparableOptions: (keyof Filters)[] = [
       'amenities',
@@ -58,6 +72,7 @@ class Booking {
       'accessibility',
       'opportunities',
     ];
+
     return availableRooms.filter((room) =>
       comparableOptions.every((option) => this.areRequirementsMet(options[option], room[option])),
     );

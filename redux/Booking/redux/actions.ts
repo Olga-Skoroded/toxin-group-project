@@ -27,6 +27,7 @@ import {
   CancelBookingSuccess,
   CancelBookingFailed,
   CancelBookingCompleted,
+  RequestRoomsWithoutFilter,
 } from '../model';
 
 const setRoomReview = (data: CommentData): SetRoomReview => ({
@@ -41,6 +42,10 @@ const setRoomRating = (data: RoomRatingData): SetRoomRating => ({
 
 const finishRoomRating = (): FinishRoomRating => ({
   type: 'FINISH_ROOM_RATING',
+});
+
+const requestRoomsWithoutFilters = (): RequestRoomsWithoutFilter => ({
+  type: 'LOAD_FULL_ROOMS',
 });
 
 const requestRooms = (options: Filters): RoomsRequest => ({
@@ -156,4 +161,5 @@ export {
   cancelBookingSuccess,
   cancelBookingFailed,
   completeCancelBooking,
+  requestRoomsWithoutFilters,
 };

@@ -16,6 +16,11 @@ export const checkboxesListData: Required<Option[]> = [
   },
 ];
 
+export const roomTypeList: Required<Option[]> = [
+  { name: 'class.luxury', label: 'Luxury' },
+  { name: 'class.economy', label: 'Economy' },
+];
+
 export const richCheckboxesListData: Required<Option[]> = [
   {
     name: 'accessibility.wideCorridor',

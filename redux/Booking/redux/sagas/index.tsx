@@ -11,6 +11,7 @@ import {
   SetRoomRating,
   FinishRoomRating,
   RoomData,
+  RequestRoomsWithoutFilter,
 } from 'redux/Booking/model';
 import { BookingData, Apartment, RoomRatingData } from 'services/api/entities/model';
 
@@ -29,6 +30,18 @@ import {
   cancelBookingSuccess,
   cancelBookingFailed,
 } from '../actions';
+
+function* loadFullRoomsList({ api }: Dependencies) {
+  try {
+    yield put(pendingStatusUpdate(true));
+    const rooms: Apartment[] = yield call(api.booking.getAllRooms);
+    yield put(setRooms(rooms));
+  } catch (error) {
+    yield put(setFailedStatus(error));
+  } finally {
+    yield put(pendingStatusUpdate(false));
+  }
+}
 
 function* loadRooms({ api }: Dependencies, { payload }: RoomsRequest) {
   try {
@@ -142,6 +155,11 @@ function* finishRoomRating() {
 }
 
 function* rootSaga(deps: Dependencies): SagaIterator {
+  yield takeLatestAction<RequestRoomsWithoutFilter['type']>(
+    'LOAD_FULL_ROOMS',
+    loadFullRoomsList,
+    deps,
+  );
   yield takeLeadingAction<RoomsRequest['type']>('LOAD_ROOMS', loadRooms, deps);
   yield takeLatestAction<LoadBookedHistory['type']>('LOAD_BOOKED_HISTORY', loadRoomsHistory, deps);
   yield takeLatestAction<SetRoomReview['type']>('SET_ROOM_REVIEW', setReview, deps);
