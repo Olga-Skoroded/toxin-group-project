@@ -26,4 +26,8 @@ const ButtonWrapper = styled.div`
   justify-content: flex-end;
 `;
 
-export { ReviewsWrapper, Title, ReviewsContainer, ButtonWrapper };
+const ButtonMoreContainer = styled.div`
+  margin: 2rem 0;
+`;
+
+export { ReviewsWrapper, Title, ReviewsContainer, ButtonWrapper, ButtonMoreContainer };
