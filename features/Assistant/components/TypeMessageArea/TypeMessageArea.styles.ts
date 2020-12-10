@@ -3,12 +3,11 @@ import styled, { css } from 'styled-components';
 import { materialIcons } from 'shared/styles/mixins';
 
 const Container = styled.div`
-  flex: 1;
-
   ${(props) => {
     const { colors } = props.theme;
 
     return css`
+      flex: 1;
       border-top: 1px solid ${colors.basicLight};
       padding: 0.5rem;
     `;
@@ -33,6 +32,7 @@ const MessageArea = styled.textarea`
 const SubmitButton = styled.button`
   ${(props) => {
     const { gradients, typography } = props.theme;
+
     return css`
       position: absolute;
       height: 3.1429rem;

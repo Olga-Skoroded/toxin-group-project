@@ -130,3 +130,5 @@ export type FoodOrderData = {
 export type CommentData = { commentData: ClientReview; roomId: number };
 
 export type RoomRatingData = { userEmail?: string; roomId: number; rating: number };
+
+export type ContactUsData = { name: string; email: string; phone: string; message: string };
