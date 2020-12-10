@@ -95,14 +95,14 @@ export type AdditionalUserInformation = {
 
 export type BookingData = {
   apartmentId: number;
-  from: Timestamp | Date;
-  to: Timestamp | Date;
+  from: Timestamp;
+  to: Timestamp;
   reservationBy?: string;
 };
 
 export type BookedRoom = {
   room: Apartment;
-  bookedData: { from: string; to: string };
+  bookedData: { from: Date; to: Date };
 };
 
 export type SubscriptionData = {
