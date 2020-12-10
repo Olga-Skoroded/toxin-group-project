@@ -41,6 +41,10 @@ const defaultFilters: Filters = {
     keepPets: false,
     largeNumberOfPersons: false,
   },
+  class: {
+    luxury: true,
+    economy: true,
+  },
 };
 
 export { defaultFilters };

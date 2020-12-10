@@ -37,11 +37,18 @@ export type Review = {
   userEmail: string;
 };
 
+export type RoomClasses = 'economy' | 'luxury';
+
+export type RoomClass = {
+  [Z in RoomClasses]: boolean;
+};
+
 type Options = {
   amenities: Amenities;
   additionalAmenities: AdditionalAmenities;
   accessibility: Accessibility;
   opportunities: Opportunities;
+  class: RoomClass;
 };
 
 export type Apartment = {
@@ -56,7 +63,7 @@ export type Apartment = {
     bad: number;
   };
   reviews: Review[];
-  class: 'economy' | 'luxury';
+  class: RoomClasses;
   href: string;
   images: { url: string; alt: string }[];
   breakfastPricePerGuest: number;

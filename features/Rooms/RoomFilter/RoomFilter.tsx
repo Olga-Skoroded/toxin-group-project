@@ -9,12 +9,14 @@ import {
   Amenities,
   Filters,
   Opportunities,
+  RoomClass,
 } from 'services/api/entities/model';
 import { CheckboxesList, Dropdown, TimePicker, PriceSlider } from 'shared/view/components';
 import {
   checkboxesListData,
   expandableCheckboxesListData,
   richCheckboxesListData,
+  roomTypeList,
 } from 'shared/view/components/CheckboxesList/CheckboxesList.fixture';
 import { Option } from 'shared/view/components/CheckboxesList/CheckboxesList.model';
 import {
@@ -39,10 +41,9 @@ const getOptionName = (name: string): OptionName => {
   const [, option] = name.split('.');
   return option as OptionName;
 };
-
 const getCheckboxProps = (
   defaultProps: Option[],
-  updatedProps: Opportunities | Accessibility | AdditionalAmenities,
+  updatedProps: Opportunities | Accessibility | AdditionalAmenities | RoomClass,
 ) => {
   return defaultProps.map((item) => ({
     ...item,
@@ -118,6 +119,10 @@ const RoomFilter = memo(({ initialFilters, loadRooms, isPending = false }: Props
                 <CheckboxesList
                   roomOptions={getCheckboxProps(checkboxesListData, initialValues.opportunities)}
                 />
+              </S.CheckboxWrapper>
+              <S.CheckboxWrapper>
+                <S.Title elementType="checkbox">{t('Room type')}</S.Title>
+                <CheckboxesList roomOptions={getCheckboxProps(roomTypeList, initialValues.class)} />
               </S.CheckboxWrapper>
               <S.CheckboxWrapper>
                 <S.Title elementType="checkbox">{t('Availability')}</S.Title>
