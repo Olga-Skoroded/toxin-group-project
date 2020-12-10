@@ -11,11 +11,23 @@ import { RoomProps } from 'shared/view/components/Room/Room.model';
 
 type BookedHistoryList = { current: BookedRoom[]; history: BookedRoom[] };
 
+type SortParam = 'price' | 'rating' | 'reviews';
+
+type SortOrder = 'desc' | 'asc';
+
+type SortData = {
+  order: SortOrder;
+  param: SortParam;
+};
+
 type BookingState = {
   isPending: boolean;
   rooms: RoomProps[];
   isRequestSuccessful: boolean;
   error: Error;
+  sortedRooms: RoomProps[];
+  sortOrder: SortOrder;
+  sortParam: SortParam;
   bookedRooms: BookedHistoryList;
   currentRoom: ClientRoomProps;
   isRatingProcess: boolean;
@@ -47,6 +59,8 @@ type RoomsRequest = ActionPayload<'LOAD_ROOMS', Filters>;
 type PendingStatusUpdate = ActionPayload<'ROOMS_REQUEST_PENDING', boolean>;
 type SetRooms = ActionPayload<'ROOMS_REQUEST_SUCCESS', Apartment[]>;
 type SetFailedStatus = ActionPayload<'ROOMS_REQUEST_FAILED', Error>;
+
+type SortRooms = ActionPayload<'SORT_ROOMS', SortData>;
 
 type LoadBookedHistory = ActionPayload<'LOAD_BOOKED_HISTORY', string>;
 type UpdateBookedHistory = ActionPayload<'UPDATE_BOOKED_HISTORY', BookedHistoryList>;
@@ -91,7 +105,8 @@ type BookingActions =
   | CancelBooking
   | CancelBookingSuccess
   | CancelBookingFailed
-  | CancelBookingCompleted;
+  | CancelBookingCompleted
+  | SortRooms;
 
 export type {
   CurrentRoomRequest,
@@ -103,6 +118,7 @@ export type {
   RoomsRequest,
   PendingStatusUpdate,
   SetRooms,
+  SortRooms,
   SetFailedStatus,
   LoadBookedHistory,
   UpdateBookedHistory,
@@ -123,4 +139,7 @@ export type {
   SetRoomRating,
   FinishRoomRating,
   RoomData,
+  SortParam,
+  SortOrder,
+  SortData,
 };

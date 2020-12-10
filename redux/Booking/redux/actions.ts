@@ -27,6 +27,8 @@ import {
   CancelBookingSuccess,
   CancelBookingFailed,
   CancelBookingCompleted,
+  SortRooms,
+  SortData,
 } from '../model';
 
 const setRoomReview = (data: CommentData): SetRoomReview => ({
@@ -133,11 +135,17 @@ const completeCancelBooking = (): CancelBookingCompleted => ({
   type: 'CANCEL_BOOKING_COMPLETED',
 });
 
+const sortRooms = (data: SortData): SortRooms => ({
+  type: 'SORT_ROOMS',
+  payload: data,
+});
+
 export {
   requestRooms,
   pendingStatusUpdate,
   setRooms,
   setFailedStatus,
+  sortRooms,
   loadBookedHistoryRooms,
   updateBookedHistory,
   requestCurrentRoomInfo,
