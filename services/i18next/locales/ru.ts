@@ -251,6 +251,8 @@ export const ru = {
     'Already have an account on Toxin': 'Уже есть аккаунт на Toxin',
   },
   OrderForm: {
+    economy: 'эконом',
+    luxury: 'люкс',
     'How many guests': 'Сколько гостей',
     'Service fee discount': 'Сбор за услуги: скидка',
     'Additional service fee': 'Сбор за дополнительные услуги',

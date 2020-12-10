@@ -141,6 +141,13 @@ const OrderFormWrapper = styled.div`
   }
 `;
 
+const Loading = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: auto 0;
+  ${titles.h1};
+`;
+
 export {
   MainContent,
   RoomImages,
@@ -152,4 +159,5 @@ export {
   CancellationTerms,
   CancellationTermsText,
   OrderFormWrapper,
+  Loading,
 };
