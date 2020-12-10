@@ -105,7 +105,7 @@ const Comments = memo(
                 );
               })}
               <S.ButtonMoreContainer>
-                {commentsCount < reviews.length && (
+                {commentsCount + 1 < reviews.length && (
                   <ArrowButton onClick={showMoreComments}>{t('Buttons:Show more')}</ArrowButton>
                 )}
               </S.ButtonMoreContainer>
