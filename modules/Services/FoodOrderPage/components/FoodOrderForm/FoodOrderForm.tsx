@@ -92,12 +92,16 @@ const FoodOrderForm = memo(
 
     useEffect(() => {
       if (bookedRooms) {
-        setRooms(
-          bookedRooms.current.map(({ room }) => ({
-            value: room.id,
-            text: `${t('Room')} №${room.id}`,
-          })),
-        );
+        const roomsList = [];
+        bookedRooms.current.forEach(({ room, bookedData }) => {
+          if (bookedData.from.getTime() < Date.now()) {
+            roomsList.push({
+              value: room.id,
+              text: `${t('Room')} №${room.id}`,
+            });
+          }
+        });
+        setRooms(roomsList);
       }
     }, [bookedRooms, t]);
 
@@ -111,7 +115,7 @@ const FoodOrderForm = memo(
                 <Preloader label={t('Loading order data...')} />
               </S.Loading>
             )}
-            {rooms && !isBookedRoomsPending ? (
+            {rooms && !!rooms.length && !isBookedRoomsPending ? (
               <>
                 <S.Title>{t(`Food:${foodName}`)}</S.Title>
                 <form onSubmit={handleSubmit}>
@@ -150,7 +154,15 @@ const FoodOrderForm = memo(
                 </form>
               </>
             ) : (
-              !isBookedRoomsPending && <S.Loading>{t('Failed to load restaurant menu')}</S.Loading>
+              !isBookedRoomsPending && (
+                <S.Loading>
+                  {rooms && !rooms.length
+                    ? t(
+                        'You do not have any rooms booked or you have not checked into any of them yet',
+                      )
+                    : t('Failed to load order data')}
+                </S.Loading>
+              )
             )}
           </S.FoodOrderForm>
         )}

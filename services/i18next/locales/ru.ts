@@ -516,6 +516,8 @@ export const ru = {
     Order: 'Заказать',
     'Loading order data...': 'Загрузка данных о заказе...',
     'Failed to load order data': 'Не удалось загрузить данные для заказа',
+    'You do not have any rooms booked or you have not checked into any of them yet':
+      'У вас нет забронированных номеров или вы еще не заехали ни в один из них',
   },
   ContactUsPage: {
     'Ask us questions about booking': 'Задайте нам вопросы по бронированию',
