@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { Form } from 'react-final-form';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -7,6 +7,7 @@ import { setRoomReview } from 'redux/Booking/redux/actions';
 import { AppState } from 'redux/store.model';
 import { ClientRoomProps, Review as ReviewProps } from 'shared/model';
 import { Review } from 'shared/view/components/Review/Review';
+import { ArrowButton } from 'shared/view/elements';
 import { Button } from 'shared/view/elements/Button/Button';
 import { Preloader } from 'shared/view/elements/Preloader/Preloader';
 import { Textarea } from 'shared/view/elements/TextArea/TextArea';
@@ -47,9 +48,14 @@ const Comments = memo(
   ({ currentRoom, userEmail, roomId, photoURL, displayedName, setComment }: Props) => {
     const { t } = useTranslation(['RoomDetailsPage', 'Buttons']);
     const reviews = currentRoom && [...currentRoom.reviews];
+    const [commentsCount, setCommentsCount] = useState(2);
 
     const getMostPopularComments = (count: number) =>
-      reviews && reviews.sort(sortDescByLikes).slice(0, count);
+      reviews &&
+      reviews
+        .sort(sortDescByLikes)
+        .slice(0, count)
+        .filter((review) => review.userEmail !== userEmail);
 
     const currentUserReview =
       (reviews &&
@@ -63,7 +69,11 @@ const Comments = memo(
           })) ||
       [];
 
-    const popularComments = getMostPopularComments(2);
+    const popularComments = getMostPopularComments(commentsCount);
+
+    const showMoreComments = () => {
+      setCommentsCount(commentsCount + 2);
+    };
 
     const handleReviewSubmit = (values: ReviewValues) => {
       setComment({
@@ -84,15 +94,22 @@ const Comments = memo(
         <S.ReviewsContainer>
           <S.Title>{t('Visitor reviews')}:</S.Title>
           {popularComments ? (
-            popularComments.map((review) => {
-              const reviewData = {
-                ...review,
-                date: review.date,
-              };
-              return (
-                <Review key={`${reviewData.date}${reviewData.userName}`} {...{ ...reviewData }} />
-              );
-            })
+            <>
+              {popularComments.map((review) => {
+                const reviewData = {
+                  ...review,
+                  date: review.date,
+                };
+                return (
+                  <Review key={`${reviewData.date}${reviewData.userName}`} {...{ ...reviewData }} />
+                );
+              })}
+              <S.ButtonMoreContainer>
+                {commentsCount + 1 < reviews.length && (
+                  <ArrowButton onClick={showMoreComments}>{t('Buttons:Show more')}</ArrowButton>
+                )}
+              </S.ButtonMoreContainer>
+            </>
           ) : (
             <Preloader label={t('Loading popular visitor reviews...')} />
           )}

@@ -153,6 +153,7 @@ export const ru = {
     'Change rating': 'Изменить оценку',
     Change: 'Изменить',
     Add: 'Добавить',
+    'Show more': 'Показать ещё',
   },
   CheckboxesList: {
     'Smoking is allowed': 'Можно курить',
