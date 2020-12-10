@@ -282,7 +282,7 @@ const OrderForm = memo((props: Props) => {
                   <S.RoomNumber>
                     <S.NumberSign>№</S.NumberSign>
                     {roomNumber}
-                    {roomType && <S.RoomType>{roomType}</S.RoomType>}
+                    {roomType && <S.RoomType>{t(roomType)}</S.RoomType>}
                   </S.RoomNumber>
                   <S.Price>
                     {formatNumber(roomPrice, currency)}

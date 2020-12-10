@@ -13,6 +13,7 @@ export const ru = {
     Total: 'Итого',
     Ok: 'Oк',
     'Date mask': 'ДД.ММ.ГГГГ',
+    Phone: 'Телефон',
   },
   Validators: {
     'Invalid date': 'Некорректная дата',
@@ -204,7 +205,7 @@ export const ru = {
     Investors: 'Инвесторы',
     Agreements: 'Соглашения',
     Communities: 'Сообщества',
-    'Contact us': 'Связь с нами',
+    'Contact Us': 'Связь с нами',
   },
   TimePicker: {
     'Select Date': 'Выберите дату',
@@ -250,6 +251,8 @@ export const ru = {
     'Already have an account on Toxin': 'Уже есть аккаунт на Toxin',
   },
   OrderForm: {
+    economy: 'эконом',
+    luxury: 'люкс',
     'How many guests': 'Сколько гостей',
     'Service fee discount': 'Сбор за услуги: скидка',
     'Additional service fee': 'Сбор за дополнительные услуги',
@@ -516,5 +519,18 @@ export const ru = {
     Order: 'Заказать',
     'Loading order data...': 'Загрузка данных о заказе...',
     'Failed to load order data': 'Не удалось загрузить данные для заказа',
+    'You do not have any rooms booked or you have not checked into any of them yet':
+      'У вас нет забронированных номеров или вы еще не заехали ни в один из них',
+  },
+  ContactUsPage: {
+    'Ask us questions about booking': 'Задайте нам вопросы по бронированию',
+    'hotel, room, contact us, booking': 'отель, номер, свяжитесь с нами, бронирование',
+    'Write to us': 'Напишите нам',
+    'Email address': 'Адрес электронной почты',
+    'Your question and booking details': 'Ваш вопрос и детали бронирования',
+    Send: 'Отправить',
+    'Your question has been accepted for consideration, we will contact you shortly':
+      'Ваш вопрос принят на рассмотрение, в скором времени мы свяжемся с вами',
+    'An error occured, please try again later': 'Произошла ошибка, повторите попытку позже',
   },
 };

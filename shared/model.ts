@@ -13,7 +13,7 @@ export type Apartment = Omit<ServerApartment, 'reviews'> & {
   reviews: Review[];
 };
 
-export type BookingData = Omit<ServerBookingData, 'from' & 'to'> & {
+export type BookingData = Omit<ServerBookingData, 'from' | 'to'> & {
   from: Date;
   to: Date;
 };

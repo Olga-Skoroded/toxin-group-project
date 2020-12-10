@@ -1,9 +1,14 @@
+import { sortRooms } from 'shared/helpers/sortRooms';
+
 import { BookingActions, BookingState } from '../model';
 
 const initialState: BookingState = {
   isRequestSuccessful: true,
   isPending: false,
   rooms: [],
+  sortedRooms: [],
+  sortOrder: 'asc',
+  sortParam: 'price',
   currentRoom: null,
   error: null,
   bookedRooms: null,
@@ -36,6 +41,15 @@ const booking = (state: BookingState = initialState, action: BookingActions): Bo
         rooms: action.payload.map((room) => ({ ...room, number: room.id })),
         isPending: false,
         isRequestSuccessful: true,
+      };
+    case 'SORT_ROOMS':
+      return {
+        ...state,
+        sortOrder: action.payload.order,
+        sortParam: action.payload.param,
+        sortedRooms: state.rooms
+          ? sortRooms(state.rooms.slice(), state.sortOrder, state.sortParam)
+          : [],
       };
     case 'RATING_PROCESS_RESPONSE':
       return {

@@ -1,6 +1,7 @@
 import { memo, useEffect } from 'react';
 import { connect } from 'react-redux';
 
+import { Assistant } from 'features/Assistant/Assistant';
 import { preloadAuthData } from 'redux/Auth/redux/actions';
 import { AppState } from 'redux/store.model';
 import { User } from 'services/api/Firebase/modules/Authentication';
@@ -39,6 +40,7 @@ const MainLayout = memo(({ children, user, wasFinishedAuthChecking, preloadAuth 
     <>
       <Header user={user} wasFinishedAuthChecking={wasFinishedAuthChecking} />
       <S.Container>{children}</S.Container>
+      <Assistant />
       <Footer />
     </>
   );

@@ -102,14 +102,14 @@ export type AdditionalUserInformation = {
 
 export type BookingData = {
   apartmentId: number;
-  from: Timestamp | Date;
-  to: Timestamp | Date;
+  from: Timestamp;
+  to: Timestamp;
   reservationBy?: string;
 };
 
 export type BookedRoom = {
   room: Apartment;
-  bookedData: { from: string; to: string };
+  bookedData: { from: Date; to: Date };
 };
 
 export type SubscriptionData = {
@@ -137,3 +137,5 @@ export type FoodOrderData = {
 export type CommentData = { commentData: ClientReview; roomId: number };
 
 export type RoomRatingData = { userEmail?: string; roomId: number; rating: number };
+
+export type ContactUsData = { name: string; email: string; phone: string; message: string };

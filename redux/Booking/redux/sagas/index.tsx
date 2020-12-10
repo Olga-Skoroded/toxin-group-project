@@ -13,7 +13,8 @@ import {
   RoomData,
   RequestRoomsWithoutFilter,
 } from 'redux/Booking/model';
-import { BookingData, Apartment, RoomRatingData } from 'services/api/entities/model';
+import { Apartment, RoomRatingData } from 'services/api/entities/model';
+import { BookingData } from 'shared/model';
 
 import { LoadBookedHistory, Booking, CancelBooking } from '../../model';
 import {

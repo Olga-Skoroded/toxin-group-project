@@ -11,7 +11,7 @@ export type RoomProps = {
   currency?: string;
   rating?: number;
   bookedData?: {
-    from: string;
-    to: string;
+    from: Date;
+    to: Date;
   };
 };
