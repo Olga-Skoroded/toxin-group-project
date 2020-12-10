@@ -2,6 +2,7 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware, { SagaMiddleware } from 'redux-saga';
 
+import { reduxEntry as AssistantReduxEntry } from 'features/Assistant/redux';
 import { contactUsReduxEntry } from 'features/ContactUs/redux';
 import { foodReduxEntry } from 'modules/Services/redux/Food';
 import { Api } from 'services/api/api';
@@ -33,6 +34,7 @@ const sharedReduxEntries: SharedReduxEntries = [
   RegistrationReduxEntry,
   LanguageReduxEntry,
   subscriptionsReduxEntry,
+  AssistantReduxEntry,
 ];
 
 let preparedReducers: Record<string, AvailableReducers> = {};

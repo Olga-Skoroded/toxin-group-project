@@ -6,11 +6,9 @@ type SubMenu = {
   isShown?: boolean;
 };
 
-type Link = {
-  isActive?: boolean;
-};
-
 const NavLink = styled.div`
+  position: relative;
+
   @media ${breakpointDown('lg')} {
     display: flex;
     align-items: center;
@@ -19,14 +17,17 @@ const NavLink = styled.div`
     padding: 0.6rem;
     border-radius: 0.5714rem;
     flex-direction: column;
+    width: 100%;
   }
 `;
 
 const IconExpander = styled.span`
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
   width: 1.5rem;
   height: 100%;
-  position: absolute;
-  right: 0;
   cursor: pointer;
 
   & > svg {
@@ -35,19 +36,16 @@ const IconExpander = styled.span`
   }
 
   @media ${breakpointDown('lg')} {
-    top: 0;
     width: 3.5rem;
   }
 `;
 
-const Link = styled.a<Link>`
+const Link = styled.a`
   ${(props) => {
     const { colors } = props.theme;
-    const { isActive } = props;
 
     return css`
       color: ${colors.basic};
-      font-weight: ${isActive ? 'bold' : 'normal'};
       text-decoration: none;
       margin-right: 1.5rem;
       position: relative;
@@ -81,24 +79,25 @@ const SubMenuLink = styled(Link)`
   }}
 `;
 
-const SubMenuContainer = styled.div<SubMenu>`
+const SubMenuList = styled.ul<SubMenu>`
   ${(props) => {
     const { colors } = props.theme;
     const { isShown } = props;
 
     return css`
-      display: ${isShown ? 'flex' : 'none'};
-      background: ${colors.defaultBackground};
-      z-index: 10;
-      flex-direction: column;
-      width: max-content;
-      max-width: 11rem;
-      text-align: center;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
+      z-index: 10;
+      display: ${isShown ? 'flex' : 'none'};
+      flex-direction: column;
+      width: max-content;
+      max-width: 11rem;
       padding: 1.5rem;
       border-radius: 0.5rem;
+      background: ${colors.defaultBackground};
+      list-style: none;
+      text-align: center;
 
       @media ${breakpointDown('lg')} {
         position: relative;
@@ -110,4 +109,6 @@ const SubMenuContainer = styled.div<SubMenu>`
   }}
 `;
 
-export { NavLink, IconExpander, Link, SubMenuLink, SubMenuContainer };
+const SubMenuItem = styled.li``;
+
+export { NavLink, IconExpander, Link, SubMenuLink, SubMenuList, SubMenuItem };

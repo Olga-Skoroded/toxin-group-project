@@ -491,6 +491,9 @@ export const ru = {
     'Order food directly to your room': 'Заказывайте еду прямо в номер',
   },
   MenuPage: {
+    Menu: 'Меню',
+    'Restaurant menu': 'Меню ресторана',
+    'hotel, services, menu, restaurant': 'отель, услуги, меню, ресторан',
     'Loading restaurant menu...': 'Загрузка меню ресторана...',
     'Failed to load restaurant menu': 'Не удалось загрузить меню ресторана',
     Snacks: 'Закуски',

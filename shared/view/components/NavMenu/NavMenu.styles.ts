@@ -6,6 +6,21 @@ type ListItem = {
   withSubMenu?: boolean;
 };
 
+const NavList = styled.ul`
+  display: flex;
+
+  @media ${breakpointDown('lg')} {
+    justify-content: end;
+    flex-direction: column;
+    align-items: center;
+    min-width: 20rem;
+
+    & > li {
+      padding: 0.3rem 0;
+    }
+  }
+`;
+
 const ListItem = styled.li<ListItem>`
   ${(props) => {
     const { withSubMenu } = props;
@@ -28,21 +43,6 @@ const NavContainer = styled.nav`
   @media ${breakpointDown('lg')} {
     margin-right: 0;
   }
-
-  ul {
-    display: flex;
-
-    @media ${breakpointDown('lg')} {
-      justify-content: end;
-      flex-direction: column;
-      align-items: center;
-      min-width: 20rem;
-
-      & > li {
-        padding: 0.3rem 0;
-      }
-    }
-  }
 `;
 
-export { ListItem, NavContainer };
+export { NavList, ListItem, NavContainer };

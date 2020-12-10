@@ -43,8 +43,8 @@ type Props = typeof mapDispatch & ReturnType<typeof mapState> & OwnProps;
 
 const sortDescByLikes = (a: ReviewProps, b: ReviewProps) => b.likesCount - a.likesCount;
 
-const Comments: React.FC<Props> = memo(
-  ({ currentRoom, userEmail, roomId, photoURL, displayedName, setComment }: Props): JSX.Element => {
+const Comments = memo(
+  ({ currentRoom, userEmail, roomId, photoURL, displayedName, setComment }: Props) => {
     const { t } = useTranslation(['RoomDetailsPage', 'Buttons']);
     const reviews = currentRoom && [...currentRoom.reviews];
 

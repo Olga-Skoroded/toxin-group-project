@@ -6,8 +6,16 @@ const Link = styled.a`
   ${(props) => {
     const { colors } = props.theme;
     return css`
+      display: flex;
       text-decoration: none;
       color: ${colors.basicDark};
+      outline: none;
+
+      &:hover,
+      &:focus {
+        transform: scale(1.1);
+        transition: all 0.5s ease-in-out;
+      }
     `;
   }}
 `;

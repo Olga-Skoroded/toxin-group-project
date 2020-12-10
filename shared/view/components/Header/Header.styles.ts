@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import { breakpointUp, breakpointDown } from 'shared/styles/break-points';
-import { Logo } from 'shared/view/elements';
+import { Logo, Avatar } from 'shared/view/elements';
 
 type MobileMenu = {
   isShown?: boolean;
@@ -85,10 +85,28 @@ const HeaderLogoWrapper = styled.div`
 `;
 
 const AccountPanel = styled.div`
+  display: flex;
+  align-items: center;
+
   @media ${breakpointDown('lg')} {
+    flex-direction: column;
     width: 100%;
     text-align: center;
   }
 `;
 
-export { MobileMenu, HamburgerButtonWrapper, Header, AccountPanel, HeaderLogo, HeaderLogoWrapper };
+const UserAvatar = styled(Avatar)`
+  @media ${breakpointDown('lg')} {
+    margin-bottom: 1.5rem;
+  }
+`;
+
+export {
+  MobileMenu,
+  HamburgerButtonWrapper,
+  Header,
+  AccountPanel,
+  HeaderLogo,
+  HeaderLogoWrapper,
+  UserAvatar,
+};
